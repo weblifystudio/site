@@ -221,11 +221,11 @@ export default function About() {
                 <Linkedin className="w-5 h-5 text-white" />
               </a>
               <a 
-                href="https://github.com/noahdevfr" 
+                href="https://github.com/weblifystudio" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors"
-                aria-label="GitHub de Noah"
+                aria-label="GitHub Weblify Studio"
               >
                 <Github className="w-5 h-5 text-white" />
               </a>
