@@ -1,52 +1,91 @@
-// Service de newsletter avec Brevo
-interface BrevoContact {
-  email: string;
-  attributes?: {
-    FIRSTNAME?: string;
-    LASTNAME?: string;
-  };
-  listIds?: number[];
-}
+// Service de newsletter autonome avec base de données
+import { db } from "./db";
+import { newsletterSubscribers } from "@shared/schema";
+import { eq, sql } from "drizzle-orm";
 
 export async function addToNewsletter(email: string): Promise<{ success: boolean; error?: string }> {
-  if (!process.env.BREVO_API_KEY) {
-    console.error('BREVO_API_KEY not configured');
-    return { success: false, error: 'Service de newsletter non configuré' };
-  }
-
   try {
-    // Créer ou mettre à jour le contact dans Brevo
-    const contactData: BrevoContact = {
-      email: email,
-      attributes: {},
-      listIds: [2] // ID de votre liste newsletter (à configurer dans Brevo)
-    };
+    // Vérifier si l'email est valide
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return { success: false, error: 'Adresse email invalide' };
+    }
 
-    const response = await fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'api-key': process.env.BREVO_API_KEY
-      },
-      body: JSON.stringify(contactData)
-    });
+    // Vérifier si le contact existe déjà
+    const existingSubscriber = await db
+      .select()
+      .from(newsletterSubscribers)
+      .where(eq(newsletterSubscribers.email, email.toLowerCase()))
+      .limit(1);
 
-    if (response.ok) {
-      return { success: true };
-    } else if (response.status === 400) {
-      // Contact existe déjà - c'est OK
-      const errorData = await response.json();
-      if (errorData.code === 'duplicate_parameter') {
-        return { success: true }; // Contact déjà inscrit
+    if (existingSubscriber.length > 0) {
+      // Si l'abonné existe mais est inactif, le réactiver
+      if (!existingSubscriber[0].isActive) {
+        await db
+          .update(newsletterSubscribers)
+          .set({ 
+            isActive: true,
+            subscribedAt: sql`NOW()`
+          })
+          .where(eq(newsletterSubscribers.email, email.toLowerCase()));
+        
+        console.log(`📧 Newsletter: Réabonnement de ${email}`);
+        return { success: true };
+      } else {
+        // Déjà abonné et actif
+        return { success: true };
       }
     }
-    
-    const errorData = await response.text();
-    console.error('Brevo newsletter error:', response.status, errorData);
-    return { success: false, error: 'Erreur lors de l\'inscription' };
+
+    // Ajouter le nouvel abonné
+    await db
+      .insert(newsletterSubscribers)
+      .values({
+        email: email.toLowerCase(),
+        isActive: true,
+      });
+
+    console.log(`📧 Newsletter: Nouveau abonné ${email}`);
+    return { success: true };
     
   } catch (error) {
-    console.error('Newsletter service error:', error);
-    return { success: false, error: 'Erreur réseau lors de l\'inscription' };
+    console.error('Newsletter database error:', error);
+    return { success: false, error: 'Erreur lors de l\'inscription à la newsletter' };
+  }
+}
+
+// Récupérer tous les abonnés actifs (pour l'admin)
+export async function getAllActiveSubscribers(): Promise<{ success: boolean; subscribers?: any[]; error?: string }> {
+  try {
+    const subscribers = await db
+      .select({
+        id: newsletterSubscribers.id,
+        email: newsletterSubscribers.email,
+        subscribedAt: newsletterSubscribers.subscribedAt,
+      })
+      .from(newsletterSubscribers)
+      .where(eq(newsletterSubscribers.isActive, true))
+      .orderBy(sql`${newsletterSubscribers.subscribedAt} DESC`);
+
+    return { success: true, subscribers };
+  } catch (error) {
+    console.error('Newsletter fetch error:', error);
+    return { success: false, error: 'Erreur lors de la récupération des abonnés' };
+  }
+}
+
+// Désabonner un utilisateur
+export async function unsubscribeFromNewsletter(email: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    await db
+      .update(newsletterSubscribers)
+      .set({ isActive: false })
+      .where(eq(newsletterSubscribers.email, email.toLowerCase()));
+
+    console.log(`📧 Newsletter: Désabonnement de ${email}`);
+    return { success: true };
+  } catch (error) {
+    console.error('Newsletter unsubscribe error:', error);
+    return { success: false, error: 'Erreur lors du désabonnement' };
   }
 }

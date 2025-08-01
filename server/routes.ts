@@ -108,6 +108,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin route pour voir les abonnés newsletter
+  app.get("/api/newsletter/subscribers", async (req, res) => {
+    try {
+      const { getAllActiveSubscribers } = await import("./newsletter");
+      const result = await getAllActiveSubscribers();
+      
+      if (result.success) {
+        res.json({ success: true, subscribers: result.subscribers });
+      } else {
+        res.status(500).json({ success: false, error: result.error });
+      }
+    } catch (error) {
+      console.error('Newsletter subscribers fetch error:', error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Erreur lors de la récupération des abonnés" 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
