@@ -26,44 +26,44 @@ const baseOptions: PricingOption[] = [
   {
     id: 'vitrine',
     name: 'Site Vitrine',
-    basePrice: 800,
+    basePrice: 690,
     description: 'Site professionnel avec 5-8 pages',
     popular: true
   },
   {
     id: 'premium',
     name: 'Site Premium',
-    basePrice: 1500,
+    basePrice: 1290,
     description: 'Site avancé avec fonctionnalités personnalisées'
   },
   {
     id: 'ecommerce',
     name: 'E-commerce',
-    basePrice: 2500,
+    basePrice: 2190,
     description: 'Boutique en ligne complète'
   }
 ];
 
 const additionalFeatures: Feature[] = [
   // Design
-  { id: 'animations', name: 'Animations avancées', price: 200, description: 'Micro-interactions et transitions fluides', category: 'design' },
-  { id: 'custom-icons', name: 'Iconographie sur-mesure', price: 150, description: 'Création d\'icônes personnalisées', category: 'design' },
-  { id: 'illustrations', name: 'Illustrations personnalisées', price: 300, description: 'Créations graphiques uniques', category: 'design' },
+  { id: 'animations', name: 'Animations avancées', price: 170, description: 'Micro-interactions et transitions fluides', category: 'design' },
+  { id: 'custom-icons', name: 'Iconographie sur-mesure', price: 120, description: 'Création d\'icônes personnalisées', category: 'design' },
+  { id: 'illustrations', name: 'Illustrations personnalisées', price: 250, description: 'Créations graphiques uniques', category: 'design' },
   
   // Fonctionnalités
-  { id: 'blog', name: 'Blog intégré', price: 250, description: 'Système de blog avec CMS', category: 'fonctionnalite' },
-  { id: 'multilingue', name: 'Site multilingue', price: 400, description: 'Gestion de plusieurs langues', category: 'fonctionnalite' },
-  { id: 'booking', name: 'Système de réservation', price: 500, description: 'Calendrier et prise de RDV', category: 'fonctionnalite' },
-  { id: 'crm', name: 'CRM intégré', price: 600, description: 'Gestion de la relation client', category: 'fonctionnalite' },
+  { id: 'blog', name: 'Blog intégré', price: 210, description: 'Système de blog avec CMS', category: 'fonctionnalite' },
+  { id: 'multilingue', name: 'Site multilingue', price: 340, description: 'Gestion de plusieurs langues', category: 'fonctionnalite' },
+  { id: 'booking', name: 'Système de réservation', price: 420, description: 'Calendrier et prise de RDV', category: 'fonctionnalite' },
+  { id: 'crm', name: 'CRM intégré', price: 490, description: 'Gestion de la relation client', category: 'fonctionnalite' },
   
   // SEO & Marketing
-  { id: 'seo-advanced', name: 'SEO Premium', price: 300, description: 'Optimisation SEO poussée', category: 'seo' },
-  { id: 'analytics', name: 'Analytics avancés', price: 150, description: 'Tracking et rapports détaillés', category: 'seo' },
-  { id: 'newsletter', name: 'Newsletter automatisée', price: 200, description: 'Campagnes email marketing', category: 'seo' },
+  { id: 'seo-advanced', name: 'SEO Premium', price: 249, description: 'Optimisation SEO poussée', category: 'seo' },
+  { id: 'analytics', name: 'Analytics avancés', price: 120, description: 'Tracking et rapports détaillés', category: 'seo' },
+  { id: 'newsletter', name: 'Newsletter automatisée', price: 160, description: 'Campagnes email marketing', category: 'seo' },
   
   // Maintenance
-  { id: 'maintenance-premium', name: 'Maintenance Premium', price: 50, description: 'Support prioritaire (par mois)', category: 'maintenance' },
-  { id: 'hosting-premium', name: 'Hébergement Premium', price: 30, description: 'Serveur dédié haute performance (par mois)', category: 'maintenance' }
+  { id: 'maintenance-premium', name: 'Maintenance Premium', price: 39, description: 'Support prioritaire (par mois)', category: 'maintenance' },
+  { id: 'hosting-premium', name: 'Hébergement Premium', price: 25, description: 'Serveur dédié haute performance (par mois)', category: 'maintenance' }
 ];
 
 export default function PricingCalculator() {
@@ -79,7 +79,7 @@ export default function PricingCalculator() {
     
     // Pages supplémentaires (au-delà de 8 pages de base)
     if (pages[0] > 8) {
-      total += (pages[0] - 8) * 80;
+      total += (pages[0] - 8) * 65;
     }
     
     // Délai urgent (moins de 14 jours)
@@ -318,7 +318,7 @@ export default function PricingCalculator() {
                   {pages[0] > 8 && (
                     <div className="flex justify-between">
                       <span>Pages supplémentaires</span>
-                      <span className="font-medium">+{(pages[0] - 8) * 80}€</span>
+                      <span className="font-medium">+{(pages[0] - 8) * 65}€</span>
                     </div>
                   )}
                   

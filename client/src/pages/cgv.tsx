@@ -88,10 +88,10 @@ export default function CGV() {
               <div>
                 <h4 className="font-semibold mb-2">Tarifs (TVA non applicable - Art. 293 B du CGI) :</h4>
                 <ul className="text-muted-foreground list-disc list-inside space-y-1">
-                  <li>Site vitrine : à partir de 800€</li>
-                  <li>Site premium : à partir de 1500€</li>
+                  <li>Site vitrine : à partir de 690€</li>
+                  <li>Site premium : à partir de 1290€</li>
                   <li>Développement sur-mesure : sur devis personnalisé</li>
-                  <li>Maintenance mensuelle : à partir de 50€/mois</li>
+                  <li>Maintenance mensuelle : à partir de 39€/mois</li>
                 </ul>
               </div>
               <Separator />

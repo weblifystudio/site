@@ -23,7 +23,7 @@ const services = [
   {
     id: 'vitrine',
     name: 'Site Vitrine',
-    price: 'À partir de 800€',
+    price: 'À partir de 690€',
     description: 'Site professionnel avec 5-8 pages pour présenter votre activité',
     icon: Palette,
     features: ['Design sur-mesure', 'Responsive', 'SEO optimisé', 'Formulaire contact'],
@@ -32,7 +32,7 @@ const services = [
   {
     id: 'premium',
     name: 'Site Premium',
-    price: 'À partir de 1500€',
+    price: 'À partir de 1290€',
     description: 'Site avancé avec fonctionnalités personnalisées et animations',
     icon: Rocket,
     features: ['Animations avancées', 'CMS intégré', 'Blog', 'Multi-langues'],
@@ -41,7 +41,7 @@ const services = [
   {
     id: 'ecommerce',
     name: 'E-commerce',
-    price: 'À partir de 2500€',
+    price: 'À partir de 2190€',
     description: 'Boutique en ligne complète avec gestion des commandes',
     icon: ShoppingCart,
     features: ['Catalogue produits', 'Paiement sécurisé', 'Gestion stock', 'Tableau de bord'],

@@ -109,7 +109,7 @@ The application consists of 10 main pages:
 
 ## Recent Changes (January 2025)
 
-### February 1, 2025 - Major UX/Navigation Enhancements & Comprehensive Site Improvements
+### February 1, 2025 - Major UX/Navigation Enhancements & Competitive Pricing Strategy
 - ✓ **MAJOR**: Implemented comprehensive professional improvements throughout the site
 - ✓ **NEW**: Interactive FAQ with search functionality and category filters
 - ✓ **NEW**: Testimonials carousel with automatic rotation on homepage
@@ -121,6 +121,12 @@ The application consists of 10 main pages:
 - ✓ **ENHANCED**: Rocket emoji animation with perfect pulsing brightness effects
 - ✓ **IMPROVED**: Professional testimonials with client ratings and company logos
 - ✓ **OPTIMIZED**: User flow - pricing calculator strategically placed in offers section
+- ✓ **PRICING**: Adjusted all pricing based on French market analysis for young agency competitiveness:
+  - Site Vitrine: 690€ (was 800€) - 13% reduction to match freelance competition
+  - Site Premium: 1290€ (was 1500€) - 14% reduction for market positioning  
+  - E-commerce: 2190€ (was 2500€) - 12% reduction below agency average
+  - Maintenance: 39€/mois (was 50€) - more competitive monthly pricing
+  - All additional services reduced by 15-20% to position as competitive young agency
 
 ## Previous Changes (January 2025)
 

@@ -14,7 +14,7 @@ const scrollToTop = () => {
 const services = [
   {
     name: "Site Vitrine",
-    price: "À partir de 800€",
+    price: "À partir de 690€",
     description: "Parfait pour présenter votre activité et attirer de nouveaux clients",
     features: [
       "Design moderne et responsive",
@@ -30,7 +30,7 @@ const services = [
   },
   {
     name: "Site Premium",  
-    price: "À partir de 1 500€",
+    price: "À partir de 1 290€",
     description: "Solution complète pour une présence web professionnelle et efficace",
     features: [
       "Design sur-mesure premium",
@@ -70,22 +70,22 @@ const additionalServices = [
   {
     title: "Refonte de Site Web",
     description: "Modernisation complète de votre site existant avec amélioration des performances et du design.",
-    price: "À partir de 600€"
+    price: "À partir de 490€"
   },
   {
     title: "Maintenance & Support",
     description: "Mises à jour régulières, sauvegardes, et support technique pour assurer la pérennité de votre site.",
-    price: "50€/mois"
+    price: "39€/mois"
   },
   {
     title: "Audit SEO Complet",
     description: "Analyse approfondie de votre référencement avec plan d'action détaillé pour améliorer votre visibilité.",
-    price: "300€"
+    price: "249€"
   },
   {
     title: "Formation WordPress",
     description: "Session de formation personnalisée pour maîtriser l'administration de votre site web.",
-    price: "150€/session"
+    price: "120€/session"
   }
 ];
 
