@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Dégradé signature -->
+  <defs>
+    <linearGradient id="signatureGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="33%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="66%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <filter id="signature-glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Forme fluide et organique -->
+  <path d="M100 40 Q140 60, 160 100 Q140 140, 100 160 Q60 140, 40 100 Q60 60, 100 40" 
+        fill="none" 
+        stroke="url(#signatureGrad)" 
+        stroke-width="2" 
+        opacity="0.4"/>
+  
+  <!-- W calligraphique moderne -->
+  <g filter="url(#signature-glow)">
+    <path d="M60 85 Q70 115, 80 105 Q90 95, 100 105 Q110 115, 120 105 Q130 95, 140 105" 
+          stroke="url(#signatureGrad)" 
+          stroke-width="8" 
+          fill="none" 
+          stroke-linecap="round"/>
+  </g>
+  
+  <!-- Points d'énergie -->
+  <circle cx="85" cy="70" r="1.5" fill="url(#signatureGrad)" opacity="0.8">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="115" cy="70" r="1.5" fill="url(#signatureGrad)" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="100" cy="130" r="2" fill="url(#signatureGrad)" opacity="0.7">
+    <animate attributeName="opacity" values="0.3;0.9;0.3" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Signature typographique -->
+  <text x="100" y="175" font-family="Arial, sans-serif" font-size="12" font-weight="300" text-anchor="middle" fill="url(#signatureGrad)" opacity="0.8">W E B L I F Y</text>
+</svg>
