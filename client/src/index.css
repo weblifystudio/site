@@ -72,6 +72,8 @@
   .animate-slide-up {
     animation: slideUp 0.8s ease-out;
   }
+
+
   
   .animate-float {
     animation: float 3s ease-in-out infinite;
