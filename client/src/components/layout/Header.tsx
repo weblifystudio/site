@@ -58,12 +58,12 @@ export default function Header() {
           {/* Logo - décalé vers la gauche pour laisser place à la navigation */}
           <div className="flex-shrink-0 mr-8 lg:mr-12">
             <Link href="/" className="flex items-center group" onClick={scrollToTop}>
-              {/* Logo coriger.svg */}
+              {/* Logo complet avec mode sombre */}
               <img 
-                src="/coriger.svg" 
-                alt="Weblify Logo"
-                className={`transition-all duration-300 hover:scale-105 ${
-                  isScrolled ? 'h-6 sm:h-7' : 'h-7 sm:h-8'
+                src="/Logo_entier.svg" 
+                alt="Weblify Studio Logo Complet"
+                className={`transition-all duration-300 hover:scale-105 dark:filter dark:brightness-0 dark:invert ${
+                  isScrolled ? 'h-8 sm:h-9 lg:h-10' : 'h-9 sm:h-10 lg:h-12'
                 }`}
               />
             </Link>
