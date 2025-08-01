@@ -96,13 +96,13 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={scrollToTop}
-                className={`header-link transition-colors duration-200 ${
+                className={`header-link transition-colors duration-200 text-sm xl:text-base whitespace-nowrap ${
                   location === item.href
                     ? 'text-primary font-medium'
                     : 'text-muted-foreground hover:text-primary'
@@ -113,13 +113,40 @@ export default function Header() {
             ))}
           </div>
 
+          {/* Tablet Navigation - Compact */}
+          <div className="hidden md:flex lg:hidden items-center space-x-3">
+            {navigation.slice(0, 5).map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={scrollToTop}
+                className={`header-link transition-colors duration-200 text-xs xl:text-sm whitespace-nowrap ${
+                  location === item.href
+                    ? 'text-primary font-medium'
+                    : 'text-muted-foreground hover:text-primary'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+            {/* Menu pour les autres éléments sur tablette */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="px-2 py-1 text-xs"
+            >
+              ⋯
+            </Button>
+          </div>
+
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             <ThemeToggle />
           </div>
 
           {/* Mobile Actions */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="lg:hidden flex items-center space-x-4">
             <ThemeToggle />
             <Button
               variant="ghost"
@@ -136,7 +163,7 @@ export default function Header() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden border-t border-border overflow-hidden"
+              className="lg:hidden border-t border-border overflow-hidden"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
