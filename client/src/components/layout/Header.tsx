@@ -68,7 +68,7 @@ export default function Header() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
-                <style>
+                <style>{`
                   .logo-text-black { 
                     fill: #000000;
                     transition: fill 0.3s ease;
@@ -76,7 +76,7 @@ export default function Header() {
                   .dark .logo-text-black {
                     fill: #ffffff !important;
                   }
-                </style>
+                `}</style>
               </defs>
               <g transform="translate(-6.9859491,-11.817117)">
                 <g transform="matrix(1.1147441,0,0,1.1147441,-300.86782,-752.23892)">
