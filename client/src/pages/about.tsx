@@ -211,16 +211,40 @@ export default function About() {
             </div>
             
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors">
+              <a 
+                href="https://www.linkedin.com/in/noah-delenclos-b8952a377" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors"
+                aria-label="LinkedIn de Noah Delenclos"
+              >
                 <Linkedin className="w-5 h-5 text-white" />
               </a>
-              <a href="#" className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors">
+              <a 
+                href="https://github.com/noahdevfr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors"
+                aria-label="GitHub de Noah"
+              >
                 <Github className="w-5 h-5 text-white" />
               </a>
-              <a href="#" className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors">
+              <a 
+                href="https://x.com/Weblify_fr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors"
+                aria-label="Twitter/X Weblify"
+              >
                 <Twitter className="w-5 h-5 text-white" />
               </a>
-              <a href="#" className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors">
+              <a 
+                href="https://www.instagram.com/weblify.studio/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors"
+                aria-label="Instagram Weblify Studio"
+              >
                 <Instagram className="w-5 h-5 text-white" />
               </a>
             </div>
