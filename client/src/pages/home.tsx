@@ -267,6 +267,12 @@ export default function Home() {
             <div className="relative animate-float">
               <div className="relative w-full h-96 bg-gradient-to-br from-primary/10 to-blue-100 dark:from-primary/20 dark:to-blue-900/20 rounded-3xl p-8">
                 
+                {/* Éléments flottants indépendants - Même pattern que la page À propos */}
+                <div className="absolute top-8 left-8 w-12 h-12 bg-primary rounded-xl opacity-70 animate-float1"></div>
+                <div className="absolute top-16 right-12 w-8 h-8 bg-blue-300 rounded-lg opacity-60 animate-float2"></div>
+                <div className="absolute bottom-16 left-12 w-16 h-3 bg-primary/60 rounded-full animate-float3"></div>
+                <div className="absolute bottom-8 right-8 w-6 h-6 bg-blue-400 rounded-full animate-float4"></div>
+                
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center space-y-4">
                     <div className="w-24 h-24 bg-primary rounded-2xl mx-auto flex items-center justify-center">
