@@ -53,10 +53,10 @@ export default function Header() {
       </AnimatePresence>
 
       <header className={`fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border z-40 transition-all duration-300 ${isScrolled ? 'header-compact' : ''}`}>
-        <div className={`container mx-auto px-6 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
+        <div className={`container mx-auto pl-4 pr-6 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
         <nav className="flex items-center">
           {/* Logo - décalé vers la gauche pour laisser place à la navigation */}
-          <div className="flex-shrink-0 mr-12 lg:mr-20">
+          <div className="flex-shrink-0 mr-6 lg:mr-10">
             <Link href="/" className="flex items-center group" onClick={scrollToTop}>
             {/* Logo complet original */}
             <svg 
