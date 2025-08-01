@@ -12,63 +12,36 @@ const scrollToTop = () => {
 const projects = [
   {
     id: 1,
-    title: "Restaurant Le Petit Bistrot",
+    title: "Projet Client #1",
     category: "Site Vitrine",
-    description: "Site vitrine élégant pour un restaurant parisien avec système de réservation intégré et galerie photos.",
-    technologies: ["React", "Node.js", "Tailwind CSS"],
-    year: "2024",
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&h=300&fit=crop",
-    url: "#"
+    description: "Site vitrine professionnel avec design moderne et optimisation SEO. Interface responsive adaptée à tous les appareils.",
+    technologies: ["React", "Tailwind CSS", "Node.js"],
+    year: "2025",
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 500 300'%3E%3Crect width='500' height='300' fill='%23f8fafc'/%3E%3Crect x='50' y='50' width='400' height='200' fill='%234c82ee' opacity='0.1' rx='8'/%3E%3Ctext x='250' y='130' font-family='Arial' font-size='16' font-weight='bold' fill='%234c82ee' text-anchor='middle'%3ESite Vitrine%3C/text%3E%3Ctext x='250' y='170' font-family='Arial' font-size='14' fill='%236b7280' text-anchor='middle'%3EProjet disponible bientôt%3C/text%3E%3C/svg%3E",
+    url: "#",
+    status: "À venir"
   },
   {
     id: 2,
-    title: "Cabinet d'Avocat Dubois",
+    title: "Projet Client #2",
     category: "Site Premium",
-    description: "Site web professionnel avec système de prise de rendez-vous et blog juridique intégré.",
-    technologies: ["WordPress", "PHP", "JavaScript"],
-    year: "2024",
-    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=500&h=300&fit=crop",
-    url: "#"
+    description: "Site web premium avec fonctionnalités avancées, animations personnalisées et intégrations tierces.",
+    technologies: ["React", "TypeScript", "API Integration"],
+    year: "2025",
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 500 300'%3E%3Crect width='500' height='300' fill='%23f8fafc'/%3E%3Crect x='50' y='50' width='400' height='200' fill='%2316a34a' opacity='0.1' rx='8'/%3E%3Ctext x='250' y='130' font-family='Arial' font-size='16' font-weight='bold' fill='%2316a34a' text-anchor='middle'%3ESite Premium%3C/text%3E%3Ctext x='250' y='170' font-family='Arial' font-size='14' fill='%236b7280' text-anchor='middle'%3EProjet disponible bientôt%3C/text%3E%3C/svg%3E",
+    url: "#",
+    status: "À venir"
   },
   {
     id: 3,
-    title: "E-commerce Mode Éthique",
+    title: "Projet Client #3",
     category: "Sur-Mesure",
-    description: "Boutique en ligne complète avec système de paiement sécurisé et gestion des stocks avancée.",
-    technologies: ["Next.js", "Stripe", "MongoDB"],
-    year: "2024",
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&h=300&fit=crop",
-    url: "#"
-  },
-  {
-    id: 4,
-    title: "Startup Tech Innovation",
-    category: "Site Premium",
-    description: "Site vitrine dynamique pour une startup avec animations personnalisées et formulaires avancés.",
-    technologies: ["Vue.js", "GSAP", "Firebase"],
-    year: "2023",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&h=300&fit=crop",
-    url: "#"
-  },
-  {
-    id: 5,
-    title: "Clinique Dentaire Moderne",
-    category: "Site Vitrine",
-    description: "Site médical professionnel avec prise de rendez-vous en ligne et présentation des services.",
-    technologies: ["React", "Sanity CMS", "CSS3"],
-    year: "2023",
-    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=500&h=300&fit=crop",
-    url: "#"
-  },
-  {
-    id: 6,
-    title: "Agence Immobilière Premium",
-    category: "Sur-Mesure",
-    description: "Plateforme immobilière avec recherche avancée, visite virtuelle et gestion de portefeuille.",
-    technologies: ["React", "Node.js", "PostgreSQL"],
-    year: "2023",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=500&h=300&fit=crop",
-    url: "#"
+    description: "Solution sur-mesure complète avec architecture personnalisée et fonctionnalités spécifiques au secteur d'activité.",
+    technologies: ["React", "Node.js", "Database"],
+    year: "2025",
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 500 300'%3E%3Crect width='500' height='300' fill='%23f8fafc'/%3E%3Crect x='50' y='50' width='400' height='200' fill='%23dc2626' opacity='0.1' rx='8'/%3E%3Ctext x='250' y='130' font-family='Arial' font-size='16' font-weight='bold' fill='%23dc2626' text-anchor='middle'%3ESur-Mesure%3C/text%3E%3Ctext x='250' y='170' font-family='Arial' font-size='14' fill='%236b7280' text-anchor='middle'%3EProjet disponible bientôt%3C/text%3E%3C/svg%3E",
+    url: "#",
+    status: "À venir"
   }
 ];
 
@@ -96,6 +69,32 @@ export default function Portfolio() {
           </p>
         </div>
 
+        {/* Info Card pour vrais projets */}
+        <Card className="mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
+          <CardContent className="p-8 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-xl font-bold mb-3 text-blue-900 dark:text-blue-100">
+                Portfolio en construction
+              </h3>
+              <p className="text-blue-700 dark:text-blue-300 mb-4">
+                Nos premiers projets clients seront bientôt disponibles ici. En attendant, vous pouvez découvrir notre approche et notre expertise à travers nos services.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button asChild variant="default">
+                  <Link href="/offres" onClick={scrollToTop}>
+                    Découvrir nos offres
+                  </Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/contact" onClick={scrollToTop}>
+                    Discuter de votre projet
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category) => (
@@ -112,7 +111,7 @@ export default function Portfolio() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {projects.map((project) => (
-            <Card key={project.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300">
+            <Card key={project.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 opacity-60">
               <div className="relative overflow-hidden">
                 <img
                   src={project.image}
@@ -121,14 +120,15 @@ export default function Portfolio() {
                   decoding="async"
                   width="500"
                   height="300"
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-48 object-cover"
                 />
-                <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <Button size="sm" className="bg-white text-primary hover:bg-white/90">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Voir le projet
-                  </Button>
-                </div>
+                {project.status && (
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <Badge className="bg-primary text-white px-4 py-2 text-sm font-semibold">
+                      {project.status}
+                    </Badge>
+                  </div>
+                )}
               </div>
               
               <CardContent className="p-6">
@@ -153,6 +153,10 @@ export default function Portfolio() {
                     </Badge>
                   ))}
                 </div>
+                
+                <Button variant="outline" className="w-full" disabled>
+                  Projet en préparation
+                </Button>
               </CardContent>
             </Card>
           ))}
@@ -162,20 +166,20 @@ export default function Portfolio() {
         <div className="bg-gradient-to-r from-primary/10 to-blue-50 dark:from-primary/20 dark:to-blue-900/20 rounded-2xl p-12 mb-16">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-primary mb-2">50+</div>
+              <div className="text-4xl font-bold text-primary mb-2">15+</div>
               <div className="text-muted-foreground">Projets réalisés</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-primary mb-2">98%</div>
-              <div className="text-muted-foreground">Clients satisfaits</div>
+              <div className="text-4xl font-bold text-primary mb-2">100%</div>
+              <div className="text-muted-foreground">Projets livrés</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-primary mb-2">7j</div>
               <div className="text-muted-foreground">Délai moyen</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-primary mb-2">24/7</div>
-              <div className="text-muted-foreground">Support disponible</div>
+              <div className="text-4xl font-bold text-primary mb-2">2025</div>
+              <div className="text-muted-foreground">Année de création</div>
             </div>
           </div>
         </div>

@@ -5,43 +5,43 @@ import { Star, Award, Users, Zap } from 'lucide-react';
 const stats = [
   {
     icon: Users,
-    value: '50+',
-    label: 'Clients satisfaits',
-    description: 'Entreprises qui nous font confiance'
+    value: '15+',
+    label: 'Projets réalisés',
+    description: 'Sites web créés avec succès'
   },
   {
     icon: Award,
-    value: '98%',
-    label: 'Taux de satisfaction',
-    description: 'Clients recommandent nos services'
+    value: '100%',
+    label: 'Projets livrés',
+    description: 'Tous nos clients satisfaits'
   },
   {
     icon: Zap,
     value: '7j',
     label: 'Livraison moyenne',
-    description: 'Délai de création record'
+    description: 'Délai de création optimisé'
   },
   {
     icon: Star,
-    value: '4.9/5',
-    label: 'Note moyenne',
-    description: 'Évaluation de nos prestations'
+    value: '2025',
+    label: 'Année de création',
+    description: 'Agence récente et dynamique'
   }
 ];
 
 const certifications = [
   {
-    name: 'Google Partner',
-    description: 'Certifié Google Ads & Analytics',
+    name: 'Spécialiste Web',
+    description: 'Expertise technique avancée',
     badge: '🏆'
   },
   {
     name: 'Expert SEO',
-    description: 'Spécialiste référencement naturel',
+    description: 'Optimisation référencement naturel',
     badge: '🎯'
   },
   {
-    name: 'Développeur Certifié',
+    name: 'Développeur Full-Stack',
     description: 'React, TypeScript, Node.js',
     badge: '💻'
   },
