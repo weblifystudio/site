@@ -1,0 +1,302 @@
+import { useState, useMemo } from 'react';
+import { Search, MessageSquare, Clock, Star } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+
+interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  category: 'general' | 'technique' | 'prix' | 'delais' | 'maintenance';
+  tags: string[];
+  popular?: boolean;
+}
+
+const faqData: FAQItem[] = [
+  {
+    id: '1',
+    question: 'Combien coûte un site web professionnel ?',
+    answer: 'Nos tarifs démarrent à 800€ pour un site vitrine (5-8 pages), 1500€ pour un site premium avec fonctionnalités avancées, et à partir de 2500€ pour un e-commerce. Le prix final dépend de vos besoins spécifiques : nombre de pages, fonctionnalités, délais, etc. Utilisez notre calculateur en ligne pour une estimation personnalisée.',
+    category: 'prix',
+    tags: ['tarif', 'coût', 'budget', 'prix'],
+    popular: true
+  },
+  {
+    id: '2',
+    question: 'Combien de temps pour créer mon site ?',
+    answer: 'En moyenne, nous livrons un site vitrine en 7 jours, un site premium en 10-14 jours, et un e-commerce en 14-21 jours. Ces délais peuvent être réduits avec notre option "livraison express" (supplément de 30%). Nous respectons toujours les délais convenus.',
+    category: 'delais',
+    tags: ['délai', 'livraison', 'durée', 'temps'],
+    popular: true
+  },
+  {
+    id: '3',
+    question: 'Mon site sera-t-il optimisé pour mobile ?',
+    answer: 'Absolument ! Tous nos sites sont développés en "mobile-first", garantissant une expérience parfaite sur smartphone, tablette et ordinateur. Nous testons sur tous les appareils populaires avant livraison.',
+    category: 'technique',
+    tags: ['mobile', 'responsive', 'smartphone', 'tablette'],
+    popular: true
+  },
+  {
+    id: '4',
+    question: 'Qu\'est-ce qui est inclus dans vos prestations ?',
+    answer: 'Chaque prestation inclut : design sur-mesure, développement responsive, optimisation SEO de base, formulaire de contact, hébergement 1 an, nom de domaine .fr/.com, formation à la gestion du contenu, et 1 mois de support gratuit après livraison.',
+    category: 'general',
+    tags: ['inclus', 'prestation', 'service', 'package'],
+    popular: true
+  },
+  {
+    id: '5',
+    question: 'Puis-je modifier mon site après livraison ?',
+    answer: 'Oui ! Nous vous formons à la gestion de votre contenu via une interface simple. Pour des modifications de design ou nouvelles fonctionnalités, nous proposons un service de maintenance avec tarifs préférentiels.',
+    category: 'maintenance',
+    tags: ['modification', 'gestion', 'contenu', 'formation']
+  },
+  {
+    id: '6',
+    question: 'Mon site sera-t-il bien référencé sur Google ?',
+    answer: 'Nous intégrons les bonnes pratiques SEO dès la conception : structure optimisée, méta-descriptions, sitemap, temps de chargement rapide. Pour un référencement poussé, nous proposons des prestations SEO dédiées.',
+    category: 'technique',
+    tags: ['SEO', 'référencement', 'Google', 'visibilité']
+  },
+  {
+    id: '7',
+    question: 'Proposez-vous des forfaits de maintenance ?',
+    answer: 'Oui, nous proposons plusieurs forfaits : maintenance de base (30€/mois) incluant mises à jour et sauvegardes, maintenance premium (80€/mois) avec modifications illimitées et support prioritaire.',
+    category: 'maintenance',
+    tags: ['maintenance', 'forfait', 'support', 'mise à jour']
+  },
+  {
+    id: '8',
+    question: 'Que se passe-t-il si je ne suis pas satisfait ?',
+    answer: 'Nous offrons jusqu\'à 3 révisions gratuites du design. Si vous n\'êtes toujours pas satisfait, nous remboursons 50% de l\'acompte versé. Notre objectif est votre satisfaction totale.',
+    category: 'general',
+    tags: ['satisfaction', 'révision', 'remboursement', 'garantie']
+  },
+  {
+    id: '9',
+    question: 'Pouvez-vous refaire mon site existant ?',
+    answer: 'Oui, nous proposons des prestations de refonte complète. Nous analysons votre site actuel, récupérons le contenu pertinent et créons une version moderne, rapide et optimisée.',
+    category: 'general',
+    tags: ['refonte', 'redesign', 'modernisation', 'amélioration']
+  },
+  {
+    id: '10',
+    question: 'Travaillez-vous avec tous les secteurs d\'activité ?',
+    answer: 'Nous travaillons avec tous les secteurs : restaurants, cabinets médicaux, artisans, e-commerce, startups, associations, etc. Chaque projet est adapté aux spécificités de votre métier.',
+    category: 'general',
+    tags: ['secteur', 'activité', 'métier', 'spécialisation']
+  }
+];
+
+const categoryLabels = {
+  general: 'Général',
+  technique: 'Technique',
+  prix: 'Tarifs',
+  delais: 'Délais',
+  maintenance: 'Maintenance'
+};
+
+const categoryIcons = {
+  general: MessageSquare,
+  technique: Star,
+  prix: Badge,
+  delais: Clock,
+  maintenance: Star
+};
+
+export default function InteractiveFAQ() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  const filteredFAQs = useMemo(() => {
+    let filtered = faqData;
+
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter(
+        faq =>
+          faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          faq.answer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          faq.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+
+    // Filter by category
+    if (selectedCategory !== 'all') {
+      filtered = filtered.filter(faq => faq.category === selectedCategory);
+    }
+
+    // Sort popular items first
+    return filtered.sort((a, b) => {
+      if (a.popular && !b.popular) return -1;
+      if (!a.popular && b.popular) return 1;
+      return 0;
+    });
+  }, [searchTerm, selectedCategory]);
+
+  const categories = Object.keys(categoryLabels) as Array<keyof typeof categoryLabels>;
+  const popularFAQs = faqData.filter(faq => faq.popular);
+
+  return (
+    <div className="space-y-8">
+      {/* Search and Filters */}
+      <div className="space-y-4">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Input
+            type="text"
+            placeholder="Rechercher dans les questions fréquentes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+
+        {/* Category Filters */}
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setSelectedCategory('all')}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              selectedCategory === 'all'
+                ? 'bg-primary text-white'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+            }`}
+          >
+            Toutes les questions
+          </button>
+          {categories.map((category) => {
+            const Icon = categoryIcons[category];
+            const count = faqData.filter(faq => faq.category === category).length;
+            return (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center space-x-2 ${
+                  selectedCategory === category
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{categoryLabels[category]}</span>
+                <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs">
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Popular Questions (when no search) */}
+      {!searchTerm && selectedCategory === 'all' && (
+        <div className="bg-gradient-to-r from-primary/5 to-blue-50 dark:from-primary/10 dark:to-gray-800 rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-4 flex items-center">
+            <Star className="w-5 h-5 mr-2 text-primary" />
+            Questions les plus populaires
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            {popularFAQs.map((faq) => (
+              <div
+                key={faq.id}
+                className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => {
+                  const element = document.getElementById(`faq-${faq.id}`);
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <h4 className="font-medium text-sm mb-2">{faq.question}</h4>
+                <p className="text-xs text-gray-600 dark:text-gray-300 line-clamp-2">
+                  {faq.answer.substring(0, 100)}...
+                </p>
+                <Badge variant="secondary" className="mt-2 text-xs">
+                  {categoryLabels[faq.category]}
+                </Badge>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Search Results Count */}
+      {(searchTerm || selectedCategory !== 'all') && (
+        <div className="text-sm text-gray-600 dark:text-gray-300">
+          {filteredFAQs.length} question{filteredFAQs.length > 1 ? 's' : ''} trouvée{filteredFAQs.length > 1 ? 's' : ''}
+          {searchTerm && ` pour "${searchTerm}"`}
+          {selectedCategory !== 'all' && ` dans la catégorie "${categoryLabels[selectedCategory as keyof typeof categoryLabels]}"`}
+        </div>
+      )}
+
+      {/* FAQ Accordion */}
+      <Accordion type="single" collapsible className="space-y-4">
+        {filteredFAQs.map((faq) => (
+          <AccordionItem
+            key={faq.id}
+            value={faq.id}
+            id={`faq-${faq.id}`}
+            className="bg-white dark:bg-gray-800 rounded-lg border shadow-sm hover:shadow-md transition-shadow"
+          >
+            <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
+              <div className="flex items-start justify-between w-full">
+                <div className="flex-1 pr-4">
+                  <h4 className="font-medium text-base mb-2">{faq.question}</h4>
+                  <div className="flex items-center space-x-2">
+                    <Badge variant="secondary" className="text-xs">
+                      {categoryLabels[faq.category]}
+                    </Badge>
+                    {faq.popular && (
+                      <Badge className="text-xs bg-primary">
+                        Populaire
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-6">
+              <div className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                {faq.answer}
+              </div>
+              <div className="flex flex-wrap gap-1 mt-4">
+                {faq.tags.map((tag, index) => (
+                  <Badge key={index} variant="outline" className="text-xs">
+                    #{tag}
+                  </Badge>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+
+      {/* No Results */}
+      {filteredFAQs.length === 0 && (
+        <div className="text-center py-12">
+          <MessageSquare className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-600 dark:text-gray-300 mb-2">
+            Aucune question trouvée
+          </h3>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">
+            Essayez d'autres mots-clés ou consultez toutes les questions.
+          </p>
+          <button
+            onClick={() => {
+              setSearchTerm('');
+              setSelectedCategory('all');
+            }}
+            className="text-primary hover:underline font-medium"
+          >
+            Réinitialiser les filtres
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
