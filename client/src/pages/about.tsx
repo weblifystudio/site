@@ -195,7 +195,7 @@ export default function About() {
                 </div>
                 <div>
                   <div className="font-semibold">Email</div>
-                  <div className="text-muted-foreground">noah@weblify.fr</div>
+                  <div className="text-muted-foreground">contact@weblifystudio.fr</div>
                 </div>
               </div>
               
@@ -204,8 +204,8 @@ export default function About() {
                   <Phone className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold">Téléphone</div>
-                  <div className="text-muted-foreground">+33 (0)1 23 45 67 89</div>
+                  <div className="font-semibold">Contact</div>
+                  <div className="text-muted-foreground">Sur demande par email</div>
                 </div>
               </div>
             </div>

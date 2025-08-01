@@ -152,11 +152,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-primary" />
-                <span className="text-gray-300 dark:text-gray-400">contact@weblify.fr</span>
+                <span className="text-gray-300 dark:text-gray-400">contact@weblifystudio.fr</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
-                <span className="text-gray-300 dark:text-gray-400">+33 (0)1 23 45 67 89</span>
+                <span className="text-gray-300 dark:text-gray-400">Sur demande par email</span>
               </div>
             </div>
           </div>

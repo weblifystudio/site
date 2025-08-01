@@ -215,7 +215,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-muted-foreground">contact@weblify.fr</p>
+                    <p className="text-muted-foreground">contact@weblifystudio.fr</p>
                     <p className="text-sm text-muted-foreground mt-1">
                       Réponse sous 24h garantie
                     </p>
@@ -227,10 +227,10 @@ export default function Contact() {
                     <Phone className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Téléphone</h3>
-                    <p className="text-muted-foreground">+33 (0)1 23 45 67 89</p>
+                    <h3 className="font-semibold mb-1">Contact</h3>
+                    <p className="text-muted-foreground">Privilégier l'email</p>
                     <p className="text-sm text-muted-foreground mt-1">
-                      Lun-Ven 9h-18h
+                      Échange par téléphone sur demande
                     </p>
                   </div>
                 </div>
