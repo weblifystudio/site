@@ -7,12 +7,8 @@ export default function NotFound() {
   const [, setLocation] = useLocation();
   
   useEffect(() => {
-    // Redirection automatique vers l'accueil après 2 secondes
-    const timer = setTimeout(() => {
-      setLocation("/");
-    }, 2000);
-    
-    return () => clearTimeout(timer);
+    // Redirection immédiate vers l'accueil
+    setLocation("/");
   }, [setLocation]);
 
   return (
