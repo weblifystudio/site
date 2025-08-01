@@ -109,6 +109,15 @@ The application consists of 10 main pages:
 
 ## Recent Changes (January 2025)
 
+### February 1, 2025 - Animations & Navigation Fixes
+- ✓ **FIXED**: 404 page redirection - automatic redirect to homepage after 2 seconds
+- ✓ **FIXED**: Floating elements positioning - identical layout between home and about pages
+- ✓ **NEW**: Enhanced floating animations with complex trajectories (translation up to 12px, rotation up to 7°, scale variation)
+- ✓ **NEW**: Independent floating elements on both home and about pages with desynchronized movements
+- ✓ **NEW**: Harmonized container dimensions (w-full h-96) for consistent floating element positions
+
+## Previous Changes (January 2025)
+
 ### Legal Compliance & RGPD
 - ✓ Added complete privacy policy (`/politique-confidentialite`)
 - ✓ Enhanced legal mentions with mediation and consumer rights

@@ -29,7 +29,7 @@ export default function About() {
         {/* Profile Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           <div className="space-y-6">
-            <div className="relative w-80 h-80 mx-auto lg:mx-0 bg-gradient-to-br from-primary/20 to-blue-100 dark:from-primary/30 dark:to-blue-900/30 rounded-3xl p-8 animate-float">
+            <div className="relative w-full h-96 bg-gradient-to-br from-primary/20 to-blue-100 dark:from-primary/30 dark:to-blue-900/30 rounded-3xl p-8 animate-float">
               
               {/* Éléments flottants indépendants - Même pattern que l'accueil */}
               <div className="absolute top-8 left-8 w-12 h-12 bg-primary rounded-xl opacity-70 animate-float1"></div>
