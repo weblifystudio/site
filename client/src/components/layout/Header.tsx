@@ -53,41 +53,40 @@ export default function Header() {
       </AnimatePresence>
 
       <header className={`fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border z-40 transition-all duration-300 ${isScrolled ? 'header-compact' : ''}`}>
-        <div className={`container mx-auto pl-2 pr-6 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
-        <nav className="flex items-center">
-          {/* Logo - décalé vers la gauche pour laisser place à la navigation */}
-          <div className="flex-shrink-0 mr-8 lg:mr-12">
+        <div className={`container mx-auto px-4 lg:px-6 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
+        <nav className="flex items-center justify-between">
+          
+          {/* Logo - Positioning parfait à gauche */}
+          <div className="flex-shrink-0">
             <Link href="/" className="flex items-center group" onClick={scrollToTop}>
-              {/* Logo complet avec basculement pour mode sombre */}
               <img 
                 src="/Logo_entier.svg" 
                 alt="Weblify Studio Logo Complet"
                 className={`transition-all duration-300 hover:scale-105 dark:hidden ${
-                  isScrolled ? 'h-6 sm:h-7 lg:h-8' : 'h-7 sm:h-8 lg:h-9'
+                  isScrolled ? 'h-7 sm:h-8 lg:h-9' : 'h-8 sm:h-9 lg:h-10'
                 }`}
               />
               <img 
                 src="/Logo_entier_dark.svg" 
                 alt="Weblify Studio Logo Complet"
                 className={`transition-all duration-300 hover:scale-105 hidden dark:block ${
-                  isScrolled ? 'h-6 sm:h-7 lg:h-8' : 'h-7 sm:h-8 lg:h-9'
+                  isScrolled ? 'h-7 sm:h-8 lg:h-9' : 'h-8 sm:h-9 lg:h-10'
                 }`}
               />
             </Link>
           </div>
 
-          {/* Navigation et Actions - Centré avec espace */}
-          <div className="flex-1 flex items-center justify-between">
-            {/* Desktop Navigation - espacement équilibré */}
-            <div className="hidden md:flex items-center space-x-6 lg:space-x-8 ml-12 lg:ml-20">
+          {/* Navigation Desktop - Centré parfaitement */}
+          <div className="hidden md:flex items-center justify-center flex-1 px-8">
+            <div className="flex items-center space-x-8 lg:space-x-10">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={scrollToTop}
-                  className={`header-link transition-colors duration-200 ${
+                  className={`header-link text-sm font-medium transition-colors duration-200 hover:scale-105 ${
                     location === item.href
-                      ? 'text-primary font-medium'
+                      ? 'text-primary font-semibold'
                       : 'text-muted-foreground hover:text-primary'
                   }`}
                 >
@@ -95,25 +94,26 @@ export default function Header() {
                 </Link>
               ))}
             </div>
-
-            {/* Desktop Actions */}
-            <div className="hidden md:flex items-center space-x-4">
-              <ThemeToggle />
-            </div>
-
-            {/* Mobile Actions */}
-            <div className="md:hidden flex items-center space-x-4 ml-auto">
-              <ThemeToggle />
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="h-10 w-10 relative"
-              >
-                <AnimatedHamburger isOpen={isMobileMenuOpen} />
-              </Button>
-            </div>
           </div>
+
+          {/* Actions Desktop - Positioning parfait à droite */}
+          <div className="hidden md:flex items-center">
+            <ThemeToggle />
+          </div>
+
+          {/* Actions Mobile - Compact et aligné */}
+          <div className="md:hidden flex items-center space-x-3">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="h-9 w-9 relative"
+            >
+              <AnimatedHamburger isOpen={isMobileMenuOpen} />
+            </Button>
+          </div>
+          
         </nav>
 
         {/* Mobile Navigation */}
