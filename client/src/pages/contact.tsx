@@ -72,9 +72,9 @@ const formatPhoneNumber = (value: string) => {
   // Prendre seulement les 10 premiers chiffres
   formatted = formatted.substring(0, 10);
   
-  // Appliquer le format 06 12 34 56 78
-  if (formatted.length >= 2) {
-    formatted = formatted.replace(/(\d{2})(\d{2})?(\d{2})?(\d{2})?(\d{2})?/, 
+  // Appliquer le format 06 12 34 56 78 - séparation dès le 3ème chiffre
+  if (formatted.length >= 3) {
+    formatted = formatted.replace(/(\d{2})(\d{1,2})?(\d{1,2})?(\d{1,2})?(\d{1,2})?/, 
       (match, p1, p2, p3, p4, p5) => {
         let result = p1;
         if (p2) result += ' ' + p2;
