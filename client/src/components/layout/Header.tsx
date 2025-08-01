@@ -72,7 +72,7 @@ export default function Header() {
           {/* Navigation et Actions - Centré avec espace */}
           <div className="flex-1 flex items-center justify-between">
             {/* Desktop Navigation - espacement équilibré */}
-            <div className="hidden md:flex items-center space-x-6 lg:space-x-8 ml-4 lg:ml-8">
+            <div className="hidden md:flex items-center space-x-6 lg:space-x-8 ml-8 lg:ml-16">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
