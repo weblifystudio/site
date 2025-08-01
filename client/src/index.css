@@ -136,6 +136,10 @@
   
 
   
+  .rocket {
+    animation: rocketFloat 2s ease-in-out infinite;
+  }
+
   .footer-signature {
     opacity: 0.9;
   }
@@ -400,6 +404,15 @@
   }
   70% { 
     transform: translate(9px, 5px) rotate(7deg) scale(0.94); 
+  }
+}
+
+@keyframes rocketFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-3px) rotate(2deg); 
   }
 }
 
