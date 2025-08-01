@@ -55,8 +55,8 @@ export default function Header() {
       <header className={`fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border z-40 transition-all duration-300 ${isScrolled ? 'header-compact' : ''}`}>
         <div className={`container mx-auto px-6 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
         <nav className="flex items-center">
-          {/* Logo - plus vers la gauche */}
-          <div className="flex-shrink-0 mr-8 lg:mr-16">
+          {/* Logo - décalé vers la gauche pour laisser place à la navigation */}
+          <div className="flex-shrink-0 mr-12 lg:mr-20">
             <Link href="/" className="flex items-center group" onClick={scrollToTop}>
             {/* Logo complet original */}
             <svg 
@@ -99,8 +99,8 @@ export default function Header() {
 
           {/* Navigation et Actions - Centré avec espace */}
           <div className="flex-1 flex items-center justify-between">
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            {/* Desktop Navigation - décalée vers la gauche */}
+            <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
