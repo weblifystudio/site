@@ -1,23 +1,57 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background circle with gradient -->
-  <circle cx="16" cy="16" r="16" fill="url(#gradient)"/>
-  
-  <!-- Stylized "W" for Weblify -->
-  <path d="M6 10 L9.5 22 L12.5 14 L15.5 22 L19 10 M20 10 L23 22 L26 10" 
-        stroke="white" 
-        stroke-width="2.5" 
-        stroke-linecap="round" 
-        stroke-linejoin="round" 
-        fill="none"/>
-  
-  <!-- Small dot accent -->
-  <circle cx="28" cy="8" r="2" fill="white" opacity="0.8"/>
-  
-  <!-- Gradient definition -->
-  <defs>
-    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
-    </linearGradient>
-  </defs>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="250.66667"
+   height="242.66667"
+   viewBox="0 0 250.66667 242.66667"
+   sodipodi:docname="45101D4D-D087-438F-AA46-B700938278CF.jpg"
+   inkscape:export-filename="45101D4D-D087-438F-AA46-B700938278CF.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.66428056"
+     inkscape:cx="43.656252"
+     inkscape:cy="159.57113"
+     inkscape:window-width="1512"
+     inkscape:window-height="917"
+     inkscape:window-x="0"
+     inkscape:window-y="65"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g1">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="250.66667"
+       height="242.66667"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g1">
+    <path
+       style="fill:#4c82ee"
+       d="m 30.25206,236.24193 -3.34197,-1.03445 -3.99136,-2.07546 -3.99137,-2.07547 -2.91724,-3.12668 -2.91725,-3.12669 -2.72014,-6 -2.7201399,-6 -0.0293,-88.76248 -0.0293,-88.762495 2.10905,-6.189698 1.6213209,-6.43356 4.398501,-6.10552 6.837098,-4.398503 6.75902,-2.007213 6.75902,-2.0072126 h 87.46743 87.46743 l 6.80088,1.764127 6.80089,1.7641266 5.38474,4.264799 5.38475,4.264796 3.10494,6.30441 3.10494,6.30441 0.3707,87.196933 0.3707,87.19692 -1.99157,6.80308 -1.99156,6.80308 -4.17477,5.0387 -4.17477,5.0387 -5.5377,2.9613 -5.5377,2.9613 -92.66667,0.2366 -92.66666,0.2366 z m 170.90365,-39.6454 2.43832,-2.20665 V 124.8632 55.336495 l -1.6,-1.6 -1.6,-1.6 h -75.6381 -75.63809 l -2.09524,2.09524 -2.09524,2.09524 v 68.274765 68.27476 l 2.0756,2.96334 2.07561,2.96334 h 74.81941 74.81941 z m -136.30137,-34.65207 -1.34035,-3.52539 1.48449,-4.49806 1.4845,-4.49807 32.20502,0.35679 32.20501,0.35678 1.67432,3.49501 1.67433,3.49501 -1.45425,4.17166 -1.45425,4.17166 H 98.76393 66.19469 Z m 1.30295,-35.93254 -1.76326,-2.1246 v -4.41747 -4.41747 l 1.76326,-2.1246 1.76326,-2.1246 h 56.4278 56.4278 l 2.07561,2.96334 2.0756,2.96334 v 3.12432 3.12431 l -1.38024,2.57901 -1.38025,2.57901 H 125.04371 67.92055 Z m 1.2076,-36.590575 -2.22914,-1.30073 -0.82593,-3.76043 -0.82592,-3.76042 1.35539,-3.56497 1.3554,-3.56496 h 57.98609 57.98609 l 1.38025,2.57901 1.38024,2.57901 v 3.12431 3.12432 l -2.0756,2.96334 -2.07561,2.96334 -55.59106,-0.0406 -55.59106,-0.0405 z"
+       id="path724"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" />
+  </g>
 </svg>
