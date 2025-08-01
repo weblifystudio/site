@@ -8,63 +8,55 @@ interface AnimatedHamburgerProps {
 export default function AnimatedHamburger({ isOpen, className = "" }: AnimatedHamburgerProps) {
   return (
     <div className={`w-6 h-6 flex flex-col justify-center items-center ${className}`}>
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full"
-      >
-        {/* Première barre (haut) */}
-        <motion.path
-          d="M4 6H20"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
+      <div className="w-6 h-6 relative flex flex-col justify-center items-center">
+        {/* Première barre (haut) - se transforme en partie haute de la croix */}
+        <motion.div
+          className="w-5 h-0.5 bg-current absolute rounded-full origin-center"
           initial={false}
           animate={{
-            d: isOpen ? "M6 6L18 18" : "M4 6H20",
+            rotate: isOpen ? 45 : 0,
+            y: isOpen ? 0 : -6,
+            scaleX: isOpen ? 1.1 : 1,
           }}
           transition={{
-            duration: 0.3,
-            ease: [0.4, 0, 0.2, 1],
+            duration: 0.5,
+            ease: [0.175, 0.885, 0.32, 1.275],
+            delay: isOpen ? 0 : 0.1,
           }}
         />
         
-        {/* Deuxième barre (milieu) */}
-        <motion.path
-          d="M4 12H20"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
+        {/* Deuxième barre (milieu) - disparaît progressivement */}
+        <motion.div
+          className="w-5 h-0.5 bg-current absolute rounded-full origin-center"
           initial={false}
           animate={{
             opacity: isOpen ? 0 : 1,
-            x: isOpen ? 10 : 0,
+            scaleX: isOpen ? 0 : 1,
+            rotate: isOpen ? 90 : 0,
           }}
           transition={{
-            duration: 0.2,
-            ease: [0.4, 0, 0.2, 1],
+            duration: 0.4,
+            ease: [0.175, 0.885, 0.32, 1.275],
+            delay: isOpen ? 0 : 0.2,
           }}
         />
         
-        {/* Troisième barre (bas) */}
-        <motion.path
-          d="M4 18H20"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
+        {/* Troisième barre (bas) - se transforme en partie basse de la croix */}
+        <motion.div
+          className="w-5 h-0.5 bg-current absolute rounded-full origin-center"
           initial={false}
           animate={{
-            d: isOpen ? "M6 18L18 6" : "M4 18H20",
+            rotate: isOpen ? -45 : 0,
+            y: isOpen ? 0 : 6,
+            scaleX: isOpen ? 1.1 : 1,
           }}
           transition={{
-            duration: 0.3,
-            ease: [0.4, 0, 0.2, 1],
+            duration: 0.5,
+            ease: [0.175, 0.885, 0.32, 1.275],
+            delay: isOpen ? 0.05 : 0,
           }}
         />
-      </svg>
+      </div>
     </div>
   );
 }
