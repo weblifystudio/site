@@ -19,45 +19,45 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Marie Dubois",
+    name: "M. Dubois",
     company: "Bloom Café",
     role: "Propriétaire",
-    content: "Weblify Studio a créé un site magnifique pour mon café. L'équipe est professionnelle, à l'écoute et les délais ont été respectés. Je recommande vivement !",
+    content: "Très satisfait du site réalisé pour mon café. L'interface est moderne et les clients trouvent facilement nos informations. Le processus de création a été fluide.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=100&h=100&fit=crop&crop=face",
+    avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%234c82ee'/%3E%3Ctext x='50' y='57' font-family='Arial' font-size='35' font-weight='bold' fill='white' text-anchor='middle'%3EMD%3C/text%3E%3C/svg%3E",
     project: "Site vitrine restaurant",
     location: "Paris 11ème"
   },
   {
     id: 2,
-    name: "Thomas Martin",
+    name: "T. Martin",
     company: "TechConseil",
     role: "Directeur",
-    content: "Excellent travail sur notre site corporate. Design moderne, navigation intuitive et optimisation SEO parfaite. Nos clients sont conquis !",
+    content: "Le site répond parfaitement à nos attentes professionnelles. La navigation est claire et le référencement fonctionne bien. Nous avons gagné en visibilité.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+    avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2316a34a'/%3E%3Ctext x='50' y='57' font-family='Arial' font-size='35' font-weight='bold' fill='white' text-anchor='middle'%3ETM%3C/text%3E%3C/svg%3E",
     project: "Site corporate",
     location: "Paris 8ème"
   },
   {
     id: 3,
-    name: "Sophie Chen",
+    name: "S. Chen",
     company: "Artisan Bijoux",
     role: "Artisan",
-    content: "Mon e-commerce de bijoux a été livré en 6 jours ! Design élégant qui met en valeur mes créations. Les ventes ont doublé depuis le lancement.",
+    content: "L'e-commerce met bien en valeur mes créations. Les photos ressortent bien et le processus de commande est simple. J'ai eu plus de ventes depuis la mise en ligne.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23dc2626'/%3E%3Ctext x='50' y='57' font-family='Arial' font-size='35' font-weight='bold' fill='white' text-anchor='middle'%3ESC%3C/text%3E%3C/svg%3E",
     project: "E-commerce bijouterie",
     location: "Paris 4ème"
   },
   {
     id: 4,
-    name: "Alexandre Durand",
+    name: "A. Durand",
     company: "Cabinet Avocat",
     role: "Avocat associé",
-    content: "Site professionnel parfait pour notre cabinet. Interface sobre, contenu bien structuré et formulaire de contact efficace. Très satisfait du résultat.",
+    content: "Site conforme à nos besoins juridiques. La présentation est professionnelle et les informations sont bien organisées. Nos clients apprécient la clarté.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23b45309'/%3E%3Ctext x='50' y='57' font-family='Arial' font-size='35' font-weight='bold' fill='white' text-anchor='middle'%3EAD%3C/text%3E%3C/svg%3E",
     project: "Site cabinet juridique",
     location: "Paris 1er"
   }
