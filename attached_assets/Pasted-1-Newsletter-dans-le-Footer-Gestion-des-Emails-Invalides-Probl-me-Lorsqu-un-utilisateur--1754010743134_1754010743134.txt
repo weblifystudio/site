@@ -1,0 +1,94 @@
+1. 📩 Newsletter dans le Footer – Gestion des Emails Invalides
+
+Problème :
+	•	Lorsqu’un utilisateur saisit une adresse email invalide dans le champ newsletter (footer), aucun message d’erreur ne s’affiche.
+
+Solution :
+	•	Implémenter une vérification front-end avec un message clair en cas d’erreur (ex : “Adresse email invalide. Veuillez réessayer.”).
+	•	Optionnel : Ajouter une validation côté back-end si ce n’est pas déjà fait.
+	•	Utiliser les standards HTML5 (type="email") + message custom via JS.
+
+⸻
+
+2. 📬 Formulaire de Contact – Email & Téléphone
+
+a. Champ Email :
+	•	Même souci que pour la newsletter : aucune indication si l’email est mal formé.
+
+✅ Solution :
+	•	Ajouter une validation avec message d’erreur visible et accessible pour les emails invalides.
+
+b. Champ Téléphone :
+	•	L’utilisateur est censé entrer un numéro français uniquement (type 06 XX XX XX XX).
+
+✅ Fonctionnalités souhaitées :
+	•	Autoformatage du numéro au fur et à mesure de la saisie (06 12 34 56 78).
+	•	Affichage d’un message d’erreur si :
+	•	Le format est incorrect.
+	•	Le numéro n’est pas français.
+
+💡 Suggestion technique :
+	•	Utiliser une bibliothèque de formatage comme libphonenumber-js ou écrire un masque de saisie custom en JS.
+	•	Ajouter une vérification à la soumission (client et/ou serveur).
+
+⸻
+
+3. 📱 Section “Notre Processus de Création” – Refonte Responsive Design
+
+Problème :
+	•	La section “Notre Processus de Création” dans la page d’accueil n’est pas optimisée pour les écrans mobiles. Le design est actuellement acceptable sur desktop mais peu esthétique et peu lisible sur téléphone.
+
+✅ Solution :
+	•	Repenser entièrement le design responsive :
+	•	Réorganisation verticale claire.
+	•	Espacements adaptés au tactile.
+	•	Icônes/vectoriels plus adaptés.
+	•	Utilisation de Flexbox/Grid pour une adaptation fluide.
+
+⸻
+
+4. ✍️ Section Blog – Création & Contenu SEO
+
+Objectif :
+	•	Créer une section blog visible depuis le menu ou l’accueil, avec un nombre optimal d’articles pour le SEO (ex : 6 à 12).
+
+Spécificités attendues :
+	•	Les articles doivent être :
+	•	Personnels, humains, avec ton d’agence.
+	•	AUCUN contenu générique ou IA visible.
+	•	Focus sur la réalité de la création web, les tendances, l’UX/UI, les conseils concrets pour les clients, les coulisses de ton travail, etc.
+
+✅ Recommandations :
+	•	Créer une base de blogs :
+	•	“Pourquoi travailler avec une agence humaine ?”
+	•	“Les 5 erreurs les plus fréquentes sur un site vitrine”
+	•	“Weblify Studio : notre vision de la création digitale”
+	•	Intégrer les balises structurées SEO (schema.org pour Article).
+
+⸻
+
+5. 🧽 Page Réalisations – Nettoyage du Contenu Générique
+
+Problème :
+	•	Du contenu générique rédigé par une IA ou copié colle semble présent dans la section “Réalisations”.
+
+✅ Solution :
+	•	Faire une relecture complète et remplacer tout contenu générique par :
+	•	Des descriptions précises du projet.
+	•	Le contexte client.
+	•	Les objectifs, le résultat, les outils utilisés, les difficultés, etc.
+	•	Adopter un ton narratif et professionnel/humain, pour valoriser le travail de l’agence.
+
+⸻
+
+6. 🚀 Phrase dans le Footer avec Logo Fusée Animé
+
+Emplacement :
+	•	Juste à côté ou en-dessous du copyright.
+
+Ce que tu veux :
+	•	Une phrase du type :
+Développé avec passion par Weblify Studio
+	•	Avec à la fin, une fusée animée en CSS (pulsation ou glow animé).
+
+✅ Exemple de phrase stylisée :

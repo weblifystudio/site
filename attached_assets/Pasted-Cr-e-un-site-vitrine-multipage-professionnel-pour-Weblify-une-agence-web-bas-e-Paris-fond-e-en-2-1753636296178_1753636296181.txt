@@ -1,0 +1,77 @@
+Crée un site vitrine multipage professionnel pour Weblify, une agence web basée à Paris, fondée en 2025 par Noah Delenclos, développeur full-stack.
+Le site doit être le parfait mélange entre minimalisme, modernité et design percutant, tout en respectant les meilleures pratiques UX/UI et SEO. Il doit donner confiance et impressionner dès la première visite.
+
+⸻
+
+Exigences principales :
+	1.	Langage et structure :
+	•	Le site doit être entièrement en front-end (HTML, CSS, JS), mobile responsive, et 100 % fonctionnel sur navigateur.
+	•	Code propre, humain, lisible et bien commenté (aucune trace de génération IA).
+	•	Arborescence simple, logique et maintenable.
+	2.	Pages :
+	•	Accueil (section phare du site)
+	•	Offres (détail des 3 offres principales : vitrine, premium, sur-mesure avec tarifs à partir de 800€)
+	•	Réalisations (galerie ou carrousel des projets)
+	•	À propos (Noah Delenclos, son expertise, localisation à Paris)
+	•	FAQ (réponses aux questions clés)
+	•	Contact (formulaire fonctionnel avec animation et taux de complétion)
+	•	Mentions légales
+
+⸻
+
+Contenu et sections clés de la page Accueil :
+	1.	Hero Section :
+	•	Slogan impactant (par ex. : “Weblify : créez un site qui vous ressemble, performant et unique”).
+	•	Boutons CTA visibles (« Je veux mon site », « Contactez-nous »).
+	2.	Carrousel dynamique :
+	•	Messages clés (design, rapidité, SEO, accompagnement).
+	3.	4 Points forts Weblify (cartes animées) :
+	•	Rapidité de livraison
+	•	Design esthétique et professionnel
+	•	SEO optimisé
+	•	Expérience utilisateur fluide
+	4.	Services complémentaires (scalabilité) :
+	•	Refonte de sites existants
+	•	Maintenance et mises à jour
+	•	Tests de cybersécurité et débogage
+	•	Vente de templates premium (page dédiée ou section dans Offres)
+	5.	Frise chronologique (Timeline) :
+	•	Montre les étapes de création d’un site (idée → maquette → développement → mise en ligne).
+	•	Ajoute une indication de durée moyenne par étape.
+	6.	Nos engagements :
+	•	Transparence, qualité, rapidité.
+	7.	Formulaire de contact intégré en bas de la page Accueil :
+	•	Nom, email, message, progress bar (%) au fur et à mesure des étapes de remplissage.
+	•	Animation fluide.
+	8.	Footer complet :
+	•	Réseaux sociaux : LinkedIn, Instagram, GitHub, X (Twitter).
+	•	Mentions légales, coordonnées, liens rapides.
+
+⸻
+
+Design et ambiance :
+	•	Palette Weblify :
+	•	Bleu #4D84EF (éléments interactifs, boutons).
+	•	Blanc #FDFDFC (fond principal).
+	•	Noir #060707 (texte principal).
+	•	Polices modernes : Poppins ou Inter.
+	•	Animations :
+	•	Micro-interactions sur boutons (hover doux).
+	•	Scroll et transitions smooth.
+	•	Dark Mode toggle (icône lune/soleil animée).
+	•	Back-to-top bouton avec scroll fluide.
+	•	Effet wow mais sobre : ne pas surcharger d’éléments inutiles.
+
+⸻
+
+Contraintes :
+	•	Ne pas remplir l’Accueil de contenu des autres pages (Offres, Contact, etc.). Chaque page doit avoir son rôle.
+	•	SEO optimisé (structure Hn correcte, balises meta).
+	•	Cookies banner (en bas, fonctionnelle).
+	•	Code 100 % fonctionnel et testable sur serveur local.
+
+⸻
+
+Tonalité :
+	•	Style moderne, professionnel, et qui “en met plein la vue”.
+	•	Le site doit faire office de portfolio premium pour montrer le savoir-faire de Weblify.

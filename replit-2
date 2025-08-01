@@ -1,0 +1,7 @@
+modules = ["nodejs-20"]
+[nix]
+channel = "stable-25_05"
+packages = ["unzip"]
+
+[agent]
+integrations = ["javascript_sendgrid==1.0.0"]

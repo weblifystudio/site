@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Optimisation pour les moteurs de recherche
+Sitemap: https://weblify-studio.com/sitemap.xml
+
+# Blocage des pages administratives (si elles existent)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.env
+Disallow: /package.json
+
+# Autorisation complète pour les pages principales
+Allow: /
+Allow: /offres
+Allow: /realisations
+Allow: /a-propos
+Allow: /contact
+Allow: /faq
+Allow: /blog
+Allow: /mentions-legales
+Allow: /politique-confidentialite
+Allow: /cgv
+Allow: /cookies
+
+# Optimisation crawl budget
+Crawl-delay: 1
