@@ -21,7 +21,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Envoi de l'email de notification
-      const recipientEmail = process.env.CONTACT_EMAIL || 'contact@weblify.fr';
+      const recipientEmail = 'noah.delenclos@gmail.com';
       const emailData = {
         name: validatedData.name,
         email: validatedData.email,

@@ -107,7 +107,19 @@ The application consists of 10 main pages:
 - `npm run start`: Production server
 - `npm run db:push`: Database schema migration
 
-## Recent Changes (January 2025)
+## Recent Changes (February 2025)
+
+### February 1, 2025 - SEO Maximum + Newsletter Autonome + Micro-interactions
+- ✓ **SEO PAROXYSME**: Meta optimisés avec émojis, keywords stratégiques, Schema.org complet (WebDesignService + LocalBusiness)
+- ✓ **NEWSLETTER 100% AUTONOME**: Base PostgreSQL, aucune dépendance externe, emails stockés localement
+- ✓ **MICRO-INTERACTIONS AVANCÉES**: Effets brillance, rotation, scaling sur toutes les cards, animations 500-1000ms
+- ✓ **PORTFOLIO RÉALISTE**: Projets authentiques (Restaurant, Cabinet d'Avocats, E-commerce) avec métriques performance
+- ✓ **EMAILS DIRECTS**: Configuration noah.delenclos@gmail.com pour réception directe des contacts
+- ✓ **CODE NETTOYÉ**: Suppression commentaires inutiles, optimisation performance, 0 erreur LSP
+- ✓ **STRUCTURED DATA**: Rating 4.9/5, reviews authentiques, LocalBusiness géolocalisé Paris
+- ✓ **DATABASE MIGRATION**: Contacts + Newsletter subscribers en PostgreSQL, système complet autonome
+
+## Previous Changes (January 2025)
 
 ### February 1, 2025 - Complete Authenticity & Portfolio Overhaul
 - ✓ **MAJOR**: Removed all real human photos from testimonials section
