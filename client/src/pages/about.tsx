@@ -230,11 +230,11 @@ export default function About() {
                 <Github className="w-5 h-5 text-white" />
               </a>
               <a 
-                href="https://x.com/Weblify_fr" 
+                href="https://x.com/weblifystudio" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors"
-                aria-label="Twitter/X Weblify"
+                aria-label="Twitter/X Weblify Studio"
               >
                 <Twitter className="w-5 h-5 text-white" />
               </a>
