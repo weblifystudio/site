@@ -35,10 +35,11 @@ const contactSchema = z.object({
   email: z.string().email('Adresse email invalide. Veuillez réessayer.'),
   phone: z.string().optional().refine((val) => {
     if (!val) return true; // Optional field
+    // Regex qui accepte tous les numéros français y compris DOM-TOM (05)
     const phoneRegex = /^(?:(?:\+33|0)[1-9](?:[0-9]{8}))$/;
     const cleanPhone = val.replace(/\s/g, '');
     return phoneRegex.test(cleanPhone);
-  }, 'Numéro de téléphone français invalide (ex: 06 12 34 56 78)'),
+  }, 'Numéro de téléphone français invalide (ex: 06 12 34 56 78, 05 94 12 34 56)'),
   budget: z.string().optional(),
   projectTypes: z.array(z.string()).optional(),
   message: z.string().min(10, 'Le message doit contenir au moins 10 caractères'),
