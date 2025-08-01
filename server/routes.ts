@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
 import { sendContactEmail } from "./email";
+import { addToNewsletter } from "./newsletter";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -28,7 +29,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         budget: validatedData.budget || null,
         projectTypes: validatedData.projectTypes as string[] || null,
         message: validatedData.message,
-        newsletter: validatedData.newsletter
+        newsletter: validatedData.newsletter || false
       };
       const emailResult = await sendContactEmail(emailData, recipientEmail);
       
@@ -70,6 +71,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false, 
         message: "Failed to retrieve contacts" 
+      });
+    }
+  });
+
+  // Newsletter subscription
+  app.post("/api/newsletter", async (req, res) => {
+    try {
+      const { email } = req.body;
+      
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ 
+          success: false, 
+          error: "Adresse email invalide" 
+        });
+      }
+
+      const result = await addToNewsletter(email);
+      
+      if (result.success) {
+        console.log(`📧 Newsletter subscription successful for: ${email}`);
+        res.json({ success: true });
+      } else {
+        console.error('Newsletter subscription failed:', result.error);
+        res.status(500).json({ 
+          success: false, 
+          error: result.error 
+        });
+      }
+    } catch (error) {
+      console.error('Newsletter API error:', error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Erreur interne du serveur" 
       });
     }
   });

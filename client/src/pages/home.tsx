@@ -363,14 +363,17 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {keyStrengths.map((strength, index) => (
               <RevealAnimation key={index} delay={index * 200}>
-                <Card className="group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-slide-up">
-                <CardContent className="p-8">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${strength.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <strength.icon className="w-8 h-8 text-white" />
+                <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 animate-slide-up cursor-pointer border-0 hover:border-primary/50 relative overflow-hidden">
+                <CardContent className="p-8 relative">
+                  {/* Effet de brillance au hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  
+                  <div className={`w-16 h-16 bg-gradient-to-br ${strength.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-lg group-hover:shadow-2xl`}>
+                    <strength.icon className="w-8 h-8 text-white group-hover:animate-pulse" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4">{strength.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-6">{strength.description}</p>
-                  <Badge variant="secondary" className="font-semibold">
+                  <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">{strength.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-6 group-hover:text-foreground/80 transition-colors duration-300">{strength.description}</p>
+                  <Badge variant="secondary" className="font-semibold group-hover:bg-primary group-hover:text-white transition-all duration-300 group-hover:scale-105">
                     {strength.highlight}
                   </Badge>
                 </CardContent>
@@ -391,13 +394,16 @@ export default function Home() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {additionalServices.map((service, index) => (
-              <Card key={index} className="hover:shadow-xl transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className={`w-12 h-12 ${service.color} rounded-lg flex items-center justify-center mb-4`}>
+              <Card key={index} className="hover:shadow-xl transition-all duration-500 group cursor-pointer hover:-translate-y-2 hover:border-primary/50 relative overflow-hidden">
+                <CardContent className="p-6 relative">
+                  {/* Effet de brillance */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  
+                  <div className={`w-12 h-12 ${service.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
                     <service.icon className="w-6 h-6" />
                   </div>
-                  <h3 className="font-semibold mb-2">{service.title}</h3>
-                  <p className="text-sm text-muted-foreground">{service.description}</p>
+                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                  <p className="text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">{service.description}</p>
                 </CardContent>
               </Card>
             ))}

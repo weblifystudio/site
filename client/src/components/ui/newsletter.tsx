@@ -28,20 +28,32 @@ export function Newsletter({ variant = 'footer', className = '' }: NewsletterPro
 
     setStatus('loading');
     
-    // Simuler l'inscription (vous pourrez connecter à votre service)
+    // Inscription réelle à la newsletter via API
     try {
-      // TODO: Connecter à votre service de newsletter (Brevo, Mailchimp, etc.)
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setStatus('success');
-      setMessage('Merci ! Vous êtes inscrit(e) à notre newsletter.');
-      setEmail('');
-      
-      // Reset after 3 seconds
-      setTimeout(() => {
-        setStatus('idle');
-        setMessage('');
-      }, 3000);
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setStatus('success');
+        setMessage('Merci ! Vous êtes inscrit(e) à notre newsletter.');
+        setEmail('');
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+          setStatus('idle');
+          setMessage('');
+        }, 3000);
+      } else {
+        setStatus('error');
+        setMessage(result.error || 'Une erreur est survenue. Veuillez réessayer.');
+      }
     } catch (error) {
       setStatus('error');
       setMessage('Une erreur est survenue. Veuillez réessayer.');
