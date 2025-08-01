@@ -62,8 +62,8 @@ export default function Header() {
               <img 
                 src="/Logo_entier.svg" 
                 alt="Weblify Studio Logo Complet"
-                className={`transition-all duration-300 hover:scale-105 dark:filter dark:brightness-0 dark:invert ${
-                  isScrolled ? 'h-8 sm:h-9 lg:h-10' : 'h-9 sm:h-10 lg:h-12'
+                className={`transition-all duration-300 hover:scale-105 dark:invert ${
+                  isScrolled ? 'h-6 sm:h-7 lg:h-8' : 'h-7 sm:h-8 lg:h-9'
                 }`}
               />
             </Link>
