@@ -137,7 +137,8 @@
 
   
   .rocket {
-    animation: rocketFloat 2s ease-in-out infinite;
+    display: inline-block;
+    animation: rocketPulse 2s ease-in-out infinite;
   }
 
   .footer-signature {
@@ -407,12 +408,14 @@
   }
 }
 
-@keyframes rocketFloat {
+@keyframes rocketPulse {
   0%, 100% { 
-    transform: translateY(0px) rotate(0deg); 
+    transform: scale(1);
+    opacity: 1;
   }
   50% { 
-    transform: translateY(-3px) rotate(2deg); 
+    transform: scale(1.1);
+    opacity: 0.8;
   }
 }
 
