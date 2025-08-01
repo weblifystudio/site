@@ -93,20 +93,6 @@ export default function Header() {
                 />
               </g>
             </svg>
-            
-            {/* Texte "Weblify Studio" en ligne horizontale */}
-            <div className="flex items-center space-x-2">
-              <span className={`font-inter font-medium text-black dark:text-white transition-colors duration-300 ${
-                isScrolled ? 'text-2xl sm:text-3xl' : 'text-3xl sm:text-4xl'
-              }`}>
-                Weblify
-              </span>
-              <span className={`font-inter font-medium text-black dark:text-white transition-colors duration-300 ${
-                isScrolled ? 'text-2xl sm:text-3xl' : 'text-3xl sm:text-4xl'
-              }`}>
-                Studio
-              </span>
-            </div>
           </Link>
 
           {/* Desktop Navigation */}
