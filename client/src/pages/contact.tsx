@@ -213,9 +213,9 @@ export default function Contact() {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-muted-foreground">contact@weblifystudio.fr</p>
+                    <p className="text-muted-foreground break-words">contact@weblifystudio.fr</p>
                     <p className="text-sm text-muted-foreground mt-1">
                       Réponse sous 24h garantie
                     </p>

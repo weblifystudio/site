@@ -193,9 +193,9 @@ export default function About() {
                 <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <div className="font-semibold">Email</div>
-                  <div className="text-muted-foreground">contact@weblifystudio.fr</div>
+                  <div className="text-muted-foreground break-words">contact@weblifystudio.fr</div>
                 </div>
               </div>
               

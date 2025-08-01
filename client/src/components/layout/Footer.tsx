@@ -151,8 +151,8 @@ export default function Footer() {
                 <span className="text-gray-300 dark:text-gray-400">Paris, France</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-primary" />
-                <span className="text-gray-300 dark:text-gray-400">contact@weblifystudio.fr</span>
+                <Mail className="h-4 w-4 text-primary flex-shrink-0" />
+                <span className="text-gray-300 dark:text-gray-400 break-words text-sm">contact@weblifystudio.fr</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
