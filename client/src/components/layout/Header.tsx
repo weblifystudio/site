@@ -54,9 +54,10 @@ export default function Header() {
 
       <header className={`fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border z-40 transition-all duration-300 ${isScrolled ? 'header-compact' : ''}`}>
         <div className={`container mx-auto px-6 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
-        <nav className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-4 group" onClick={scrollToTop}>
+        <nav className="flex items-center">
+          {/* Logo - plus vers la gauche */}
+          <div className="flex-shrink-0 mr-8 lg:mr-16">
+            <Link href="/" className="flex items-center group" onClick={scrollToTop}>
             {/* Logo complet original */}
             <svg 
               width="588.13232" 
@@ -93,69 +94,46 @@ export default function Header() {
                 />
               </g>
             </svg>
-          </Link>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={scrollToTop}
-                className={`header-link transition-colors duration-200 text-sm xl:text-base whitespace-nowrap ${
-                  location === item.href
-                    ? 'text-primary font-medium'
-                    : 'text-muted-foreground hover:text-primary'
-                }`}
+          {/* Navigation et Actions - Centré avec espace */}
+          <div className="flex-1 flex items-center justify-between">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={scrollToTop}
+                  className={`header-link transition-colors duration-200 ${
+                    location === item.href
+                      ? 'text-primary font-medium'
+                      : 'text-muted-foreground hover:text-primary'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* Desktop Actions */}
+            <div className="hidden md:flex items-center space-x-4">
+              <ThemeToggle />
+            </div>
+
+            {/* Mobile Actions */}
+            <div className="md:hidden flex items-center space-x-4 ml-auto">
+              <ThemeToggle />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="h-10 w-10 relative"
               >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Tablet Navigation - Compact */}
-          <div className="hidden md:flex lg:hidden items-center space-x-3">
-            {navigation.slice(0, 5).map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={scrollToTop}
-                className={`header-link transition-colors duration-200 text-xs xl:text-sm whitespace-nowrap ${
-                  location === item.href
-                    ? 'text-primary font-medium'
-                    : 'text-muted-foreground hover:text-primary'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-            {/* Menu pour les autres éléments sur tablette */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="px-2 py-1 text-xs"
-            >
-              ⋯
-            </Button>
-          </div>
-
-          {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <ThemeToggle />
-          </div>
-
-          {/* Mobile Actions */}
-          <div className="lg:hidden flex items-center space-x-4">
-            <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="h-10 w-10 relative"
-            >
-              <AnimatedHamburger isOpen={isMobileMenuOpen} />
-            </Button>
+                <AnimatedHamburger isOpen={isMobileMenuOpen} />
+              </Button>
+            </div>
           </div>
         </nav>
 
@@ -163,7 +141,7 @@ export default function Header() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="lg:hidden border-t border-border overflow-hidden"
+              className="md:hidden border-t border-border overflow-hidden"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
