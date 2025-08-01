@@ -57,32 +57,40 @@ export default function Header() {
         <nav className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group" onClick={scrollToTop}>
-            {/* Symbole bleu extrait du vrai logo */}
+            {/* Symbole bleu avec proportions ajustées */}
             <svg 
-              width="120" 
-              height="120" 
-              viewBox="6.9859491 11.817117 120 120"
+              width="130" 
+              height="130" 
+              viewBox="0 0 130 130"
               className={`transition-all duration-300 hover:scale-105 ${
                 isScrolled ? 'h-7 w-7 sm:h-8 sm:w-8' : 'h-8 w-8 sm:h-10 sm:w-10'
               }`}
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                fill="#4c82ee"
-                strokeWidth="0.532945"
-                d="m 19.091414,133.08416 -1.785508,-0.54994 -2.132454,-1.10337 -2.13246,-1.10338 -1.558584,-1.66222 L 9.9238158,127.003 8.4705329,123.81325 7.0172511,120.62347 7.0016001,73.43494 6.9859491,26.246393 8.1127459,22.95578 8.9789656,19.535524 11.328941,16.289661 14.98178,13.951306 18.592905,12.884211 22.20403,11.817117 h 46.730994 46.731026 l 3.63346,0.937865 3.63351,0.937852 2.87688,2.267278 2.87691,2.267288 1.65885,3.3516 1.65888,3.351587 0.19804,46.356253 0.19806,46.35626 -1.06402,3.6167 -1.06402,3.61669 -2.23046,2.67873 -2.23042,2.6787 -2.27942,2.06828 -3.76131,1.45081 -49.261814,0.12577 -49.632273,-0.24468 z m 91.308256,-21.07657 1.16205,-1.17312 0.14067,-36.96226 -0.67541,-36.525265 -0.49726,-0.890328 -1.05347,-0.373851 -39.894493,-0.874056 -40.265704,0.217901 -0.828882,1.186523 -0.586774,1.210733 -0.702125,35.957763 0.266323,34.11771 0.76997,3.73018 1.859478,1.13959 39.029339,0.41159 39.903248,-0.42201 z M 37.578286,93.58562 36.86218,91.71143 l 0.610743,-2.61927 0.975492,-2.16333 17.206096,0.18968 17.297275,0.0985 1.487249,1.72127 0.347421,2.31398 -0.503399,2.35455 -1.187298,1.85301 -2.491616,0.91187 -31.534662,-0.0912 z m 0.51375,-18.73797 -0.759679,-1.49425 -0.227967,-2.30286 0.227967,-2.39403 0.942053,-1.1295 0.942052,-1.12949 H 69.364001 99.51154 l 1.10893,1.57539 1.10892,1.57539 v 1.66098 1.66096 l -0.73741,1.37107 -1.056581,1.64464 -3.162962,0.59272 -56.689699,-0.13678 z m 1.237897,-18.99662 -1.601297,-1.51217 -0.441267,-1.99914 -0.441263,-1.99916 0.72414,-1.895229 1.742023,-1.844335 5.569698,-0.556921 54.916651,0.0045 1.193362,1.87259 0.73741,1.371074 v 1.660981 1.66097 l -0.74417,1.66658 -1.47368,1.4842 -29.47253,0.20637 -29.563713,0.0241 z"
-              />
+              {/* Forme principale du carré bleu avec arrondis équilibrés */}
+              <rect x="15" y="15" width="100" height="100" rx="12" ry="12" fill="#4c82ee" stroke="none"/>
+              
+              {/* Éléments intérieurs stylisés du logo */}
+              <rect x="25" y="25" width="80" height="80" rx="8" ry="8" fill="none" stroke="#ffffff" strokeWidth="2"/>
+              
+              {/* Lignes horizontales intérieures */}
+              <rect x="35" y="40" width="30" height="4" rx="2" fill="#ffffff"/>
+              <rect x="35" y="55" width="50" height="4" rx="2" fill="#ffffff"/>
+              <rect x="35" y="70" width="45" height="4" rx="2" fill="#ffffff"/>
+              
+              {/* Extension arrondie à droite pour équilibrer */}
+              <circle cx="120" cy="65" r="8" fill="#4c82ee"/>
             </svg>
             
-            {/* Texte "Weblify Studio" avec police Inter */}
+            {/* Texte "Weblify Studio" avec police Inter uniforme */}
             <div className="flex flex-col">
-              <span className={`font-inter font-bold text-black dark:text-white transition-colors duration-300 ${
+              <span className={`font-inter font-bold text-black dark:text-white transition-colors duration-300 tracking-tight ${
                 isScrolled ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl'
               }`}>
                 Weblify
               </span>
-              <span className={`font-inter font-medium text-gray-600 dark:text-gray-300 transition-colors duration-300 ${
-                isScrolled ? 'text-xs sm:text-sm' : 'text-sm sm:text-base'
+              <span className={`font-inter font-bold text-black dark:text-white transition-colors duration-300 tracking-tight ${
+                isScrolled ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl'
               }`}>
                 Studio
               </span>
