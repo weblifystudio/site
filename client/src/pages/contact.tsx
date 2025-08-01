@@ -29,6 +29,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
@@ -177,6 +178,11 @@ export default function Contact() {
   return (
     <div className="pt-28 pb-16">
       <div className="container mx-auto px-6">
+        {/* Breadcrumbs */}
+        <div className="mb-8">
+          <Breadcrumbs />
+        </div>
+
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="mb-4">

@@ -109,12 +109,18 @@ The application consists of 10 main pages:
 
 ## Recent Changes (January 2025)
 
-### February 1, 2025 - Animations & Navigation Fixes
-- ✓ **FIXED**: 404 page redirection - automatic redirect to homepage after 2 seconds
-- ✓ **FIXED**: Floating elements positioning - identical layout between home and about pages
-- ✓ **NEW**: Enhanced floating animations with complex trajectories (translation up to 12px, rotation up to 7°, scale variation)
-- ✓ **NEW**: Independent floating elements on both home and about pages with desynchronized movements
-- ✓ **NEW**: Harmonized container dimensions (w-full h-96) for consistent floating element positions
+### February 1, 2025 - Major UX/Navigation Enhancements & Comprehensive Site Improvements
+- ✓ **MAJOR**: Implemented comprehensive professional improvements throughout the site
+- ✓ **NEW**: Interactive FAQ with search functionality and category filters
+- ✓ **NEW**: Testimonials carousel with automatic rotation on homepage
+- ✓ **NEW**: Pricing calculator moved from homepage to /offres page for better UX
+- ✓ **NEW**: Social proof section with statistics and certifications on homepage
+- ✓ **NEW**: Breadcrumbs navigation system on all internal pages
+- ✓ **NEW**: Multi-step contact form component for improved conversion
+- ✓ **NEW**: Mega menu component for enhanced navigation (ready for future integration)
+- ✓ **ENHANCED**: Rocket emoji animation with perfect pulsing brightness effects
+- ✓ **IMPROVED**: Professional testimonials with client ratings and company logos
+- ✓ **OPTIMIZED**: User flow - pricing calculator strategically placed in offers section
 
 ## Previous Changes (January 2025)
 

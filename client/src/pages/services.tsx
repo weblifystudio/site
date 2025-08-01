@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'wouter';
+import PricingCalculator from '@/components/ui/pricing-calculator';
+import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -95,6 +97,11 @@ export default function Services() {
   return (
     <div className="pt-28 pb-16">
       <div className="container mx-auto px-6">
+        {/* Breadcrumbs */}
+        <div className="mb-8">
+          <Breadcrumbs />
+        </div>
+
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="mb-4">
@@ -221,6 +228,9 @@ export default function Services() {
             </div>
           </div>
         </div>
+
+        {/* Calculateur de prix */}
+        <PricingCalculator />
 
         {/* CTA */}
         <div className="mt-20 text-center bg-gradient-to-r from-primary/10 to-blue-50 dark:from-primary/20 dark:to-blue-900/20 rounded-2xl p-12">

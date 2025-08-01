@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import RevealAnimation from '@/components/RevealAnimation';
 import TypewriterText from '@/components/TypewriterText';
 import Testimonials from '@/components/ui/testimonials';
-import PricingCalculator from '@/components/ui/pricing-calculator';
+
 import SocialProof from '@/components/ui/social-proof';
 import { 
   Palette, 
@@ -534,8 +534,7 @@ export default function Home() {
       {/* Testimonials */}
       <Testimonials />
 
-      {/* Pricing Calculator */}
-      <PricingCalculator />
+
 
       {/* CTA Section */}
       <section className="py-20">
