@@ -180,20 +180,20 @@ export default function Home() {
           if (entry.isIntersecting && !countersStarted) {
             setCountersStarted(true);
             
-            // Animation compteur projets (0 -> 50)
+            // Animation compteur projets (0 -> 15)
             let current = 0;
             const projectInterval = setInterval(() => {
               current += 1;
               setProjectsCount(current);
-              if (current >= 50) clearInterval(projectInterval);
+              if (current >= 15) clearInterval(projectInterval);
             }, 40);
             
-            // Animation compteur satisfaction (0 -> 98)
+            // Animation compteur satisfaction (0 -> 100)
             let currentSat = 0;
             const satInterval = setInterval(() => {
               currentSat += 2;
               setSatisfactionCount(currentSat);
-              if (currentSat >= 98) clearInterval(satInterval);
+              if (currentSat >= 100) clearInterval(satInterval);
             }, 40);
             
             // Animation compteur délai (0 -> 7)
