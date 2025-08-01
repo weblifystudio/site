@@ -239,7 +239,7 @@ export default function About() {
                 <Twitter className="w-5 h-5 text-white" />
               </a>
               <a 
-                href="https://www.instagram.com/weblify.studio/" 
+                href="https://www.instagram.com/weblifystudio/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary hover:bg-primary/80 rounded-lg flex items-center justify-center transition-colors"
