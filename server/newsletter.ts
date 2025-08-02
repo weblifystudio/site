@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { z } from 'zod';
 import { storage } from './storage';
 import { sendNewsletterConfirmationEmail, sendNewsletterWelcomeEmail } from './email-templates';
+import { mailchimpService } from './mailchimp';
 
 // Validation des données newsletter
 const newsletterSchema = z.object({
@@ -78,6 +79,24 @@ export async function subscribeToNewsletter(req: Request, res: Response) {
       isActive: true,
     });
     
+    // Ajouter à Mailchimp (si configuré)
+    const mailchimpListId = process.env.MAILCHIMP_LIST_ID;
+    if (mailchimpListId) {
+      const mailchimpResult = await mailchimpService.addSubscriber({
+        email: validatedData.email,
+        firstName: validatedData.firstName,
+        lastName: validatedData.lastName,
+        interests: validatedData.interests,
+        source: validatedData.source
+      }, mailchimpListId);
+      
+      if (mailchimpResult.success) {
+        console.log(`✅ Abonné ajouté à Mailchimp : ${validatedData.email}`);
+      } else {
+        console.warn(`⚠️ Erreur Mailchimp : ${mailchimpResult.error}`);
+      }
+    }
+
     // Envoyer email de confirmation
     await sendNewsletterConfirmationEmail(
       validatedData.email, 

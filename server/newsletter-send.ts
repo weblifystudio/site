@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { storage } from './storage';
+import { mailchimpService } from './mailchimp';
 
 // Schema pour l'envoi de newsletter
 const sendNewsletterSchema = z.object({
@@ -113,8 +114,28 @@ export async function sendNewsletter(req: Request, res: Response) {
       }
     }
     
-    // Envoi des emails
-    await sendBulkEmails(targetSubscribers, validatedData.subject, validatedData.content);
+    // Envoi via Mailchimp (si configuré) ou simulation
+    const mailchimpListId = process.env.MAILCHIMP_LIST_ID;
+    
+    if (mailchimpListId && process.env.MAILCHIMP_API_KEY) {
+      // Envoi via Mailchimp
+      const campaignResult = await mailchimpService.createAndSendCampaign({
+        subject: validatedData.subject,
+        content: validatedData.content,
+        listId: mailchimpListId
+      });
+      
+      if (!campaignResult.success) {
+        return res.status(500).json({
+          message: `Erreur envoi Mailchimp : ${campaignResult.error}`
+        });
+      }
+      
+      console.log(`✅ Newsletter envoyée via Mailchimp - Campagne : ${campaignResult.campaignId}`);
+    } else {
+      // Mode simulation (comme avant)
+      await sendBulkEmails(targetSubscribers, validatedData.subject, validatedData.content);
+    }
     
     // Enregistrer l'envoi dans l'historique (optionnel)
     // await storage.saveNewsletterCampaign({
