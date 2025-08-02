@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
-// Email système supprimé par l'utilisateur
+import { sendContactEmail } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -19,8 +19,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log(`📧 ${validatedData.name} s'est abonné(e) à la newsletter`);
       }
 
-      // Log simple du contact (email système supprimé)
-      console.log(`📧 Nouveau contact: ${validatedData.name} (${validatedData.email})`);
+      // Envoi de l'email de notification
+      const recipientEmail = 'noah.delenclos@gmail.com';
+      const emailData = {
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone || null,
+        budget: validatedData.budget || null,
+        projectTypes: validatedData.projectTypes as string[] || null,
+        message: validatedData.message,
+        newsletter: validatedData.newsletter || false
+      };
+      const emailResult = await sendContactEmail(emailData, recipientEmail);
+      
+      if (emailResult.success) {
+        console.log('✅ Contact form submitted and email sent successfully');
+      } else {
+        console.warn('⚠️ Contact form submitted but email failed:', emailResult.error);
+      }
       
       res.json({ 
         success: true, 

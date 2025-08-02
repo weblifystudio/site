@@ -11,7 +11,6 @@ import Portfolio from "@/pages/portfolio";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 
-
 import About from "@/pages/about";
 import FAQ from "@/pages/faq";
 import Contact from "@/pages/contact-simple";
@@ -55,7 +54,6 @@ function Router() {
       <Route path="/realisations" component={Portfolio} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
-
       <Route path="/a-propos" component={About} />
       <Route path="/faq" component={FAQ} />
       <Route path="/contact" component={Contact} />
