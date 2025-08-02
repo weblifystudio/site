@@ -1,10 +1,31 @@
 import express, { type Request, Response, NextFunction } from "express";
+import https from "https";
+import http from "http";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { generateSelfSignedCert, securityHeaders } from "./ssl-config";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Middleware de redirection HTTPS (uniquement en production)
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production' && req.header('x-forwarded-proto') !== 'https') {
+    res.redirect(`https://${req.header('host')}${req.url}`);
+  } else {
+    next();
+  }
+});
+
+// Middleware de sécurité SSL
+app.use((req, res, next) => {
+  // Application des headers de sécurité
+  Object.entries(securityHeaders).forEach(([key, value]) => {
+    res.setHeader(key, value);
+  });
+  next();
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -56,12 +77,30 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
+  // Configuration SSL/HTTPS
   const port = parseInt(process.env.PORT || '5000', 10);
- server.listen(port, "0.0.0.0", () => {
-  log(`serving on port ${port}`);
-});
+  const httpsPort = parseInt(process.env.HTTPS_PORT || '5443', 10);
+
+  // Serveur HTTP principal (requis par Replit)
+  server.listen(port, "0.0.0.0", () => {
+    log(`🌐 HTTP Server serving on port ${port}`);
+    log(`🔒 SSL Security headers enabled`);
+    log(`✅ Ready for HTTPS deployment on Replit`);
+  });
+
+  // Configuration HTTPS pour développement local (optionnel)
+  if (process.env.NODE_ENV === 'development' && process.env.ENABLE_HTTPS === 'true') {
+    try {
+      const sslConfig = generateSelfSignedCert();
+      if (sslConfig) {
+        const httpsServer = https.createServer(sslConfig, app);
+        httpsServer.listen(httpsPort, "0.0.0.0", () => {
+          log(`🔐 HTTPS Development server on port ${httpsPort}`);
+          log(`⚠️ Using self-signed certificate for development`);
+        });
+      }
+    } catch (error) {
+      log(`⚠️ HTTPS development setup failed: ${error}`);
+    }
+  }
 })();

@@ -60,3 +60,9 @@ The application follows a monorepo structure, separating client and server code.
 
 ### Analytics & Integration
 - **Web Analytics**: Google Analytics 4 (with RGPD-compliant consent management)
+
+### Security & SSL
+- **SSL/TLS Configuration**: Comprehensive security headers and HTTPS setup
+- **Security Headers**: HSTS, CSP, X-Frame-Options, and more for maximum protection
+- **Auto-HTTPS Redirect**: Automatic redirection to HTTPS in production
+- **Development SSL**: Optional self-signed certificates for local HTTPS testing
