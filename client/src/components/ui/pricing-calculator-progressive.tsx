@@ -195,7 +195,7 @@ export default function PricingCalculatorProgressive() {
 
   return (
     <section className="py-12 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-7xl">
         <div className="max-w-6xl mx-auto">
           
           {/* Indicateur d'étapes simplifié */}
@@ -240,13 +240,13 @@ export default function PricingCalculatorProgressive() {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Configuration progressive */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 max-w-4xl mx-auto lg:mx-0">
               
               {/* Étape 1: Coordonnées */}
               {currentStep === 1 && (
-                <Card className="animate-fade-in shadow-lg">
+                <Card className="animate-fade-in shadow-lg max-w-4xl mx-auto">
                   <CardHeader className="pb-6">
                     <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
                       Pour commencer, nous avons besoin de quelques informations
@@ -338,7 +338,7 @@ export default function PricingCalculatorProgressive() {
 
               {/* Étape 2: Type de site + Pages */}
               {currentStep === 2 && (
-                <Card className="animate-fade-in shadow-lg">
+                <Card className="animate-fade-in shadow-lg max-w-5xl mx-auto">
                   <CardHeader className="pb-6">
                     <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
                       Sélectionnez l'option qui correspond le mieux à votre projet
@@ -432,7 +432,7 @@ export default function PricingCalculatorProgressive() {
 
               {/* Étape 3: Délai et fonctionnalités */}
               {currentStep === 3 && baseOption && (
-                <Card className="animate-fade-in">
+                <Card className="animate-fade-in max-w-5xl mx-auto">
                   <CardHeader>
                     <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
                       Délai de livraison et options supplémentaires
@@ -562,7 +562,7 @@ export default function PricingCalculatorProgressive() {
 
               {/* Étape 4: Récapitulatif */}
               {currentStep === 4 && baseOption && (
-                <Card className="animate-fade-in" id="configuration-summary">
+                <Card className="animate-fade-in max-w-5xl mx-auto" id="configuration-summary">
                   <CardHeader>
                     <h3 className="text-2xl font-bold text-center">Récapitulatif de votre projet</h3>
                     <p className="text-center text-gray-600 dark:text-gray-300">
