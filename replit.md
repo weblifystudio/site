@@ -1,7 +1,7 @@
 # Weblify Studio - Professional Web Agency Website
 
 ## Overview
-Weblify Studio is a professional multi-page showcase website for a web agency, built as a modern full-stack application. Its purpose is to present the agency's services, portfolio, and vision with a focus on minimalist design, performance, and professional presentation. Key capabilities include service showcasing, project portfolio, contact management, and comprehensive legal compliance. The project aims to establish a strong online presence for the agency and facilitate client interaction.
+Weblify Studio is a professional multi-page showcase website for a web agency, built as a modern full-stack application developed by Noah Delenclos. Its purpose is to present the agency's services, portfolio, and vision with a focus on minimalist design, performance, and professional presentation. Key capabilities include service showcasing, project portfolio, contact management, and comprehensive legal compliance. The project aims to establish a strong online presence for the agency and facilitate client interaction.
 
 ## Recent Changes (August 2025)
 **Production-Ready Status Achieved:**

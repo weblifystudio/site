@@ -1,4 +1,4 @@
-// Composant pour générer automatiquement un devis PDF
+// Composant pour la génération de devis PDF personnalisés
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, Mail, FileText, Calculator } from 'lucide-react';
@@ -41,7 +41,7 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         setPdfGenerated(true);
         
         if (result.isHtml) {
-          // Téléchargement direct du fichier HTML avec décodage UTF-8 correct
+          // Téléchargement direct du fichier HTML avec encodage UTF-8
           const htmlContent = decodeURIComponent(escape(atob(result.htmlContent)));
           const blob = new Blob([htmlContent], { type: 'text/html; charset=utf-8' });
           const url = window.URL.createObjectURL(blob);
@@ -53,7 +53,7 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
           a.click();
           window.URL.revokeObjectURL(url);
           document.body.removeChild(a);
-          console.log('📄 Devis HTML téléchargé avec correction UTF-8');
+          console.log('📄 Devis HTML téléchargé avec succès');
         }
       } else {
         console.error('Erreur génération devis:', result.error);

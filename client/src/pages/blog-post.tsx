@@ -129,11 +129,11 @@ Fini les animations gratuites ! En 2025, chaque micro-interaction doit avoir un 
 
 **Exemple concret :** Un bouton de validation qui se transforme en coche verte avec une légère vibration (sur mobile) créé une sensation de réussite immédiate.
 
-## 2. IA intégrée naturellement
+## 2. Technologies avancées intégrées
 
-L'IA n'est plus un gadget, c'est un outil au service de l'expérience utilisateur. Chatbots intelligents, personnalisation de contenu, optimisation automatique des performances.
+Les technologies intelligentes ne sont plus un gadget, c'est un outil au service de l'expérience utilisateur. Chatbots dynamiques, personnalisation de contenu, optimisation automatique des performances.
 
-**Notre approche :** Intégration discrète mais efficace. L'utilisateur bénéficie de l'IA sans même s'en rendre compte.
+**Notre approche :** Intégration discrète mais efficace. L'utilisateur bénéficie de ces technologies sans même s'en rendre compte.
 
 ## 3. Éco-conception obligatoire
 
