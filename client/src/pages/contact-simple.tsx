@@ -26,6 +26,7 @@ const contactSchema = z.object({
   name: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
   email: z.string().email('Adresse email invalide'),
   phone: z.string().optional(),
+  subject: z.string().optional(),
   message: z.string().min(10, 'Le message doit contenir au moins 10 caractères'),
   newsletter: z.boolean().default(false),
 });
@@ -42,6 +43,7 @@ export default function Contact() {
       name: '',
       email: '',
       phone: '',
+      subject: '',
       message: '',
       newsletter: false,
     },
@@ -49,13 +51,10 @@ export default function Contact() {
 
   const mutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
-      return apiRequest('/api/contact', {
-        method: 'POST',
-        body: JSON.stringify({
-          ...data,
-          budget: 'Non spécifié',
-          projectTypes: ['Demande générale'],
-        }),
+      return apiRequest('/api/contact', 'POST', {
+        ...data,
+        budget: 'Non spécifié',
+        projectTypes: ['Contact général'],
       });
     },
     onSuccess: () => {
@@ -229,6 +228,20 @@ export default function Contact() {
                             <FormLabel>Email *</FormLabel>
                             <FormControl>
                               <Input placeholder="votre@email.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Sujet</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Objet de votre message" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>

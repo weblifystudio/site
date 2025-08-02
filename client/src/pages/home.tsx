@@ -549,9 +549,14 @@ export default function Home() {
           <p className="text-xl text-muted-foreground mb-8">
             Transformons votre vision en réalité digitale
           </p>
-          <Button asChild size="lg" className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
-            <Link href="/contact" onClick={scrollToTop}>Contactez-nous maintenant</Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+              <Link href="/offres" onClick={scrollToTop}>🚀 Calculer mon devis</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+              <Link href="/contact" onClick={scrollToTop}>Nous contacter</Link>
+            </Button>
+          </div>
         </div>
       </section>
     </div>
