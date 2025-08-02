@@ -66,7 +66,6 @@ export default function Services() {
         {/* Additional Services */}
         <div className="bg-muted/50 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Services Complémentaires</h2>
             <p className="text-muted-foreground">
               Optimisez et maintenez votre présence web avec nos services additionnels
             </p>
