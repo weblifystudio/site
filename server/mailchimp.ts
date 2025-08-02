@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+// Utilisation de l'API fetch native de Node.js 18+
 
 interface MailchimpSubscriber {
   email: string;
@@ -16,8 +16,8 @@ interface MailchimpCampaign {
 
 class MailchimpService {
   private apiKey: string;
-  private serverPrefix: string;
-  private baseUrl: string;
+  private serverPrefix: string = '';
+  private baseUrl: string = '';
 
   constructor() {
     this.apiKey = process.env.MAILCHIMP_API_KEY || '';
@@ -70,12 +70,12 @@ class MailchimpService {
       } else {
         const error = await response.text();
         console.error(`❌ Erreur Mailchimp : ${error}`);
-        return { success: false, error };
+        return { success: false, error: error };
       }
 
     } catch (error) {
       console.error('❌ Erreur connexion Mailchimp :', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
     }
   }
 
@@ -88,7 +88,7 @@ class MailchimpService {
 
     try {
       // Hash MD5 de l'email pour l'API Mailchimp
-      const crypto = require('crypto');
+      const crypto = await import('crypto');
       const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
 
       const response = await fetch(`${this.baseUrl}/lists/${listId}/members/${emailHash}`, {
@@ -107,7 +107,7 @@ class MailchimpService {
 
     } catch (error) {
       console.error('❌ Erreur désabonnement Mailchimp :', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
     }
   }
 
@@ -181,7 +181,7 @@ class MailchimpService {
 
     } catch (error) {
       console.error('❌ Erreur campagne Mailchimp :', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
     }
   }
 
@@ -223,7 +223,7 @@ class MailchimpService {
 
     } catch (error) {
       console.error('❌ Erreur stats Mailchimp :', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
     }
   }
 
