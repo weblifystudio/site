@@ -84,10 +84,8 @@ export default function PricingCalculatorProgressive() {
   const goToNextStep = () => setCurrentStep(prev => prev + 1);
   const goToPreviousStep = () => setCurrentStep(prev => Math.max(1, prev - 1));
   const goToStep = (step: number) => {
-    // Permettre de revenir aux étapes déjà complétées ou à la suivante
-    if (step <= Math.max(currentStep, getMaxCompletedStep())) {
-      setCurrentStep(step);
-    }
+    // Toutes les étapes sont toujours accessibles
+    setCurrentStep(step);
   };
 
   // Déterminer la dernière étape complétée
@@ -196,26 +194,22 @@ export default function PricingCalculatorProgressive() {
               {[1, 2, 3, 4].map((step, index) => {
                 const isCompleted = step < currentStep;
                 const isCurrent = step === currentStep;
-                const isAccessible = step <= Math.max(currentStep, getMaxCompletedStep());
                 
                 return (
                   <div key={step} className="flex items-center flex-shrink-0">
                     <div 
                       onClick={() => goToStep(step)}
-                      className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${
+                      className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-colors duration-300 ${
                         isCurrent
-                          ? 'bg-primary text-white shadow-lg scale-110 ring-4 ring-primary/20' 
+                          ? 'bg-primary text-white shadow-lg' 
                           : isCompleted
-                          ? 'bg-green-500 text-white shadow-lg cursor-pointer hover:bg-green-600 hover:scale-105'
-                          : isAccessible
-                          ? 'bg-primary/70 text-white shadow cursor-pointer hover:bg-primary hover:scale-105'
-                          : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                          ? 'bg-green-500 text-white shadow-lg cursor-pointer hover:bg-green-600'
+                          : 'bg-primary/30 text-primary cursor-pointer hover:bg-primary/50'
                       }`}
                       title={
                         isCompleted ? `Étape ${step} complétée - Cliquer pour modifier` :
                         isCurrent ? `Étape ${step} en cours` :
-                        isAccessible ? `Aller à l'étape ${step}` :
-                        `Étape ${step} non accessible`
+                        `Aller à l'étape ${step}`
                       }
                     >
                       {isCompleted ? '✓' : step}
