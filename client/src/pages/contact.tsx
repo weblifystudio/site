@@ -186,10 +186,11 @@ export default function Contact() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Démarrons Votre Projet
+            Concrétisons votre projet ensemble
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Parlez-nous de votre vision, nous la transformerons en réalité digitale
+            Réponse sous 24h garantie. Devis gratuit et conseils personnalisés 
+            pour transformer votre vision en succès digital.
           </p>
         </div>
 

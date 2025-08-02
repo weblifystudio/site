@@ -52,11 +52,11 @@ export default function Services() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Choisissez la solution qui vous correspond
+            Estimez votre projet en temps réel
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Des offres transparentes et adaptées à tous les budgets, 
-            du site vitrine simple au développement sur-mesure.
+            Calculateur intelligent, devis instantané et tarifs transparents. 
+            Découvrez le prix de votre site web en quelques clics.
           </p>
         </div>
 

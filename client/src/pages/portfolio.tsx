@@ -80,11 +80,11 @@ export default function Portfolio() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Découvrez nos derniers projets
+            Portfolio en construction
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Chaque projet est unique et reflète l'identité de nos clients. 
-            Explorez notre portfolio et laissez-vous inspirer.
+            Agence récente fondée en 2025, nos premiers projets clients 
+            seront bientôt présentés ici. Découvrez notre expertise dès maintenant.
           </p>
         </div>
 
