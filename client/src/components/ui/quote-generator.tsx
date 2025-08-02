@@ -1,7 +1,7 @@
 // Composant pour générer automatiquement un devis PDF
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Download, Mail, FileText } from 'lucide-react';
+import { Download, Mail, FileText, Calculator } from 'lucide-react';
 
 interface QuoteGeneratorProps {
   calculatorData: {
