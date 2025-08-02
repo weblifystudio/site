@@ -109,6 +109,14 @@ The application consists of 10 main pages:
 
 ## Recent Changes (February 2025)
 
+### February 2, 2025 - Email Autonome Total + SEO Breadcrumbs Complet
+- ✓ **EMAIL 100% AUTONOME**: Suppression complète Brevo/SendGrid, système propre PostgreSQL
+- ✓ **TABLE EMAILS**: Stockage local de tous les messages de contact dans `emails` table
+- ✓ **API EMAILS**: GET /api/emails et PATCH /api/emails/:id/read pour administration
+- ✓ **BREADCRUMBS PARTOUT**: Fil d'Ariane ajouté sur TOUTES les 14 pages du site pour SEO maximum
+- ✓ **SEO OPTIMAL**: Navigation structurée sur chaque page pour améliorer le référencement
+- ✓ **AUTONOMIE TOTALE**: Plus aucune dépendance externe, contrôle complet des emails
+
 ### February 1, 2025 - SEO Maximum + Newsletter Autonome + Micro-interactions
 - ✓ **SEO PAROXYSME**: Meta optimisés avec émojis, keywords stratégiques, Schema.org complet (WebDesignService + LocalBusiness)
 - ✓ **NEWSLETTER 100% AUTONOME**: Base PostgreSQL, aucune dépendance externe, emails stockés localement

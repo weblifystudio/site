@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, Calendar, Clock, User, Share2, BookOpen } from 'lucide-react';
+import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -315,6 +316,12 @@ export default function BlogPost() {
   return (
     <div className="pt-28 pb-16">
       <div className="container mx-auto px-6">
+        {/* Breadcrumbs */}
+        <Breadcrumbs className="mb-8" items={[
+          { label: 'Blog', href: '/blog' },
+          { label: post.title }
+        ]} />
+        
         {/* Breadcrumb et retour */}
         <div className="mb-8">
           <Link href="/blog" onClick={scrollToTop}>

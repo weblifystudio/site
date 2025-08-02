@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useState, useEffect } from 'react';
+import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 export default function Cookies() {
   useEffect(() => {
@@ -70,6 +71,9 @@ export default function Cookies() {
   return (
     <div className="pt-28 pb-16">
       <div className="container mx-auto px-6">
+        {/* Breadcrumbs */}
+        <Breadcrumbs className="mb-8" />
+        
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="mb-4">

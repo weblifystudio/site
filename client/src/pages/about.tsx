@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'wouter';
+import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -12,6 +13,9 @@ export default function About() {
   return (
     <div className="pt-28 pb-16">
       <div className="container mx-auto px-6">
+        {/* Breadcrumbs */}
+        <Breadcrumbs className="mb-8" />
+        
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="mb-4">

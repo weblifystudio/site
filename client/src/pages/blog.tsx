@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, ArrowRight, User, Tag, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
+import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -312,6 +313,9 @@ export default function Blog() {
   return (
     <div className="pt-28 pb-16">
       <div className="container mx-auto px-6">
+        {/* Breadcrumbs */}
+        <Breadcrumbs className="mb-8" />
+        
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="mb-4">
