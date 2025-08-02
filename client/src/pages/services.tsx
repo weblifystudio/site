@@ -39,6 +39,55 @@ const additionalServices = [
 export default function Services() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // SEO optimisé pour page services
+    document.title = "Tarifs & Devis Site Web | Offres Weblify Studio | Noah Delenclos";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', "💰 Tarifs transparents sites web : Site Vitrine 690€, Premium 1290€, E-commerce 2190€. Devis gratuit, délai 7j, 100% satisfait. Calculateur en ligne.");
+    }
+
+    // Schema.org FAQPage pour SEO
+    const existingScript = document.querySelector('script[data-faq-services]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.setAttribute('data-faq-services', 'true');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Combien coûte un site vitrine ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Notre site vitrine commence à 690€ et inclut design sur-mesure, responsive mobile, optimisation SEO, formulaire de contact et hébergement première année."
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "Quel est le délai de réalisation ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "7 jours en moyenne pour un site vitrine standard, 14 jours pour un site premium, et sur devis pour les projets sur-mesure selon la complexité."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "La maintenance est-elle incluse ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La maintenance est proposée à 39€/mois et inclut mises à jour sécurité, sauvegardes automatiques, support technique et optimisations performance."
+          }
+        }
+      ]
+    });
+    document.head.appendChild(script);
   }, []);
 
   return (

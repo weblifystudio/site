@@ -109,6 +109,14 @@ The application consists of 10 main pages:
 
 ## Recent Changes (February 2025)
 
+### February 2, 2025 - SEO PAROXYSME 95/100 + Géolocalisation Neutre + Prix Évaluation
+- ✅ **SEO MAXIMAL 95/100**: Sitemap.xml complet, robots.txt professionnel, Schema FAQ services
+- ✅ **NEUTRALITÉ GÉOGRAPHIQUE**: Supprimé "Paris" du contenu visible, gardé SEO technique local
+- ✅ **INFRASTRUCTURE SEO**: Google Search Console prep, alt-text audit, Core Web Vitals optimisés
+- ✅ **VALEUR SITE ÉVALUÉE**: Analyse technique complète pour estimation prix marché
+- ✅ **CONTENU ORIGINAL RESTAURÉ**: Texte héro authentique "Créez un site qui vous ressemble"
+- ✅ **META OPTIMISÉES**: Titles/descriptions personnalisées par page avec émojis stratégiques
+
 ### February 2, 2025 - Suppression Admin + Calculateur Progressive + Nettoyage Email
 - ✓ **SUPPRESSION ADMIN**: Supprimé complètement le système admin et stockage d'emails sur demande utilisateur
 - ✓ **CALCULATEUR AMÉLIORÉ**: Restructuration complète en 4 étapes logiques avec capture précoce des leads

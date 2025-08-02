@@ -1,3 +1,4 @@
+import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import InteractiveFAQ from '@/components/ui/interactive-faq';
@@ -9,6 +10,16 @@ const scrollToTop = () => {
 };
 
 export default function FAQ() {
+  // SEO optimisé pour page FAQ
+  React.useEffect(() => {
+    document.title = "FAQ Sites Web - Questions Fréquentes | Weblify Studio";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', "❓ FAQ complète création sites web : prix, délais, maintenance, SEO. Toutes vos réponses par Noah Delenclos - Weblify Studio.");
+    }
+  }, []);
+
   return (
     <div className="min-h-screen pt-20">
       <div className="container mx-auto px-6 py-12">
