@@ -26,6 +26,7 @@ const contactValidationSchema = z.object({
 import { sendContactEmail } from "./email";
 import { createFormRateLimiter } from "./security-middleware";
 import { subscribeToNewsletter, unsubscribeFromNewsletter, getNewsletterStats, updateNewsletterPreferences } from "./newsletter";
+import { sendNewsletter, getNewsletterSubscribers } from "./newsletter-send";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission avec protection renforcée
@@ -143,6 +144,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/newsletter/unsubscribe", unsubscribeFromNewsletter);
   app.get("/api/newsletter/stats", getNewsletterStats);
   app.put("/api/newsletter/preferences/:email", updateNewsletterPreferences);
+  app.post("/api/newsletter/send", createFormRateLimiter(), sendNewsletter);
+  app.get("/api/newsletter/subscribers", getNewsletterSubscribers);
 
   const httpServer = createServer(app);
   return httpServer;

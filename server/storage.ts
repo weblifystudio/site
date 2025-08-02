@@ -19,6 +19,8 @@ export interface IStorage {
   createNewsletterSubscriber(subscriber: InsertNewsletterSubscriber): Promise<NewsletterSubscriber>;
   getNewsletterSubscriber(email: string): Promise<NewsletterSubscriber | undefined>;
   updateNewsletterSubscriber(email: string, updates: Partial<NewsletterSubscriber>): Promise<NewsletterSubscriber>;
+  getAllNewsletterSubscribers(): Promise<NewsletterSubscriber[]>;
+  getActiveNewsletterSubscribers(): Promise<NewsletterSubscriber[]>;
   getNewsletterStats(): Promise<{
     totalSubscribers: number;
     activeSubscribers: number;
@@ -60,6 +62,14 @@ export class DatabaseStorage implements IStorage {
       .where(eq(newsletterSubscribers.email, email))
       .returning();
     return updatedSubscriber;
+  }
+
+  async getAllNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
+    return await db.select().from(newsletterSubscribers).orderBy(newsletterSubscribers.subscribedAt);
+  }
+
+  async getActiveNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
+    return await db.select().from(newsletterSubscribers).where(eq(newsletterSubscribers.isActive, true));
   }
 
   async getNewsletterStats(): Promise<{
