@@ -10,13 +10,23 @@ interface EmailWithPDFData {
 export async function sendQuoteByEmail(data: EmailWithPDFData): Promise<{ success: boolean; error?: string }> {
   try {
     console.log(`
-📧 DEVIS ENVOYÉ PAR EMAIL
+📧 NOUVEAU DEVIS GÉNÉRÉ - ENVOI DOUBLE
 ==========================================
 Client: ${data.name}
-Email: ${data.email}
-Devis: ${data.quoteNumber}
+Email client: ${data.email}
+Devis N°: ${data.quoteNumber}
 Montant: ${data.totalPrice}€
-PDF: ${Math.round(data.pdfBuffer.length / 1024)}KB
+Taille PDF: ${Math.round(data.pdfBuffer.length / 1024)}KB
+
+📤 ENVOIS À EFFECTUER:
+1. ✉️  Pour VOUS (Noah) : contact@weblify-studio.fr
+   → "Nouveau devis généré pour ${data.name}"
+   → PDF en pièce jointe
+
+2. ✉️  Pour CLIENT (${data.name}) : ${data.email}
+   → "Votre devis Weblify Studio est prêt"
+   → PDF en pièce jointe
+
 Date: ${new Date().toLocaleString('fr-FR', { 
   timeZone: 'Europe/Paris',
   year: 'numeric',
@@ -25,15 +35,12 @@ Date: ${new Date().toLocaleString('fr-FR', {
   hour: '2-digit',
   minute: '2-digit'
 })}
+
+💡 AVEC VOTRE SOLUTION EMAIL:
+- Envoyer le PDF à ces 2 adresses
+- Adapter les messages selon le destinataire
+- Le client peut signer et renvoyer le devis
 ==========================================
-
-✅ PDF sauvegardé localement pour envoi manuel
-📎 Fichier: Devis-${data.quoteNumber}.pdf (${Math.round(data.pdfBuffer.length / 1024)}KB)
-
-💡 ACTIONS SUGGÉRÉES:
-1. Télécharger le PDF depuis votre navigateur
-2. L'envoyer manuellement à ${data.email}
-3. Ou configurer un service d'email pour automatiser
     `);
 
     return { success: true };

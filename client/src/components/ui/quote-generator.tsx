@@ -85,7 +85,7 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
           Votre devis <strong>{quoteNumber}</strong> a été téléchargé automatiquement.
           <br />
           <span className="text-sm">
-            💡 Pour recevoir le devis par email, contactez-nous ou configurez l'envoi automatique.
+            📧 Le devis sera envoyé par email à vous ET à votre client via votre solution d'email personnelle.
           </span>
         </p>
         

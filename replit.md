@@ -117,6 +117,8 @@ The application consists of 10 main pages:
 - ✓ **NAVIGATION LIBRE**: Toutes les bulles d'étapes cliquables, animations supprimées qui déformaient
 - ✓ **SYSTÈME ULTRA-SIMPLIFIÉ**: Contact en log uniquement, utilisateur gère ses propres emails
 - ✓ **NETTOYAGE TOTAL**: MailerSend supprimé, 0 dépendance email, système 100% autonome
+- ✓ **DEVIS PDF AUTOMATIQUE**: Génération PDF professionnelle avec design Weblify Studio et mentions légales
+- ✓ **ENVOI DOUBLE**: Système préparé pour envoyer le devis à l'agence ET au client simultanément
 
 ### February 1, 2025 - SEO Maximum + Newsletter Autonome + Micro-interactions
 - ✓ **SEO PAROXYSME**: Meta optimisés avec émojis, keywords stratégiques, Schema.org complet (WebDesignService + LocalBusiness)

@@ -104,7 +104,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Retour du PDF en base64 pour téléchargement + notification email
       res.json({
         success: true,
-        message: "Devis généré et téléchargé ! Instructions d'envoi dans les logs serveur.",
+        message: "Devis généré ! Téléchargé automatiquement et prêt pour envoi double (vous + client).",
         quoteNumber: quoteData.quoteNumber,
         pdfBase64: pdfBuffer.toString('base64'),
         contact: savedContact,
