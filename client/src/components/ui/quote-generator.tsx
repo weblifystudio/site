@@ -40,8 +40,28 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         setQuoteNumber(result.quoteNumber);
         setPdfGenerated(true);
         
-        if (result.isHtml) {
-          // Téléchargement direct du fichier HTML avec décodage UTF-8 correct
+        if (result.isPdf) {
+          // Téléchargement PDF direct avec jsPDF
+          const pdfContent = atob(result.pdfContent);
+          const bytes = new Uint8Array(pdfContent.length);
+          for (let i = 0; i < pdfContent.length; i++) {
+            bytes[i] = pdfContent.charCodeAt(i);
+          }
+          
+          const blob = new Blob([bytes], { type: 'application/pdf' });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = `Devis-Weblify-Studio-${result.quoteNumber}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+          console.log('📄 Devis PDF téléchargé directement');
+          
+        } else if (result.isHtml) {
+          // Fallback HTML si PDF échoue
           const htmlContent = decodeURIComponent(escape(atob(result.htmlContent)));
           const blob = new Blob([htmlContent], { type: 'text/html; charset=utf-8' });
           const url = window.URL.createObjectURL(blob);
@@ -53,24 +73,7 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
           a.click();
           window.URL.revokeObjectURL(url);
           document.body.removeChild(a);
-          console.log('📄 Devis HTML téléchargé avec correction UTF-8');
-        } else {
-          // Fallback pour le téléchargement PDF (si disponible)
-          const pdfBlob = new Blob([
-            Uint8Array.from(atob(result.pdfBase64), c => c.charCodeAt(0))
-          ], { type: 'application/pdf' });
-          
-          const url = window.URL.createObjectURL(pdfBlob);
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.href = url;
-          a.download = `Devis-Weblify-Studio-${result.quoteNumber}.pdf`;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-          
-          console.log('📄 Devis téléchargé automatiquement');
+          console.log('📄 Devis HTML téléchargé (fallback)');
         }
       } else {
         console.error('Erreur génération devis:', result.error);
