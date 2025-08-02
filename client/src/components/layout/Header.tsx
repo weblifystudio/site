@@ -63,14 +63,14 @@ export default function Header() {
                 src="/Logo_entier.svg" 
                 alt="Weblify Studio Logo Complet"
                 className={`transition-all duration-300 dark:hidden ${
-                  isScrolled ? 'h-7 sm:h-8 lg:h-9' : 'h-8 sm:h-9 lg:h-10'
+                  isScrolled ? 'h-6 sm:h-7 lg:h-8' : 'h-7 sm:h-8 lg:h-9'
                 }`}
               />
               <img 
                 src="/Logo_entier_dark.svg" 
                 alt="Weblify Studio Logo Complet"
                 className={`transition-all duration-300 hidden dark:block ${
-                  isScrolled ? 'h-7 sm:h-8 lg:h-9' : 'h-8 sm:h-9 lg:h-10'
+                  isScrolled ? 'h-6 sm:h-7 lg:h-8' : 'h-7 sm:h-8 lg:h-9'
                 }`}
               />
             </Link>
