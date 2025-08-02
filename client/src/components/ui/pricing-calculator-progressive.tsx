@@ -55,7 +55,7 @@ const additionalFeatures: Feature[] = [
   { id: 'illustrations', name: 'Illustrations personnalisées', price: 250, description: 'Créations graphiques uniques', category: 'design' },
   
   // Fonctionnalités
-  { id: 'actualites', name: 'Section actualités', price: 210, description: 'Système de news et articles', category: 'fonctionnalite' },
+  { id: 'blog', name: 'Blog intégré', price: 210, description: 'Système de blog avec articles', category: 'fonctionnalite' },
   { id: 'multilingue', name: 'Site multilingue', price: 340, description: 'Gestion de plusieurs langues', category: 'fonctionnalite' },
   { id: 'booking', name: 'Système de réservation', price: 420, description: 'Calendrier et prise de RDV', category: 'fonctionnalite' },
   { id: 'crm', name: 'CRM intégré', price: 490, description: 'Gestion de la relation client', category: 'fonctionnalite' },

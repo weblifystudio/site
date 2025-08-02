@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Search, MessageSquare, Clock, Settings, Euro } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { MessageSquare, Clock, Settings, Euro } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import {
   Accordion,
@@ -171,21 +170,10 @@ const categoryIcons = {
 };
 
 export default function InteractiveFAQ() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const filteredFAQs = useMemo(() => {
     let filtered = faqData;
-
-    // Filter by search term
-    if (searchTerm) {
-      filtered = filtered.filter(
-        faq =>
-          faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          faq.answer.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          faq.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
 
     // Filter by category
     if (selectedCategory !== 'all') {
@@ -198,26 +186,14 @@ export default function InteractiveFAQ() {
       if (!a.popular && b.popular) return 1;
       return 0;
     });
-  }, [searchTerm, selectedCategory]);
+  }, [selectedCategory]);
 
   const categories = Object.keys(categoryLabels) as Array<keyof typeof categoryLabels>;
 
   return (
     <div className="space-y-8">
-      {/* Search and Filters */}
+      {/* Category Filters */}
       <div className="space-y-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input
-            type="text"
-            placeholder="Rechercher dans les questions fréquentes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
-        </div>
-
-        {/* Category Filters */}
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setSelectedCategory('all')}
@@ -255,11 +231,10 @@ export default function InteractiveFAQ() {
 
 
 
-      {/* Search Results Count */}
-      {(searchTerm || selectedCategory !== 'all') && (
+      {/* Results Count */}
+      {selectedCategory !== 'all' && (
         <div className="text-sm text-gray-600 dark:text-gray-300">
           {filteredFAQs.length} question{filteredFAQs.length > 1 ? 's' : ''} trouvée{filteredFAQs.length > 1 ? 's' : ''}
-          {searchTerm && ` pour "${searchTerm}"`}
           {selectedCategory !== 'all' && ` dans la catégorie "${categoryLabels[selectedCategory as keyof typeof categoryLabels]}"`}
         </div>
       )}
@@ -314,16 +289,15 @@ export default function InteractiveFAQ() {
             Aucune question trouvée
           </h3>
           <p className="text-gray-500 dark:text-gray-400 mb-4">
-            Essayez d'autres mots-clés ou consultez toutes les questions.
+            Consultez toutes les questions ou changez de catégorie.
           </p>
           <button
             onClick={() => {
-              setSearchTerm('');
               setSelectedCategory('all');
             }}
             className="text-primary hover:underline font-medium"
           >
-            Réinitialiser les filtres
+            Voir toutes les questions
           </button>
         </div>
       )}

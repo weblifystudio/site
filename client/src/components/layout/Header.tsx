@@ -30,7 +30,7 @@ export default function Header() {
     { name: 'Accueil', href: '/' },
     { name: 'Offres', href: '/offres' },
     { name: 'Réalisations', href: '/realisations' },
-
+    { name: 'Blog', href: '/blog' },
     { name: 'À propos', href: '/a-propos' },
     { name: 'FAQ', href: '/faq' },
     { name: 'Contact', href: '/contact' },

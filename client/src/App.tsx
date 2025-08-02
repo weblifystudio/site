@@ -8,6 +8,8 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Services from "@/pages/services";
 import Portfolio from "@/pages/portfolio";
+import Blog from "@/pages/blog";
+import BlogPost from "@/pages/blog-post";
 
 
 import About from "@/pages/about";
@@ -51,6 +53,8 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/offres" component={Services} />
       <Route path="/realisations" component={Portfolio} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogPost} />
 
       <Route path="/a-propos" component={About} />
       <Route path="/faq" component={FAQ} />
