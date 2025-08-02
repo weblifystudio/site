@@ -244,7 +244,7 @@ export default function Home() {
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="hover:bg-primary/90 transition-colors duration-200">
-                  <Link href="/contact" onClick={scrollToTop}>Je veux mon site</Link>
+                  <Link href="/offres" onClick={scrollToTop}>🚀 Je veux mon devis</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="hover:bg-secondary transition-colors duration-200">
                   <Link href="/contact" onClick={scrollToTop}>Contactez-nous</Link>

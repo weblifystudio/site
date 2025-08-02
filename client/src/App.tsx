@@ -15,7 +15,7 @@ import AdminLogin from "@/pages/admin-login";
 import AdminCompose from "@/pages/admin-compose";
 import About from "@/pages/about";
 import FAQ from "@/pages/faq";
-import Contact from "@/pages/contact";
+import Contact from "@/pages/contact-simple";
 import Legal from "@/pages/legal";
 import CGV from "@/pages/cgv";
 import Privacy from "@/pages/privacy";

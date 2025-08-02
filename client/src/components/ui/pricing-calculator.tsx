@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Calculator, ArrowRight, Zap } from 'lucide-react';
+import ContactFormIntegrated from '@/components/ui/contact-form-integrated';
 
 interface PricingOption {
   id: string;
@@ -328,18 +329,34 @@ export default function PricingCalculator() {
                   </div>
                 </div>
 
-                <Button className="w-full" size="lg">
-                  Demander un devis détaillé
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Button 
+                  className="w-full" 
+                  size="lg"
+                  onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <Calculator className="w-4 h-4 mr-2" />
+                  Commander ce projet
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
 
-                <p className="text-xs text-center text-gray-500">
-                  * Estimation indicative. Le prix final sera ajusté selon vos besoins exacts.
-                </p>
+                <div className="text-center">
+                  <p className="text-xs text-gray-500">
+                    Estimation basée sur vos sélections • Devis final après étude personnalisée
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
+        
+        {/* Formulaire de Contact Intégré */}
+        <ContactFormIntegrated 
+          selectedBase={selectedBase}
+          selectedFeatures={selectedFeatures}
+          pages={pages[0]}
+          timeline={timeline[0]}
+          totalPrice={calculateTotal()}
+        />
       </div>
     </section>
   );
