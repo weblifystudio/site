@@ -6,7 +6,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight, User, Mail, Phone, Building, Lightbulb, TrendingUp, Star } from 'lucide-react';
+import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight, User, Mail, Phone, Building } from 'lucide-react';
 import { QuoteGenerator } from '@/components/ui/quote-generator';
 
 interface PricingOption {
@@ -82,113 +82,18 @@ export default function PricingCalculatorProgressive() {
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [pages, setPages] = useState([8]);
   const [expressDelivery, setExpressDelivery] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showRecommendations, setShowRecommendations] = useState(false);
-
-  // Sauvegarde automatique dans localStorage
-  useEffect(() => {
-    const savedData = localStorage.getItem('weblify-calculator-data');
-    if (savedData) {
-      try {
-        const data = JSON.parse(savedData);
-        setContactInfo(data.contactInfo || contactInfo);
-        setSelectedBase(data.selectedBase || '');
-        setSelectedFeatures(data.selectedFeatures || []);
-        setPages(data.pages || [8]);
-        setExpressDelivery(data.expressDelivery || false);
-        setCurrentStep(data.currentStep || 1);
-      } catch (e) {
-        console.log('Erreur lors du chargement des données sauvegardées');
-      }
-    }
-  }, []);
-
-  // Sauvegarde automatique à chaque modification
-  useEffect(() => {
-    const dataToSave = {
-      contactInfo,
-      selectedBase,
-      selectedFeatures,
-      pages,
-      expressDelivery,
-      currentStep
-    };
-    localStorage.setItem('weblify-calculator-data', JSON.stringify(dataToSave));
-  }, [contactInfo, selectedBase, selectedFeatures, pages, expressDelivery, currentStep]);
   
   const baseOption = baseOptions.find(opt => opt.id === selectedBase);
 
   const handleBaseSelection = (baseId: string) => {
     setSelectedBase(baseId);
-    setTimeout(() => setCurrentStep(2), 300);
+    setCurrentStep(2);
   };
 
-  const goToNextStep = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentStep(prev => prev + 1);
-      setIsTransitioning(false);
-    }, 150);
-  };
-
-  const goToPreviousStep = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentStep(prev => Math.max(1, prev - 1));
-      setIsTransitioning(false);
-    }, 150);
-  };
-
+  const goToNextStep = () => setCurrentStep(prev => prev + 1);
+  const goToPreviousStep = () => setCurrentStep(prev => Math.max(1, prev - 1));
   const goToStep = (step: number) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentStep(step);
-      setIsTransitioning(false);
-    }, 150);
-  };
-
-  // Recommandations intelligentes
-  const getSmartRecommendations = () => {
-    const recommendations = [];
-    
-    if (selectedBase === 'vitrine' && pages[0] <= 8) {
-      recommendations.push({
-        id: 'seo-advanced',
-        reason: 'Essentiel pour être trouvé sur Google',
-        impact: '+200% de visibilité'
-      });
-    }
-    
-    if (selectedBase === 'ecommerce' && !selectedFeatures.includes('analytics')) {
-      recommendations.push({
-        id: 'analytics',
-        reason: 'Crucial pour optimiser vos ventes',
-        impact: '+30% de conversions'
-      });
-    }
-    
-    if (pages[0] > 12 && !selectedFeatures.includes('blog')) {
-      recommendations.push({
-        id: 'blog',
-        reason: 'Génère du trafic qualifié',
-        impact: '+150% de visiteurs'
-      });
-    }
-    
-    return recommendations;
-  };
-
-  // Calcul ROI pour chaque fonctionnalité
-  const getFeatureROI = (featureId: string) => {
-    const roiMap: Record<string, { roi: string; timeToReturn: string }> = {
-      'seo-advanced': { roi: '400%', timeToReturn: '3 mois' },
-      'analytics': { roi: '300%', timeToReturn: '1 mois' },
-      'blog': { roi: '250%', timeToReturn: '6 mois' },
-      'newsletter': { roi: '350%', timeToReturn: '2 mois' },
-      'booking': { roi: '500%', timeToReturn: '1 mois' },
-      'crm': { roi: '200%', timeToReturn: '4 mois' }
-    };
-    return roiMap[featureId];
+    setCurrentStep(step);
   };
 
   // Calcul automatique du délai de livraison basé sur la complexité
@@ -285,16 +190,8 @@ export default function PricingCalculatorProgressive() {
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="max-w-6xl mx-auto">
           
-          {/* Progress bar animée */}
-          <div className="mb-8">
-            <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
-              <div 
-                className="bg-gradient-to-r from-primary to-blue-600 h-2 rounded-full transition-all duration-700 ease-out"
-                style={{ width: `${(currentStep / 4) * 100}%` }}
-              />
-            </div>
-            
-            {/* Indicateur d'étapes avec animations */}
+          {/* Indicateur d'étapes simplifié */}
+          <div className="mb-6">
             <div className="flex items-center justify-center space-x-3 md:space-x-8 overflow-x-auto px-4">
               {[1, 2, 3, 4].map((step, index) => {
                 const isCompleted = step < currentStep;
@@ -315,7 +212,7 @@ export default function PricingCalculatorProgressive() {
                       {isCompleted ? '✓' : step}
                     </div>
                     {index < 3 && (
-                      <div className={`w-8 md:w-16 h-1 mx-2 md:mx-4 transition-all duration-700 ${
+                      <div className={`w-8 md:w-16 h-1 mx-2 md:mx-4 transition-all ${
                         step < currentStep ? 'bg-green-500' : step === currentStep ? 'bg-primary' : 'bg-gray-200'
                       }`} />
                     )}
@@ -324,7 +221,7 @@ export default function PricingCalculatorProgressive() {
               })}
             </div>
             <div className="text-center mt-4">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200 transition-all duration-300">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200">
                 {currentStep <= 4 ? stepTitles[currentStep - 1] : "Configuration terminée"}
               </h2>
             </div>
@@ -333,39 +230,12 @@ export default function PricingCalculatorProgressive() {
           {/* Container principal centré */}
           <div className="max-w-4xl mx-auto px-4">
             {/* Configuration progressive */}
-            <div className={`w-full transition-all duration-300 ${isTransitioning ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
-              
-              {/* Support mobile - Navigation swipe */}
-              <div className="md:hidden mb-4 flex justify-center space-x-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={goToPreviousStep}
-                  disabled={currentStep <= 1}
-                  className="touch-manipulation min-h-[44px]"
-                >
-                  ← Précédent
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={goToNextStep}
-                  disabled={currentStep >= 4}
-                  className="touch-manipulation min-h-[44px]"
-                >
-                  Suivant →
-                </Button>
-              </div>
+            <div className="w-full">
               
               {/* Étape 1: Coordonnées */}
               {currentStep === 1 && (
-                <Card className="animate-fade-in shadow-lg w-full hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
+                <Card className="animate-fade-in shadow-lg w-full">
                   <CardHeader className="pb-6">
-                    <div className="flex items-center justify-center mb-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                        <User className="w-6 h-6 text-primary" />
-                      </div>
-                    </div>
                     <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
                       Pour commencer, nous avons besoin de quelques informations
                     </p>
@@ -382,8 +252,7 @@ export default function PricingCalculatorProgressive() {
                           value={contactInfo.firstName}
                           onChange={(e) => setContactInfo({...contactInfo, firstName: e.target.value})}
                           placeholder="Votre prénom"
-                          className="h-12 focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                          autoComplete="given-name"
+                          className="h-12"
                         />
                       </div>
                       <div className="space-y-2">
@@ -396,8 +265,7 @@ export default function PricingCalculatorProgressive() {
                           value={contactInfo.lastName}
                           onChange={(e) => setContactInfo({...contactInfo, lastName: e.target.value})}
                           placeholder="Votre nom"
-                          className="h-12 focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                          autoComplete="family-name"
+                          className="h-12"
                         />
                       </div>
                       <div className="space-y-2">
@@ -411,9 +279,7 @@ export default function PricingCalculatorProgressive() {
                           value={contactInfo.email}
                           onChange={(e) => setContactInfo({...contactInfo, email: e.target.value})}
                           placeholder="votre.email@exemple.com"
-                          className="h-12 focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                          autoComplete="email"
-                          inputMode="email"
+                          className="h-12"
                         />
                       </div>
                       <div className="space-y-2">
@@ -427,9 +293,7 @@ export default function PricingCalculatorProgressive() {
                           value={contactInfo.phone}
                           onChange={(e) => setContactInfo({...contactInfo, phone: e.target.value})}
                           placeholder="06 12 34 56 78"
-                          className="h-12 focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                          autoComplete="tel"
-                          inputMode="tel"
+                          className="h-12"
                         />
                       </div>
                       <div className="space-y-2 md:col-span-2">
@@ -442,8 +306,7 @@ export default function PricingCalculatorProgressive() {
                           value={contactInfo.company}
                           onChange={(e) => setContactInfo({...contactInfo, company: e.target.value})}
                           placeholder="Nom de votre entreprise"
-                          className="h-12 focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                          autoComplete="organization"
+                          className="h-12"
                         />
                       </div>
                     </div>
@@ -452,7 +315,6 @@ export default function PricingCalculatorProgressive() {
                         onClick={goToNextStep}
                         disabled={!contactInfo.firstName || !contactInfo.lastName || !contactInfo.email || !contactInfo.phone}
                         size="lg"
-                        className="hover:shadow-lg transform hover:scale-105 transition-all duration-200 min-h-[44px] touch-manipulation"
                       >
                         Continuer
                         <ArrowRight className="w-4 h-4 ml-2" />
@@ -464,25 +326,7 @@ export default function PricingCalculatorProgressive() {
 
               {/* Étape 2: Type de site + Pages */}
               {currentStep === 2 && (
-                <Card className="animate-fade-in shadow-lg w-full hover:shadow-xl transition-all duration-300">
-                  {/* Recommandations intelligentes */}
-                  {showRecommendations && getSmartRecommendations().length > 0 && (
-                    <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 border-b">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Lightbulb className="w-5 h-5 text-yellow-500" />
-                        <span className="font-semibold text-blue-800 dark:text-blue-200">Recommandations personnalisées</span>
-                      </div>
-                      <div className="space-y-2">
-                        {getSmartRecommendations().slice(0, 2).map((rec, index) => (
-                          <div key={index} className="text-sm bg-white/60 dark:bg-gray-800/60 rounded p-2">
-                            <span className="font-medium">{additionalFeatures.find(f => f.id === rec.id)?.name}</span>
-                            <span className="text-gray-600 dark:text-gray-300 ml-2">{rec.reason}</span>
-                            <Badge variant="outline" className="ml-2 text-xs">{rec.impact}</Badge>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                <Card className="animate-fade-in shadow-lg w-full">
                   <CardHeader className="pb-6">
                     <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
                       Sélectionnez l'option qui correspond le mieux à votre projet
@@ -496,12 +340,9 @@ export default function PricingCalculatorProgressive() {
                         {baseOptions.map((option) => (
                           <div
                             key={option.id}
-                            onClick={() => {
-                              setSelectedBase(option.id);
-                              setShowRecommendations(true);
-                            }}
-                            className={`relative p-6 rounded-xl border-2 cursor-pointer transition-all duration-300 hover:border-primary hover:shadow-xl group min-h-[160px] flex flex-col justify-between transform hover:scale-105 touch-manipulation ${
-                              selectedBase === option.id ? 'border-primary bg-primary/5 shadow-lg scale-105' : 'border-gray-200 hover:bg-gray-50/50'
+                            onClick={() => setSelectedBase(option.id)}
+                            className={`relative p-6 rounded-xl border-2 cursor-pointer transition-all hover:border-primary hover:shadow-xl group min-h-[160px] flex flex-col justify-between ${
+                              selectedBase === option.id ? 'border-primary bg-primary/5' : 'border-gray-200'
                             }`}
                           >
                             {option.popular && (
@@ -562,20 +403,12 @@ export default function PricingCalculatorProgressive() {
                     )}
 
                     <div className="flex justify-between pt-4">
-                      <Button 
-                        variant="outline" 
-                        onClick={goToPreviousStep}
-                        className="hover:shadow-md transform hover:scale-105 transition-all duration-200 min-h-[44px] touch-manipulation"
-                      >
+                      <Button variant="outline" onClick={goToPreviousStep}>
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Retour
                       </Button>
                       {selectedBase && (
-                        <Button 
-                          onClick={goToNextStep} 
-                          size="lg"
-                          className="hover:shadow-lg transform hover:scale-105 transition-all duration-200 min-h-[44px] touch-manipulation"
-                        >
+                        <Button onClick={goToNextStep} size="lg">
                           Continuer
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
@@ -657,7 +490,7 @@ export default function PricingCalculatorProgressive() {
                               {features.map((feature) => (
                                 <div
                                   key={feature.id}
-                                  className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200 border hover:border-primary/30 hover:shadow-md transform hover:scale-[1.02] touch-manipulation"
+                                  className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border"
                                 >
                                   <Checkbox
                                     id={feature.id}
@@ -675,28 +508,13 @@ export default function PricingCalculatorProgressive() {
                                       htmlFor={feature.id}
                                       className="text-sm font-medium cursor-pointer"
                                     >
-                                      <div className="flex items-center justify-between">
-                                        <span>{feature.name}</span>
-                                        <div className="flex items-center gap-2">
-                                          <span className="text-primary font-semibold">
-                                            +{feature.price}€{feature.category === 'maintenance' ? '/mois' : ''}
-                                          </span>
-                                          {getFeatureROI(feature.id) && (
-                                            <Badge variant="outline" className="text-xs bg-green-50 text-green-700 border-green-200">
-                                              <TrendingUp className="w-3 h-3 mr-1" />
-                                              ROI {getFeatureROI(feature.id)?.roi}
-                                            </Badge>
-                                          )}
-                                        </div>
-                                      </div>
+                                      {feature.name}
+                                      <span className="text-primary font-semibold ml-2">
+                                        +{feature.price}€{feature.category === 'maintenance' ? '/mois' : ''}
+                                      </span>
                                     </label>
                                     <p className="text-xs text-gray-500 mt-1">
                                       {feature.description}
-                                      {getFeatureROI(feature.id) && (
-                                        <span className="block text-green-600 font-medium mt-1">
-                                          💡 Retour sur investissement en {getFeatureROI(feature.id)?.timeToReturn}
-                                        </span>
-                                      )}
                                     </p>
                                   </div>
                                 </div>
@@ -708,11 +526,7 @@ export default function PricingCalculatorProgressive() {
                     </div>
 
                     <div className="flex justify-between pt-4">
-                      <Button 
-                        variant="outline" 
-                        onClick={goToPreviousStep}
-                        className="hover:shadow-md transform hover:scale-105 transition-all duration-200 min-h-[44px] touch-manipulation"
-                      >
+                      <Button variant="outline" onClick={goToPreviousStep}>
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Retour
                       </Button>
@@ -724,7 +538,6 @@ export default function PricingCalculatorProgressive() {
                           }, 100);
                         }}
                         size="lg"
-                        className="hover:shadow-lg transform hover:scale-105 transition-all duration-200 min-h-[44px] touch-manipulation"
                       >
                         <Calculator className="w-4 h-4 mr-2" />
                         Voir mon récapitulatif
@@ -813,28 +626,11 @@ export default function PricingCalculatorProgressive() {
 
                     <div className="flex flex-col gap-4 pt-6">
                       <div className="flex justify-between">
-                        <Button 
-                          variant="outline" 
-                          onClick={goToPreviousStep}
-                          className="hover:shadow-md transform hover:scale-105 transition-all duration-200 min-h-[44px] touch-manipulation"
-                        >
+                        <Button variant="outline" onClick={goToPreviousStep}>
                           <ArrowLeft className="w-4 h-4 mr-2" />
                           Modifier ma configuration
                         </Button>
                       </div>
-
-                      {/* Résumé des économies potentielles */}
-                      {selectedFeatures.some(id => getFeatureROI(id)) && (
-                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-lg border border-green-200">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Star className="w-5 h-5 text-green-600" />
-                            <span className="font-semibold text-green-800 dark:text-green-200">Potentiel de retour sur investissement</span>
-                          </div>
-                          <p className="text-sm text-green-700 dark:text-green-300">
-                            Avec vos fonctionnalités sélectionnées, vous pourriez récupérer votre investissement et générer des profits supplémentaires dès les premiers mois.
-                          </p>
-                        </div>
-                      )}
                       
                       <div className="text-center">
                         <QuoteGenerator
