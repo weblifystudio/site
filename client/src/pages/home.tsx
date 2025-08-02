@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import RevealAnimation from '@/components/RevealAnimation';
 import TypewriterText from '@/components/TypewriterText';
-import Testimonials from '@/components/ui/testimonials';
+// import Testimonials from '@/components/ui/testimonials';
 
 import SocialProof from '@/components/ui/social-proof';
 import { 
@@ -600,8 +600,7 @@ export default function Home() {
       {/* Social Proof */}
       <SocialProof />
 
-      {/* Testimonials */}
-      <Testimonials />
+      {/* Testimonials section removed during optimization */}
 
 
 

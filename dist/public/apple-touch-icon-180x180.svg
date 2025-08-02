@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <defs>
+    <style>
+      .apple-bg { fill: #4c82ee; }
+      .apple-lines { fill: #ffffff; }
+    </style>
+  </defs>
+  <rect class="apple-bg" width="180" height="180" rx="40"/>
+  <g class="apple-lines">
+    <rect x="36" y="54" width="108" height="18" rx="6"/>
+    <rect x="36" y="81" width="84" height="18" rx="6"/>
+    <rect x="36" y="108" width="60" height="18" rx="6"/>
+  </g>
+</svg>

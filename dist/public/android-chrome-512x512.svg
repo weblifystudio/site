@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .android-bg { fill: #4c82ee; }
+      .android-lines { fill: #ffffff; }
+    </style>
+  </defs>
+  <rect class="android-bg" width="512" height="512" rx="96"/>
+  <g class="android-lines">
+    <rect x="96" y="144" width="320" height="48" rx="16"/>
+    <rect x="96" y="224" width="256" height="48" rx="16"/>
+    <rect x="96" y="304" width="192" height="48" rx="16"/>
+  </g>
+</svg>

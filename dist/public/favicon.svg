@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .logo-bg { fill: #4c82ee; }
+      .logo-lines { fill: #ffffff; }
+      @media (prefers-color-scheme: dark) {
+        .logo-bg { fill: #60a5fa; }
+      }
+    </style>
+  </defs>
+  <rect class="logo-bg" width="64" height="64" rx="12"/>
+  <g class="logo-lines">
+    <rect x="12" y="18" width="40" height="6" rx="2"/>
+    <rect x="12" y="28" width="32" height="6" rx="2"/>
+    <rect x="12" y="38" width="24" height="6" rx="2"/>
+  </g>
+</svg>
