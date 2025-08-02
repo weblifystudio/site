@@ -169,7 +169,7 @@ export default function Home() {
   const [hoveredStep, setHoveredStep] = useState(null);
   const statsRef = useRef(null);
 
-  // Fonction pour simuler la progression des étapes
+  // Fonction pour marquer une étape comme terminée
   const handleStepClick = (stepNumber) => {
     setCompletedSteps(prev => {
       const newCompleted = new Set(prev);
@@ -181,6 +181,8 @@ export default function Home() {
       return newCompleted;
     });
   };
+
+
 
   useEffect(() => {
     const interval = setInterval(() => {
