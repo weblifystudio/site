@@ -503,19 +503,7 @@ ${post.content}
           )}
         </section>
 
-        {/* Newsletter CTA */}
-        <section className="mt-16 bg-gradient-to-r from-primary/5 to-blue-600/5 border border-primary/20 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold mb-4">Ne manquez aucun conseil</h2>
-          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-            Recevez nos nouveaux articles directement dans votre boîte mail. 
-            Conseils pratiques, retours d'expérience et tendances web.
-          </p>
-          <Button asChild size="lg">
-            <Link href="/contact" onClick={scrollToTop}>
-              S'abonner à la newsletter
-            </Link>
-          </Button>
-        </section>
+
       </div>
     </div>
   );
