@@ -13,8 +13,14 @@ export const createRateLimiter = () => {
     legacyHeaders: false,
     skip: (req) => {
       // Skip rate limiting pour les assets en développement
-      if (process.env.NODE_ENV === 'development' && req.url.match(/\.(css|js|ts|tsx|jsx|json|svg|png|jpg|ico|woff|woff2)$/)) {
-        return true;
+      if (process.env.NODE_ENV === 'development') {
+        // Skip pour tous les assets et modules Vite
+        if (req.url.match(/\.(css|js|ts|tsx|jsx|json|svg|png|jpg|ico|woff|woff2|map)$/) || 
+            req.url.startsWith('/@') || 
+            req.url.includes('?v=') ||
+            req.url.startsWith('/src/')) {
+          return true;
+        }
       }
       return false;
     }
@@ -43,12 +49,18 @@ export const compressionMiddleware = (req: Request, res: Response, next: NextFun
 
 // Middleware de cache optimisé
 export const cacheMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  // Cache statique pour les assets
-  if (req.url.match(/\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
+  // En développement, pas de cache pour permettre le HMR
+  if (process.env.NODE_ENV === 'development') {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+  // Cache statique pour les assets en production
+  else if (req.url.match(/\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
     res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1 an
     res.setHeader('Expires', new Date(Date.now() + 31536000000).toUTCString());
   } 
-  // Cache court pour les pages HTML
+  // Cache court pour les pages HTML en production
   else if (req.url.match(/\.(html|htm)$/) || req.path === '/') {
     res.setHeader('Cache-Control', 'public, max-age=3600'); // 1 heure
   }

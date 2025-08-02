@@ -48,19 +48,23 @@ app.use(helmet({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 
-// Middleware de sécurité et optimisation
-app.use(createRateLimiter()); // Protection DDoS
-app.use(corsMiddleware); // CORS sécurisé
-app.use(sanitizeMiddleware); // Protection injections
+// Middleware de sécurité et optimisation (conditionnel pour éviter conflicts avec Vite)
+if (process.env.NODE_ENV === "production") {
+  app.use(createRateLimiter()); // Protection DDoS
+  app.use(corsMiddleware); // CORS sécurisé
+  app.use(sanitizeMiddleware); // Protection injections
+  app.use(cacheMiddleware); // Optimisation cache
+  app.use(compressionMiddleware); // Headers compression
+}
 app.use(performanceMiddleware); // Monitoring performances
-app.use(cacheMiddleware); // Optimisation cache
-app.use(compressionMiddleware); // Headers compression
 
-// Middleware SEO
-app.use(seoMiddleware); // Headers SEO
-app.use(webVitalsMiddleware); // Core Web Vitals
-app.use(sitemapMiddleware); // Sitemap automatique
-app.use(robotsMiddleware); // Robots.txt
+// Middleware SEO (conditionnel pour éviter conflicts avec Vite)
+if (process.env.NODE_ENV === "production") {
+  app.use(seoMiddleware); // Headers SEO
+  app.use(webVitalsMiddleware); // Core Web Vitals
+  app.use(sitemapMiddleware); // Sitemap automatique
+  app.use(robotsMiddleware); // Robots.txt
+}
 
 // Monitoring
 app.use(healthCheckMiddleware); // /health endpoint
@@ -131,7 +135,7 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
+  if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
