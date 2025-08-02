@@ -23,7 +23,7 @@
   <rect width="1200" height="630" fill="url(#ogGradient)"/>
   
   <!-- Logo centré -->
-  <g transform="translate(540, 215)">
+  <g transform="translate(540, 185)">
     <rect class="og-logo-bg" width="120" height="120" rx="24"/>
     <g class="og-logo-lines">
       <rect x="24" y="36" width="72" height="12" rx="4"/>
