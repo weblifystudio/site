@@ -173,46 +173,31 @@ export default function PricingCalculatorProgressive() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <section className="py-12 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           
-          {/* Indicateur d'étapes amélioré */}
-          <div className="mb-8">
-            <div className="flex items-center justify-center space-x-2 md:space-x-6 overflow-x-auto px-4">
-              {[
-                { num: 1, name: "Type" },
-                { num: 2, name: "Pages" }, 
-                { num: 3, name: "Délai" },
-                { num: 4, name: "Options" },
-                { num: 5, name: "Commande" }
-              ].map((step, index) => (
-                <div key={step.num} className="flex items-center flex-shrink-0">
-                  <div className="text-center">
-                    <div className={`w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold transition-all duration-300 ${
-                      step.num <= currentStep 
-                        ? 'bg-primary text-white shadow-lg scale-110' 
-                        : 'bg-gray-200 text-gray-500'
-                    }`}>
-                      {step.num}
-                    </div>
-                    <div className={`mt-2 text-xs font-medium transition-colors ${
-                      step.num <= currentStep 
-                        ? 'text-primary' 
-                        : 'text-gray-400'
-                    }`}>
-                      {step.name}
-                    </div>
+          {/* Indicateur d'étapes simplifié */}
+          <div className="mb-6">
+            <div className="flex items-center justify-center space-x-3 md:space-x-8 overflow-x-auto px-4">
+              {[1, 2, 3, 4, 5].map((step, index) => (
+                <div key={step} className="flex items-center flex-shrink-0">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${
+                    step <= currentStep 
+                      ? 'bg-primary text-white shadow-lg' 
+                      : 'bg-gray-200 text-gray-500'
+                  }`}>
+                    {step}
                   </div>
                   {index < 4 && (
-                    <div className={`w-6 md:w-12 h-1 mx-1 md:mx-2 transition-all ${
-                      step.num < currentStep ? 'bg-primary' : 'bg-gray-200'
+                    <div className={`w-8 md:w-16 h-1 mx-2 md:mx-4 transition-all ${
+                      step < currentStep ? 'bg-primary' : 'bg-gray-200'
                     }`} />
                   )}
                 </div>
               ))}
             </div>
-            <div className="text-center mt-6">
+            <div className="text-center mt-4">
               <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200">
                 {stepTitles[currentStep - 1]}
               </h2>
