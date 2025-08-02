@@ -50,8 +50,7 @@ export default function CustomCursor() {
         style={{
           left: position.x - 15,
           top: position.y - 15,
-          transform: isHovering ? 'scale(1.5)' : 'scale(1)',
-          opacity: isHovering ? 0.8 : 0.3,
+          transform: isHovering ? 'scale(1.2)' : 'scale(1)',
         }}
       />
     </>

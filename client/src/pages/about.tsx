@@ -196,7 +196,11 @@ export default function About() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="font-semibold">Email</div>
-                  <div className="text-muted-foreground break-words">contact@weblifystudio.fr</div>
+                  <div className="text-muted-foreground break-words">
+                    <a href="mailto:contact@weblifystudio.fr" className="hover:text-primary transition-colors duration-200 hover:underline">
+                      contact@weblifystudio.fr
+                    </a>
+                  </div>
                 </div>
               </div>
               

@@ -213,14 +213,14 @@
   .cursor-outline {
     width: 30px;
     height: 30px;
-    border: 2px solid rgba(76, 130, 238, 0.3);
+    border: 2px solid rgba(76, 130, 238, 0.2);
     border-radius: 50%;
     position: fixed;
     top: 0;
     left: 0;
     pointer-events: none;
     z-index: 9998;
-    transition: all 0.15s ease;
+    transition: transform 0.15s ease;
   }
   
   /* Effets de boutons */

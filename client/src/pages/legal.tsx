@@ -42,7 +42,7 @@ export default function Legal() {
                   Micro-entreprise<br />
                   Représentée par Noah Delenclos<br />
                   Adresse : Paris, France<br />
-                  Email : contact@weblify.fr<br />
+                  Email : <a href="mailto:contact@weblify.fr" className="text-primary hover:underline transition-colors duration-200">contact@weblify.fr</a><br />
                   Téléphone : +33 (0)1 23 45 67 89
                 </p>
               </div>

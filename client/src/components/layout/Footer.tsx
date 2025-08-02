@@ -152,7 +152,9 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" />
-                <span className="text-gray-300 dark:text-gray-400 break-words text-sm">contact@weblifystudio.fr</span>
+                <a href="mailto:contact@weblifystudio.fr" className="text-gray-300 dark:text-gray-400 hover:text-white break-words text-sm transition-colors duration-200 hover:underline">
+                  contact@weblifystudio.fr
+                </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
@@ -169,7 +171,7 @@ export default function Footer() {
           <div className="text-gray-300 dark:text-gray-400 text-sm">
             <p className="mb-2">© 2025 Weblify. Tous droits réservés.</p>
             <p className="footer-signature text-center md:text-left mb-1">
-              Créé par <strong>Weblify Studio</strong> — Votre partenaire digital
+              Créé par <strong>Weblify Studio</strong> — Votre partenaire digital 🚀
             </p>
             <p className="text-center md:text-left text-xs text-gray-400 dark:text-gray-500">
               Web design & développement web performant, optimisé SEO.

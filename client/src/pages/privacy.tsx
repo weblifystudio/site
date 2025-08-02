@@ -44,7 +44,7 @@ export default function Privacy() {
                   Représentée par Noah Delenclos<br />
                   Micro-entrepreneur<br />
                   Adresse : Paris, France<br />
-                  Email : contact@weblify.fr<br />
+                  Email : <a href="mailto:contact@weblify.fr" className="text-primary hover:underline transition-colors duration-200">contact@weblify.fr</a><br />
                   Téléphone : +33 (0)1 23 45 67 89
                 </p>
               </div>
@@ -184,7 +184,7 @@ export default function Privacy() {
               <div>
                 <h4 className="font-semibold mb-2">Comment exercer vos droits :</h4>
                 <p className="text-muted-foreground">
-                  Pour exercer vos droits, contactez-nous à : <strong>contact@weblify.fr</strong>
+                  Pour exercer vos droits, contactez-nous à : <strong><a href="mailto:contact@weblify.fr" className="text-primary hover:underline transition-colors duration-200">contact@weblify.fr</a></strong>
                   <br />
                   Nous nous engageons à répondre dans un délai de <strong>1 mois maximum</strong>.
                   <br />
