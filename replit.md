@@ -60,6 +60,8 @@ The application follows a monorepo structure, separating client and server code.
 
 ### Analytics & Integration
 - **Web Analytics**: Google Analytics 4 (with RGPD-compliant consent management)
+- **Newsletter System**: Mailchimp integration for professional newsletter management
+- **Contact System**: SMTP webmail integration for contact form submissions
 
 ### Security & SSL
 - **SSL/TLS Configuration**: Comprehensive security headers and HTTPS setup

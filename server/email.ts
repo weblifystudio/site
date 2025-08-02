@@ -63,7 +63,7 @@ Date: ${new Date().toLocaleString('fr-FR', {
     }
 
     // Création du transporteur SMTP
-    const transporter = nodemailer.createTransporter(smtpConfig);
+    const transporter = nodemailer.createTransport(smtpConfig);
 
     // Template HTML professionnel pour l'email
     const emailHTML = `
