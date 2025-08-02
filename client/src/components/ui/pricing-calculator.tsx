@@ -71,10 +71,38 @@ export default function PricingCalculator() {
   const [selectedBase, setSelectedBase] = useState<string>('vitrine');
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [pages, setPages] = useState([8]);
-  const [timeline, setTimeline] = useState([14]);
+  const [expressDelivery, setExpressDelivery] = useState(false);
   
   const baseOption = baseOptions.find(opt => opt.id === selectedBase)!;
   
+  // Calcul automatique du délai de livraison basé sur la complexité
+  const calculateEstimatedDelivery = () => {
+    let baseDays = 0;
+    
+    // Délai de base selon le type de site
+    switch (selectedBase) {
+      case 'vitrine': baseDays = 7; break;
+      case 'premium': baseDays = 14; break;
+      case 'ecommerce': baseDays = 21; break;
+    }
+    
+    // Ajout de temps pour les pages supplémentaires (1 jour par 2 pages)
+    if (pages[0] > 8) {
+      baseDays += Math.ceil((pages[0] - 8) / 2);
+    }
+    
+    // Ajout de temps pour les fonctionnalités complexes
+    const complexFeatures = ['booking', 'crm', 'multilingue'];
+    const complexCount = selectedFeatures.filter(id => complexFeatures.includes(id)).length;
+    baseDays += complexCount * 3;
+    
+    // Autres fonctionnalités (+1 jour par 2 fonctionnalités)
+    const otherFeatures = selectedFeatures.filter(id => !complexFeatures.includes(id)).length;
+    baseDays += Math.ceil(otherFeatures / 2);
+    
+    return baseDays;
+  };
+
   const calculateTotal = () => {
     let total = baseOption.basePrice;
     
@@ -83,9 +111,11 @@ export default function PricingCalculator() {
       total += (pages[0] - 8) * 65;
     }
     
-    // Délai urgent (moins de 14 jours)
-    if (timeline[0] < 14) {
-      total += total * 0.3; // 30% de supplément
+    // Livraison express (proportionnelle à la complexité)
+    if (expressDelivery) {
+      const complexity = calculateEstimatedDelivery();
+      const expressRate = complexity > 14 ? 0.4 : 0.3; // 40% si très complexe, 30% sinon
+      total += total * expressRate;
     }
     
     // Fonctionnalités additionnelles
@@ -99,10 +129,16 @@ export default function PricingCalculator() {
     return Math.round(total);
   };
 
-  const getDeliveryText = () => {
-    if (timeline[0] <= 7) return 'Express (7 jours)';
-    if (timeline[0] <= 14) return 'Standard (14 jours)';
-    return 'Économique (21+ jours)';
+  const getDeliveryInfo = () => {
+    const estimatedDays = calculateEstimatedDelivery();
+    const expressDays = Math.max(Math.ceil(estimatedDays / 2), 5); // Express = moitié du temps, min 5 jours
+    
+    return {
+      estimated: estimatedDays,
+      express: expressDays,
+      estimatedText: `${estimatedDays} jours ouvrés`,
+      expressText: `${expressDays} jours ouvrés (Express)`
+    };
   };
 
   const groupedFeatures = additionalFeatures.reduce((acc, feature) => {
@@ -189,35 +225,63 @@ export default function PricingCalculator() {
               </CardContent>
             </Card>
 
-            {/* Délai de livraison */}
+            {/* Délai de livraison intelligent */}
             <Card>
               <CardHeader>
-                <CardTitle>Délai de livraison</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Zap className="w-5 h-5" />
+                  Livraison estimée
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
-                      {getDeliveryText()}
-                    </span>
-                    {timeline[0] < 14 && (
-                      <Badge variant="outline" className="text-orange-600 border-orange-600">
-                        +30% (livraison urgente)
+                  {/* Délai standard calculé automatiquement */}
+                  <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium">Livraison standard</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                          {getDeliveryInfo().estimatedText}
+                        </p>
+                      </div>
+                      <Badge variant="outline" className="text-green-600 border-green-600">
+                        Inclus
                       </Badge>
-                    )}
+                    </div>
                   </div>
-                  <Slider
-                    value={timeline}
-                    onValueChange={setTimeline}
-                    max={30}
-                    min={7}
-                    step={7}
-                    className="w-full"
-                  />
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>7 jours</span>
-                    <span>30+ jours</span>
+
+                  {/* Option livraison express */}
+                  <div className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                    expressDelivery 
+                      ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20' 
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                  onClick={() => setExpressDelivery(!expressDelivery)}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Checkbox 
+                          checked={expressDelivery}
+                          onChange={() => setExpressDelivery(!expressDelivery)}
+                        />
+                        <div>
+                          <h4 className="font-medium flex items-center gap-2">
+                            <Zap className="w-4 h-4 text-orange-500" />
+                            Livraison express
+                          </h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
+                            {getDeliveryInfo().expressText}
+                          </p>
+                        </div>
+                      </div>
+                      <Badge variant="outline" className="text-orange-600 border-orange-600">
+                        +{calculateEstimatedDelivery() > 14 ? '40%' : '30%'}
+                      </Badge>
+                    </div>
                   </div>
+
+                  <p className="text-xs text-gray-500">
+                    * Délai calculé automatiquement selon la complexité de votre projet
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -304,10 +368,10 @@ export default function PricingCalculator() {
                     </div>
                   )}
                   
-                  {timeline[0] < 14 && (
+                  {expressDelivery && (
                     <div className="flex justify-between">
-                      <span>Livraison urgente</span>
-                      <span className="font-medium text-orange-600">+30%</span>
+                      <span>Livraison express</span>
+                      <span className="font-medium text-orange-600">+{calculateEstimatedDelivery() > 14 ? '40%' : '30%'}</span>
                     </div>
                   )}
                   
@@ -354,7 +418,7 @@ export default function PricingCalculator() {
           selectedBase={selectedBase}
           selectedFeatures={selectedFeatures}
           pages={pages[0]}
-          timeline={timeline[0]}
+          timeline={expressDelivery ? getDeliveryInfo().express : getDeliveryInfo().estimated}
           totalPrice={calculateTotal()}
         />
       </div>
