@@ -22,7 +22,7 @@ export default function About() {
             L'expertise au service de votre vision
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Noah Delenclos, développeur full-stack passionné basé à Paris. 
+            Noah Delenclos, développeur full-stack passionné. 
             5 ans d'expérience pour transformer vos idées en succès digitaux.
           </p>
         </div>

@@ -50,7 +50,7 @@ export default function Footer() {
               </svg>
             </div>
             <p className="text-gray-300 dark:text-gray-400 mb-6 leading-relaxed">
-              Agence web parisienne spécialisée dans la création de sites internet modernes et performants.
+              Agence web spécialisée dans la création de sites internet modernes et performants.
               Transformons ensemble votre vision en réalité digitale.
             </p>
             <div className="flex items-center justify-start space-x-3">
