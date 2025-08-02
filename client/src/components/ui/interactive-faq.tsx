@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Search, MessageSquare, Clock, Star } from 'lucide-react';
+import { Search, MessageSquare, Clock, Settings, Euro } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -164,10 +164,10 @@ const categoryLabels = {
 
 const categoryIcons = {
   general: MessageSquare,
-  technique: Star,
-  prix: Badge,
+  technique: Settings,
+  prix: Euro,
   delais: Clock,
-  maintenance: Star
+  maintenance: Settings
 };
 
 export default function InteractiveFAQ() {
@@ -201,7 +201,6 @@ export default function InteractiveFAQ() {
   }, [searchTerm, selectedCategory]);
 
   const categories = Object.keys(categoryLabels) as Array<keyof typeof categoryLabels>;
-  const popularFAQs = faqData.filter(faq => faq.popular);
 
   return (
     <div className="space-y-8">
@@ -254,35 +253,7 @@ export default function InteractiveFAQ() {
         </div>
       </div>
 
-      {/* Popular Questions (when no search) */}
-      {!searchTerm && selectedCategory === 'all' && (
-        <div className="bg-gradient-to-r from-primary/5 to-blue-50 dark:from-primary/10 dark:to-gray-800 rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-4 flex items-center">
-            <Star className="w-5 h-5 mr-2 text-primary" />
-            Questions les plus populaires
-          </h3>
-          <div className="grid md:grid-cols-2 gap-4">
-            {popularFAQs.map((faq) => (
-              <div
-                key={faq.id}
-                className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => {
-                  const element = document.getElementById(`faq-${faq.id}`);
-                  element?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                <h4 className="font-medium text-sm mb-2">{faq.question}</h4>
-                <p className="text-xs text-gray-600 dark:text-gray-300 line-clamp-2">
-                  {faq.answer.substring(0, 100)}...
-                </p>
-                <Badge variant="secondary" className="mt-2 text-xs">
-                  {categoryLabels[faq.category]}
-                </Badge>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+
 
       {/* Search Results Count */}
       {(searchTerm || selectedCategory !== 'all') && (
