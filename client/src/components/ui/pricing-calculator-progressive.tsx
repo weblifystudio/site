@@ -210,36 +210,41 @@ export default function PricingCalculatorProgressive() {
               
               {/* Étape 1: Type de site */}
               {currentStep === 1 && (
-                <Card className="animate-fade-in">
-                  <CardHeader>
-                    <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
+                <Card className="animate-fade-in shadow-lg">
+                  <CardHeader className="pb-6">
+                    <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
                       Sélectionnez l'option qui correspond le mieux à votre projet
                     </p>
                   </CardHeader>
-                  <CardContent>
-                    <div className="grid md:grid-cols-3 gap-6">
+                  <CardContent className="p-8">
+                    <div className="grid md:grid-cols-3 gap-8">
                       {baseOptions.map((option) => (
                         <div
                           key={option.id}
                           onClick={() => handleBaseSelection(option.id)}
-                          className="relative p-6 rounded-lg border-2 cursor-pointer transition-all hover:border-primary hover:shadow-lg hover:scale-105 group"
+                          className="relative p-8 rounded-xl border-2 cursor-pointer transition-all hover:border-primary hover:shadow-xl hover:scale-105 group min-h-[200px] flex flex-col justify-between"
                         >
                           {option.popular && (
-                            <Badge className="absolute -top-2 left-4 bg-primary">
+                            <Badge className="absolute -top-3 left-6 bg-primary text-white px-4 py-1">
                               Populaire
                             </Badge>
                           )}
-                          <h4 className="font-semibold mb-3 text-lg group-hover:text-primary transition-colors">
-                            {option.name}
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                            {option.description}
-                          </p>
-                          <p className="text-xl font-bold text-primary">
-                            À partir de {option.basePrice}€
-                          </p>
-                          <div className="flex items-center justify-center mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <ChevronRight className="w-5 h-5 text-primary" />
+                          <div className="flex-grow">
+                            <h4 className="font-bold mb-4 text-2xl group-hover:text-primary transition-colors">
+                              {option.name}
+                            </h4>
+                            <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                              {option.description}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-2xl font-bold text-primary mb-4">
+                              À partir de {option.basePrice}€
+                            </p>
+                            <div className="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                              <span className="text-primary font-medium mr-2">Sélectionner</span>
+                              <ChevronRight className="w-5 h-5 text-primary" />
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -328,7 +333,7 @@ export default function PricingCalculatorProgressive() {
                         <div className="flex items-center gap-3">
                           <Checkbox 
                             checked={expressDelivery}
-                            onCheckedChange={setExpressDelivery}
+                            onCheckedChange={(checked) => setExpressDelivery(checked === true)}
                           />
                           <div>
                             <h4 className="font-medium text-lg flex items-center gap-2">
@@ -444,7 +449,7 @@ export default function PricingCalculatorProgressive() {
                       <div className="grid md:grid-cols-2 gap-6">
                         <div>
                           <h4 className="font-semibold mb-3">Type de site</h4>
-                          <p className="text-gray-600 dark:text-gray-300">{baseOption.name}</p>
+                          <p className="text-gray-600 dark:text-gray-300">{baseOption?.name}</p>
                         </div>
                         <div>
                           <h4 className="font-semibold mb-3">Nombre de pages</h4>
@@ -506,8 +511,8 @@ export default function PricingCalculatorProgressive() {
 
                     <div className="space-y-3 text-sm">
                       <div className="flex justify-between">
-                        <span>Base ({baseOption.name})</span>
-                        <span className="font-medium">{baseOption.basePrice}€</span>
+                        <span>Base ({baseOption?.name})</span>
+                        <span className="font-medium">{baseOption?.basePrice}€</span>
                       </div>
                       
                       {pages[0] > 8 && (
