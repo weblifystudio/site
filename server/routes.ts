@@ -25,6 +25,7 @@ const contactValidationSchema = z.object({
 });
 import { sendContactEmail } from "./email";
 import { createFormRateLimiter } from "./security-middleware";
+import { subscribeToNewsletter, unsubscribeFromNewsletter, getNewsletterStats, updateNewsletterPreferences } from "./newsletter";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission avec protection renforcée
@@ -136,6 +137,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // Newsletter endpoints
+  app.post("/api/newsletter/subscribe", createFormRateLimiter(), subscribeToNewsletter);
+  app.get("/api/newsletter/unsubscribe", unsubscribeFromNewsletter);
+  app.get("/api/newsletter/stats", getNewsletterStats);
+  app.put("/api/newsletter/preferences/:email", updateNewsletterPreferences);
 
   const httpServer = createServer(app);
   return httpServer;

@@ -1,6 +1,6 @@
 import { Link } from 'wouter';
 import { MapPin, Mail, Phone } from 'lucide-react';
-import { Newsletter } from '@/components/ui/newsletter';
+import { NewsletterForm } from '@/components/ui/newsletter-form';
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -160,7 +160,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          <Newsletter variant="footer" />
+          <NewsletterForm variant="footer" />
         </div>
 
         <div className="border-t border-gray-700 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
