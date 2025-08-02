@@ -71,14 +71,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Nom et email requis pour le devis" });
       }
 
-      // Import dynamique pour éviter les erreurs de build
-      const { generateQuotePDF, mapCalculatorToQuote } = await import('./pdf-generator');
+      // Import dynamique pour éviter les erreurs de build  
+      const { generateQuoteHTML } = await import('./pdf-generator-simple');
+      const { mapCalculatorToQuote } = await import('./pdf-generator');
       
       // Mapping des données du calculateur vers le format devis
       const quoteData = mapCalculatorToQuote(calculatorData);
       
-      // Génération du PDF
-      const pdfBuffer = await generateQuotePDF(quoteData);
+      // Génération du HTML simple (solution temporaire sans Puppeteer)
+      const htmlContent = await generateQuoteHTML(quoteData);
       
       // Sauvegarde du contact avec les données du devis
       const contactData = {
@@ -89,26 +90,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const savedContact = await storage.createContact(contactData);
       
-      console.log(`📄 Devis généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
+      // Log pour information sur le devis généré
+      console.log(`📄 Devis HTML généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
       
-      // Envoi par email avec PDF en pièce jointe (en log pour l'instant)
-      const { sendQuoteByEmail } = await import('./email-with-pdf');
-      await sendQuoteByEmail({
-        name: quoteData.name,
-        email: quoteData.email,
-        pdfBuffer,
-        quoteNumber: quoteData.quoteNumber,
-        totalPrice: quoteData.totalPrice
-      });
-      
-      // Retour du PDF en base64 pour téléchargement + notification email
+      // Retour du HTML en base64 pour ouverture dans nouvel onglet
       res.json({
         success: true,
-        message: "Devis généré ! Téléchargé automatiquement et prêt pour envoi double (vous + client).",
+        message: "Devis généré ! Ouverture dans un nouvel onglet pour impression PDF.",
         quoteNumber: quoteData.quoteNumber,
-        pdfBase64: pdfBuffer.toString('base64'),
+        htmlContent: Buffer.from(htmlContent).toString('base64'),
         contact: savedContact,
-        emailSent: true // Indique que les infos d'envoi sont disponibles
+        isHtml: true // Indique que c'est du HTML, pas du PDF
       });
       
     } catch (error) {

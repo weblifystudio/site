@@ -40,22 +40,33 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         setQuoteNumber(result.quoteNumber);
         setPdfGenerated(true);
         
-        // Téléchargement automatique du PDF
-        const pdfBlob = new Blob([
-          Uint8Array.from(atob(result.pdfBase64), c => c.charCodeAt(0))
-        ], { type: 'application/pdf' });
-        
-        const url = window.URL.createObjectURL(pdfBlob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = `Devis-Weblify-Studio-${result.quoteNumber}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-        
-        console.log('📄 Devis téléchargé automatiquement');
+        if (result.isHtml) {
+          // Ouverture du devis HTML dans un nouvel onglet pour impression
+          const htmlContent = atob(result.htmlContent);
+          const newTab = window.open('', '_blank');
+          if (newTab) {
+            newTab.document.write(htmlContent);
+            newTab.document.close();
+            console.log('📄 Devis ouvert dans un nouvel onglet pour impression');
+          }
+        } else {
+          // Fallback pour le téléchargement PDF (si disponible)
+          const pdfBlob = new Blob([
+            Uint8Array.from(atob(result.pdfBase64), c => c.charCodeAt(0))
+          ], { type: 'application/pdf' });
+          
+          const url = window.URL.createObjectURL(pdfBlob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = `Devis-Weblify-Studio-${result.quoteNumber}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+          
+          console.log('📄 Devis téléchargé automatiquement');
+        }
       } else {
         console.error('Erreur génération devis:', result.error);
         alert('Erreur lors de la génération du devis. Veuillez réessayer.');
@@ -82,10 +93,10 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         </h3>
         
         <p className="text-green-700 mb-4">
-          Votre devis <strong>{quoteNumber}</strong> a été téléchargé automatiquement.
+          Votre devis <strong>{quoteNumber}</strong> s'est ouvert dans un nouvel onglet.
           <br />
           <span className="text-sm">
-            📧 Le devis sera envoyé par email à vous ET à votre client via votre solution d'email personnelle.
+            🖨️ Utilisez Ctrl+P pour l'imprimer en PDF ou l'enregistrer.
           </span>
         </p>
         
