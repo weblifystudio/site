@@ -19,11 +19,11 @@ export default function About() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Noah Delenclos, Fondateur de Weblify Studio
+            L'expertise au service de votre vision
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Développeur full-stack passionné, basé à Paris depuis 2025, 
-            je transforme vos idées en expériences web exceptionnelles.
+            Noah Delenclos, développeur full-stack passionné basé à Paris. 
+            5 ans d'expérience pour transformer vos idées en succès digitaux.
           </p>
         </div>
 

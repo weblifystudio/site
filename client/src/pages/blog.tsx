@@ -319,11 +319,11 @@ export default function Blog() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Conseils & Actualités Web
+            Maîtrisez le web avec nos conseils d'expert
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            Découvrez nos conseils d'experts, retours d'expérience et vision du web moderne. 
-            Du contenu authentique, écrit par des humains pour des humains.
+            Guides pratiques, tendances tech et stratégies digitales. 
+            Boostez votre présence en ligne avec du contenu 100% actionnable.
           </p>
           
           {/* Category Filters */}

@@ -20,11 +20,11 @@ export default function FAQ() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Questions <span className="text-primary">Fréquentes</span>
+            Toutes vos <span className="text-primary">réponses</span> en un clic
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Trouvez rapidement les réponses à vos questions sur nos services, 
-            notre processus de travail et nos tarifs.
+            Prix, délais, process, maintenance... Découvrez tout ce que vous devez savoir 
+            avant de vous lancer dans votre projet web.
           </p>
         </div>
 
