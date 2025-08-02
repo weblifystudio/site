@@ -62,14 +62,14 @@ export default function Header() {
               <img 
                 src="/Logo_entier.svg" 
                 alt="Weblify Studio Logo Complet"
-                className={`transition-all duration-300 hover:scale-105 dark:hidden ${
+                className={`transition-all duration-300 dark:hidden ${
                   isScrolled ? 'h-7 sm:h-8 lg:h-9' : 'h-8 sm:h-9 lg:h-10'
                 }`}
               />
               <img 
                 src="/Logo_entier_dark.svg" 
                 alt="Weblify Studio Logo Complet"
-                className={`transition-all duration-300 hover:scale-105 hidden dark:block ${
+                className={`transition-all duration-300 hidden dark:block ${
                   isScrolled ? 'h-7 sm:h-8 lg:h-9' : 'h-8 sm:h-9 lg:h-10'
                 }`}
               />
@@ -84,7 +84,7 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   onClick={scrollToTop}
-                  className={`header-link text-sm font-medium transition-colors duration-200 hover:scale-105 ${
+                  className={`header-link text-sm font-medium transition-colors duration-200 ${
                     location === item.href
                       ? 'text-primary font-semibold'
                       : 'text-muted-foreground hover:text-primary'
