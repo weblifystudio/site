@@ -11,6 +11,7 @@ import Portfolio from "@/pages/portfolio";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import Admin from "@/pages/admin";
+import AdminLogin from "@/pages/admin-login";
 import About from "@/pages/about";
 import FAQ from "@/pages/faq";
 import Contact from "@/pages/contact";
@@ -61,7 +62,9 @@ function Router() {
       <Route path="/cgv" component={CGV} />
       <Route path="/politique-confidentialite" component={Privacy} />
       <Route path="/cookies" component={Cookies} />
-      <Route path="/admin" component={Admin} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={Admin} />
+      <Route path="/admin" component={AdminLogin} />
       <Route component={NotFound} />
     </Switch>
   );

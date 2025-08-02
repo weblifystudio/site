@@ -1,13 +1,13 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSchema } from "@shared/schema";
+import { insertContactSchema, emails } from "@shared/schema";
 import { z } from "zod";
 import { sendContactEmail } from "./email";
 import { addToNewsletter } from "./newsletter";
 import { db } from "./db";
-import { emails } from "@shared/schema";
 import { desc, eq } from "drizzle-orm";
+import { requireAuth, loginHandler, logoutHandler, statusHandler } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -78,12 +78,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get all emails (for admin purposes)
-  app.get("/api/emails", async (req, res) => {
+  // Routes d'authentification admin
+  app.post("/api/admin/login", loginHandler);
+  app.post("/api/admin/logout", requireAuth, logoutHandler);
+  app.get("/api/admin/status", requireAuth, statusHandler);
+
+  // Routes admin sécurisées pour les emails
+  app.get("/api/admin/emails", requireAuth, async (req, res) => {
     try {
       const allEmails = await db.select().from(emails).orderBy(desc(emails.createdAt));
-      res.json(allEmails);
+      res.json({ success: true, emails: allEmails });
     } catch (error) {
+      console.error('❌ Error fetching emails:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to retrieve emails" 
@@ -91,13 +97,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Mark email as read
-  app.patch("/api/emails/:id/read", async (req, res) => {
+  // Marquer un email comme lu (sécurisé)
+  app.patch("/api/admin/emails/:id/read", requireAuth, async (req, res) => {
     try {
       const { id } = req.params;
       await db.update(emails).set({ isRead: true }).where(eq(emails.id, id));
       res.json({ success: true });
     } catch (error) {
+      console.error('❌ Error marking email as read:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to mark email as read" 

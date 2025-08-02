@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Mail, MailOpen, Clock, User, Phone, Euro, MessageSquare } from 'lucide-react';
+import { Mail, MailOpen, Clock, User, Phone, Euro, MessageSquare, LogOut, Shield } from 'lucide-react';
 
 interface Email {
   id: string;
@@ -17,18 +18,74 @@ interface Email {
 }
 
 export default function Admin() {
+  const [, setLocation] = useLocation();
   const [emails, setEmails] = useState<Email[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    fetchEmails();
+    checkAuthentication();
   }, []);
 
-  const fetchEmails = async () => {
+  const checkAuthentication = async () => {
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      setLocation('/admin/login');
+      return;
+    }
+
     try {
-      const response = await fetch('/api/emails');
+      const response = await fetch('/api/admin/status', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        setAuthenticated(true);
+        fetchEmails();
+      } else {
+        localStorage.removeItem('adminToken');
+        setLocation('/admin/login');
+      }
+    } catch (error) {
+      localStorage.removeItem('adminToken');
+      setLocation('/admin/login');
+    }
+  };
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      try {
+        await fetch('/api/admin/logout', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } catch (error) {
+        console.error('Logout error:', error);
+      }
+    }
+    
+    localStorage.removeItem('adminToken');
+    setLocation('/admin/login');
+  };
+
+  const fetchEmails = async () => {
+    const token = localStorage.getItem('adminToken');
+    if (!token) return;
+
+    try {
+      const response = await fetch('/api/admin/emails', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
       if (response.ok) {
         const data = await response.json();
         setEmails(data.emails || []);
@@ -41,9 +98,15 @@ export default function Admin() {
   };
 
   const markAsRead = async (emailId: string) => {
+    const token = localStorage.getItem('adminToken');
+    if (!token) return;
+
     try {
-      const response = await fetch(`/api/emails/${emailId}/read`, {
+      const response = await fetch(`/api/admin/emails/${emailId}/read`, {
         method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
       
       if (response.ok) {
@@ -88,12 +151,14 @@ export default function Admin() {
     });
   };
 
-  if (loading) {
+  if (!authenticated || loading) {
     return (
       <div className="pt-28 pb-16">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-3xl font-bold mb-8">Chargement des emails...</h1>
+            <h1 className="text-3xl font-bold mb-8">
+              {!authenticated ? 'Vérification de l\'authentification...' : 'Chargement des emails...'}
+            </h1>
           </div>
         </div>
       </div>
@@ -106,13 +171,24 @@ export default function Admin() {
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-4">
-              📧 Administration des Emails
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Consultez tous les messages de contact reçus via le site
-            </p>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
+                <Shield className="w-8 h-8 text-primary" />
+                Administration Sécurisée
+              </h1>
+              <p className="text-xl text-muted-foreground">
+                Consultation des messages de contact - Session protégée
+              </p>
+            </div>
+            <Button 
+              onClick={handleLogout}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <LogOut className="w-4 h-4" />
+              Déconnexion
+            </Button>
           </div>
 
           {/* Stats */}
