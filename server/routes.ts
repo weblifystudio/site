@@ -86,41 +86,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const savedContact = await storage.createContact(contactData);
       
-      try {
-        // Tentative de génération PDF direct avec jsPDF
-        const { generateQuotePDF } = await import('./pdf-generator-direct');
-        const pdfBuffer = await generateQuotePDF(quoteData);
-        
-        console.log(`📄 Devis PDF généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
-        
-        res.json({
-          success: true,
-          message: "Devis PDF généré et téléchargé !",
-          quoteNumber: quoteData.quoteNumber,
-          pdfContent: pdfBuffer.toString('base64'),
-          contact: savedContact,
-          isPdf: true
-        });
-        
-      } catch (pdfError) {
-        console.log('PDF direct échoué, fallback vers HTML:', pdfError);
-        
-        // Fallback vers HTML si PDF échoue
-        const { generateQuoteHTML } = await import('./pdf-generator-simple');
-        const htmlContent = await generateQuoteHTML(quoteData);
-        
-        console.log(`📄 Devis HTML généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
-        
-        res.setHeader('Content-Type', 'application/json; charset=utf-8');
-        res.json({
-          success: true,
-          message: "Devis généré ! Ouvrez le fichier HTML pour l'imprimer en PDF.",
-          quoteNumber: quoteData.quoteNumber,
-          htmlContent: Buffer.from(htmlContent, 'utf8').toString('base64'),
-          contact: savedContact,
-          isHtml: true
-        });
-      }
+      // Génération du devis HTML avec le beau design minimaliste
+      const { generateQuoteHTML } = await import('./pdf-generator-simple');
+      const htmlContent = await generateQuoteHTML(quoteData);
+      
+      console.log(`📄 Devis HTML généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
+      
+      // Configuration de l'en-tête pour UTF-8
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      
+      // Retour du HTML en base64 pour téléchargement direct avec encodage UTF-8
+      res.json({
+        success: true,
+        message: "Devis généré et téléchargé ! Ouvrez le fichier HTML pour l'imprimer en PDF.",
+        quoteNumber: quoteData.quoteNumber,
+        htmlContent: Buffer.from(htmlContent, 'utf8').toString('base64'),
+        contact: savedContact,
+        isHtml: true
+      });
       
     } catch (error) {
       console.error("Erreur génération devis:", error);
