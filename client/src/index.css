@@ -618,15 +618,7 @@ img {
   filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 8px rgba(76, 130, 238, 0.2));
 }
 
-/* Effets de survol optimisés */
-.logo-responsive:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1) contrast(1.1);
-}
-
-.dark .logo-responsive:hover {
-  filter: brightness(1.2) contrast(1.2) drop-shadow(0 0 12px rgba(76, 130, 238, 0.4));
-}
+/* Effets de survol supprimés */
 
 /* Adaptation responsive de la taille */
 @media (max-width: 640px) {
