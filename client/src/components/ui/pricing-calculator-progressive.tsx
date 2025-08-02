@@ -166,10 +166,9 @@ export default function PricingCalculatorProgressive() {
 
   const stepTitles = [
     "Choisissez votre type de site",
-    "Nombre de pages",
+    "Nombre de pages", 
     "Délai de livraison",
-    "Fonctionnalités additionnelles",
-    "Récapitulatif et commande"
+    "Fonctionnalités additionnelles"
   ];
 
   return (
@@ -180,7 +179,7 @@ export default function PricingCalculatorProgressive() {
           {/* Indicateur d'étapes simplifié */}
           <div className="mb-6">
             <div className="flex items-center justify-center space-x-3 md:space-x-8 overflow-x-auto px-4">
-              {[1, 2, 3, 4, 5].map((step, index) => (
+              {[1, 2, 3, 4].map((step, index) => (
                 <div key={step} className="flex items-center flex-shrink-0">
                   <div className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${
                     step <= currentStep 
@@ -189,7 +188,7 @@ export default function PricingCalculatorProgressive() {
                   }`}>
                     {step}
                   </div>
-                  {index < 4 && (
+                  {index < 3 && (
                     <div className={`w-8 md:w-16 h-1 mx-2 md:mx-4 transition-all ${
                       step < currentStep ? 'bg-primary' : 'bg-gray-200'
                     }`} />
@@ -199,7 +198,7 @@ export default function PricingCalculatorProgressive() {
             </div>
             <div className="text-center mt-4">
               <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200">
-                {stepTitles[currentStep - 1]}
+                {currentStep <= 4 ? stepTitles[currentStep - 1] : "Configuration terminée"}
               </h2>
             </div>
           </div>
@@ -427,8 +426,12 @@ export default function PricingCalculatorProgressive() {
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Retour
                       </Button>
-                      <Button onClick={goToNextStep}>
-                        Voir le récapitulatif
+                      <Button 
+                        onClick={() => document.getElementById('configuration-summary')?.scrollIntoView({ behavior: 'smooth' })}
+                        size="lg"
+                      >
+                        <Calculator className="w-4 h-4 mr-2" />
+                        Voir mon récapitulatif
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
                     </div>
@@ -436,60 +439,7 @@ export default function PricingCalculatorProgressive() {
                 </Card>
               )}
 
-              {/* Étape 5: Récapitulatif */}
-              {currentStep === 5 && baseOption && (
-                <div className="space-y-8 animate-fade-in">
-                  <Card>
-                    <CardHeader>
-                      <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
-                        Vérifiez votre configuration avant de passer commande
-                      </p>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="font-semibold mb-3">Type de site</h4>
-                          <p className="text-gray-600 dark:text-gray-300">{baseOption?.name}</p>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-3">Nombre de pages</h4>
-                          <p className="text-gray-600 dark:text-gray-300">{pages[0]} pages</p>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-3">Délai de livraison</h4>
-                          <p className="text-gray-600 dark:text-gray-300">
-                            {expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText}
-                          </p>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-3">Fonctionnalités</h4>
-                          <p className="text-gray-600 dark:text-gray-300">
-                            {selectedFeatures.length > 0 
-                              ? `${selectedFeatures.length} option${selectedFeatures.length > 1 ? 's' : ''} sélectionnée${selectedFeatures.length > 1 ? 's' : ''}`
-                              : 'Aucune option supplémentaire'
-                            }
-                          </p>
-                        </div>
-                      </div>
 
-                      <div className="flex justify-between pt-4">
-                        <Button variant="outline" onClick={goToPreviousStep}>
-                          <ArrowLeft className="w-4 h-4 mr-2" />
-                          Modifier
-                        </Button>
-                        <Button 
-                          onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-                          size="lg"
-                        >
-                          <Calculator className="w-4 h-4 mr-2" />
-                          Commander ce projet
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              )}
             </div>
 
             {/* Panneau de prix collant */}
@@ -559,16 +509,137 @@ export default function PricingCalculatorProgressive() {
             )}
           </div>
           
-          {/* Formulaire de Contact Intégré */}
-          {currentStep === 5 && baseOption && (
-            <div className="mt-12">
-              <ContactFormIntegrated 
-                selectedBase={selectedBase}
-                selectedFeatures={selectedFeatures}
-                pages={pages[0]}
-                timeline={expressDelivery ? getDeliveryInfo().express : getDeliveryInfo().estimated}
-                totalPrice={calculateTotal()}
-              />
+          {/* Récapitulatif de Configuration */}
+          {selectedBase && currentStep >= 4 && (
+            <div id="configuration-summary" className="mt-16">
+              <Card className="shadow-xl border-2 border-primary/20">
+                <CardHeader className="bg-gradient-to-r from-primary/5 to-blue-50 dark:from-primary/10 dark:to-gray-800">
+                  <CardTitle className="text-center text-2xl text-primary">
+                    Récapitulatif de votre configuration
+                  </CardTitle>
+                  <p className="text-center text-gray-600 dark:text-gray-300">
+                    Voici le détail de votre projet personnalisé
+                  </p>
+                </CardHeader>
+                <CardContent className="p-8 space-y-8">
+                  {/* Configuration détaillée */}
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-6">
+                      <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <h4 className="font-bold mb-2 text-primary">Type de site sélectionné</h4>
+                        <p className="text-lg font-semibold">{baseOption?.name}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                          {baseOption?.description}
+                        </p>
+                        <p className="text-lg font-bold text-primary mt-2">
+                          Base : {baseOption?.basePrice}€
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <h4 className="font-bold mb-2 text-primary">Structure du site</h4>
+                        <p className="text-lg font-semibold">{pages[0]} pages au total</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                          8 pages incluses + {pages[0] > 8 ? pages[0] - 8 : 0} page{pages[0] > 8 && pages[0] - 8 > 1 ? 's' : ''} supplémentaire{pages[0] > 8 && pages[0] - 8 > 1 ? 's' : ''}
+                        </p>
+                        {pages[0] > 8 && (
+                          <p className="text-lg font-bold text-primary mt-2">
+                            +{(pages[0] - 8) * 65}€ pour les pages supplémentaires
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <h4 className="font-bold mb-2 text-primary">Délai de livraison</h4>
+                        <p className="text-lg font-semibold">
+                          {expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                          {expressDelivery ? "Livraison express sélectionnée" : "Délai standard calculé selon la complexité"}
+                        </p>
+                        {expressDelivery && (
+                          <p className="text-lg font-bold text-orange-600 mt-2">
+                            +{calculateEstimatedDelivery() > 14 ? '40%' : '30%'} du prix total
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <h4 className="font-bold mb-2 text-primary">Fonctionnalités additionnelles</h4>
+                        {selectedFeatures.length > 0 ? (
+                          <div className="space-y-2">
+                            {selectedFeatures.map(featureId => {
+                              const feature = additionalFeatures.find(f => f.id === featureId);
+                              if (!feature) return null;
+                              return (
+                                <div key={featureId} className="flex justify-between items-center">
+                                  <span className="text-sm font-medium">{feature.name}</span>
+                                  <span className="font-bold text-primary">
+                                    +{feature.price}€{feature.category === 'maintenance' ? '/mois' : ''}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <p className="text-gray-600 dark:text-gray-300 italic">
+                            Aucune fonctionnalité supplémentaire sélectionnée
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Prix total récapitulatif */}
+                  <div className="border-t pt-6">
+                    <div className="bg-gradient-to-r from-primary/10 to-blue-50 dark:from-primary/10 dark:to-gray-800 p-6 rounded-xl">
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-2xl font-bold">Total de votre projet</h3>
+                        <div className="text-4xl font-bold text-primary">
+                          {calculateTotal().toLocaleString()}€
+                        </div>
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-300 text-center">
+                        Prix estimé tout compris • Devis final après étude personnalisée
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Boutons d'action */}
+                  <div className="flex flex-col md:flex-row gap-4 pt-4">
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setCurrentStep(1)}
+                      className="flex-1"
+                    >
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Modifier ma configuration
+                    </Button>
+                    <Button 
+                      onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                      size="lg"
+                      className="flex-1"
+                    >
+                      <Calculator className="w-4 h-4 mr-2" />
+                      Commander ce projet
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Formulaire de Contact Intégré */}
+              <div className="mt-12">
+                <ContactFormIntegrated 
+                  selectedBase={selectedBase}
+                  selectedFeatures={selectedFeatures}
+                  pages={pages[0]}
+                  timeline={expressDelivery ? getDeliveryInfo().express : getDeliveryInfo().estimated}
+                  totalPrice={calculateTotal()}
+                />
+              </div>
             </div>
           )}
         </div>
