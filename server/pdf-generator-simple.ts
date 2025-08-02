@@ -29,9 +29,10 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
   try {
     const html = `
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Devis ${data.quoteNumber} - Weblify Studio</title>
     <style>
         * {
