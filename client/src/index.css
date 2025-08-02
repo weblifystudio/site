@@ -108,7 +108,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 4px;
+    height: 6px;
     background: linear-gradient(90deg, #4c82ee 0%, #2563eb 50%, #1d4ed8 100%);
     z-index: 1000;
     transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -267,7 +267,7 @@
     top: 0;
     left: 0;
     width: 0%;
-    height: 3px;
+    height: 6px;
     background: linear-gradient(90deg, #4c82ee, #2563eb);
     z-index: 9999;
     transition: width 0.1s ease;
