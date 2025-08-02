@@ -304,12 +304,12 @@ export default function PricingCalculatorProgressive() {
                   <div key={step} className="flex items-center flex-shrink-0">
                     <div 
                       onClick={() => goToStep(step)}
-                      className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-500 cursor-pointer transform hover:scale-110 ${
+                      className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-colors duration-300 cursor-pointer ${
                         isCurrent
-                          ? 'bg-primary text-white shadow-lg animate-pulse' 
+                          ? 'bg-primary text-white shadow-lg' 
                           : isCompleted
-                          ? 'bg-green-500 text-white shadow-lg hover:bg-green-600 hover:shadow-xl'
-                          : 'bg-primary/30 text-primary hover:bg-primary/50 hover:shadow-md'
+                          ? 'bg-green-500 text-white shadow-lg hover:bg-green-600'
+                          : 'bg-primary/30 text-primary hover:bg-primary/50'
                       }`}
                     >
                       {isCompleted ? '✓' : step}
