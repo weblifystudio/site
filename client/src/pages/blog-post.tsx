@@ -280,24 +280,81 @@ const parseMarkdown = (content: string) => {
 export default function BlogPost() {
   const [match, params] = useRoute('/blog/:slug');
   
+  const post = match && params?.slug ? blogPosts.find(p => p.slug === params.slug) : null;
+  
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+    
+    // SEO dynamique pour chaque article
+    if (post) {
+      document.title = `${post.title} | Blog Weblify Studio - Expert Web Paris`;
+      
+      // Meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', `${post.excerpt} | Blog expert par Noah Delenclos - Weblify Studio Paris`);
+      }
+      
+      // Meta keywords
+      const metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (metaKeywords) {
+        metaKeywords.setAttribute('content', `${post.category.toLowerCase()}, développement web, ${post.slug.replace(/-/g, ' ')}, noah delenclos, weblify studio, blog expert web`);
+      }
+      
+      // Schema.org pour l'article
+      const existingScript = document.querySelector('script[data-blog-post]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+      
+      const script = document.createElement('script');
+      script.setAttribute('data-blog-post', 'true');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": post.image,
+        "datePublished": post.publishDate,
+        "dateModified": post.publishDate,
+        "author": {
+          "@type": "Person",
+          "name": post.author,
+          "url": "https://weblify-studio.com/a-propos"
+        },
+        "publisher": {
+          "@type": "Organization", 
+          "name": "Weblify Studio",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://weblify-studio.com/Logo_entier.svg"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://weblify-studio.com/blog/${post.slug}`
+        },
+        "articleSection": post.category,
+        "keywords": `${post.category}, développement web, ${post.slug.replace(/-/g, ', ')}, weblify studio`,
+        "wordCount": post.content.split(' ').length,
+        "timeRequired": post.readTime,
+        "url": `https://weblify-studio.com/blog/${post.slug}`
+      });
+      document.head.appendChild(script);
+    }
+    
+    return () => {
+      // Nettoyage
+      document.title = "Weblify Studio - Agence Web Paris | Sites Internet Sur-Mesure | Noah Delenclos";
+      const blogScript = document.querySelector('script[data-blog-post]');
+      if (blogScript) {
+        blogScript.remove();
+      }
+    };
+  }, [post]);
 
-  if (!match || !params?.slug) {
-    return (
-      <div className="pt-28 pb-16 text-center">
-        <h1 className="text-4xl font-bold mb-4">Article non trouvé</h1>
-        <Link href="/blog" onClick={scrollToTop}>
-          <Button>Retour au blog</Button>
-        </Link>
-      </div>
-    );
-  }
-
-  const post = blogPosts.find(p => p.slug === params.slug);
-
-  if (!post) {
+  if (!match || !params?.slug || !post) {
     return (
       <div className="pt-28 pb-16 text-center">
         <h1 className="text-4xl font-bold mb-4">Article non trouvé</h1>
@@ -414,14 +471,14 @@ ${post.content}
           </div>
 
           {/* Contenu de l'article */}
-          <div className="prose prose-lg max-w-none">
+          <article className="prose prose-lg max-w-none">
             <div 
               className="text-muted-foreground leading-relaxed"
               dangerouslySetInnerHTML={{ 
                 __html: parseMarkdown(post.content) 
               }}
             />
-          </div>
+          </article>
 
           {/* Actions */}
           <div className="mt-12 pt-8 border-t border-border">

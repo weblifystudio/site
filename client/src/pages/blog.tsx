@@ -273,6 +273,18 @@ export default function Blog() {
   
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // SEO pour la page blog principal
+    document.title = "Blog Expert Web | Conseils Development & SEO | Weblify Studio Paris";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', "🚀 Blog expert développement web par Noah Delenclos. Guides UX/UI, SEO, tendances tech 2025. Conseils 100% pratiques pour votre réussite digitale.");
+    }
+    
+    return () => {
+      document.title = "Weblify Studio - Agence Web Paris | Sites Internet Sur-Mesure | Noah Delenclos";
+    };
   }, []);
 
 
@@ -388,7 +400,9 @@ ${post.content}
                 
                 <CardContent className="p-6 space-y-4">
                   <h3 className="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2">
-                    {post.title}
+                    <Link href={`/blog/${post.slug}`} onClick={scrollToTop} className="hover:text-primary transition-colors">
+                      {post.title}
+                    </Link>
                   </h3>
                   <p className="text-muted-foreground leading-relaxed line-clamp-3">
                     {post.excerpt}
