@@ -22,31 +22,27 @@ export default function Footer() {
                 <defs>
                   <style>{`
                     .footer-logo-text { 
-                      font-family: 'Inter', 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                      font-family: 'Inter', sans-serif; 
                       font-weight: 700; 
-                      font-size: 28px;
+                      font-size: 24px;
                       fill: white;
                       letter-spacing: -0.5px;
                     }
+                    .footer-logo-bg { fill: #4c82ee; }
+                    .footer-logo-lines { fill: #ffffff; }
                   `}</style>
-                  <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{stopColor:"#4c82ee", stopOpacity:1}} />
-                    <stop offset="100%" style={{stopColor:"#2563eb", stopOpacity:1}} />
-                  </linearGradient>
                 </defs>
                 
                 <g>
-                  <rect x="3" y="6" width="32" height="32" rx="6" fill="url(#footerLogoGradient)"/>
-                  <path d="M 10 16 L 14 28 L 18 20 L 22 28 L 26 16" 
-                        stroke="white" 
-                        strokeWidth="2.5" 
-                        fill="none" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"/>
-                  <circle cx="30" cy="14" r="2.5" fill="#4c82ee"/>
+                  <rect className="footer-logo-bg" x="3" y="6" width="32" height="32" rx="8"/>
+                  <g className="footer-logo-lines">
+                    <rect x="9" y="14" width="20" height="4" rx="2"/>
+                    <rect x="9" y="20" width="16" height="4" rx="2"/>
+                    <rect x="9" y="26" width="12" height="4" rx="2"/>
+                  </g>
                 </g>
                 
-                <text x="42" y="30" className="footer-logo-text">Weblify Studio</text>
+                <text x="42" y="28" className="footer-logo-text">Weblify Studio</text>
               </svg>
             </div>
             <p className="text-gray-300 dark:text-gray-400 mb-6 leading-relaxed">

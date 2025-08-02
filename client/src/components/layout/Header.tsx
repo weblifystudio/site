@@ -59,20 +59,40 @@ export default function Header() {
           {/* Logo - Alignement parfait à gauche */}
           <div className="flex-shrink-0 min-w-0">
             <Link href="/" className="flex items-center group" onClick={scrollToTop}>
-              <img 
-                src="/Logo_entier.svg" 
-                alt="Weblify Studio Logo Complet"
-                className={`transition-all duration-300 dark:hidden ${
-                  isScrolled ? 'h-6 sm:h-7 lg:h-8' : 'h-7 sm:h-8 lg:h-9'
+              <svg 
+                className={`transition-all duration-300 ${
+                  isScrolled ? 'h-8 sm:h-9 lg:h-10' : 'h-9 sm:h-10 lg:h-11'
                 }`}
-              />
-              <img 
-                src="/Logo_entier_dark.svg" 
-                alt="Weblify Studio Logo Complet"
-                className={`transition-all duration-300 hidden dark:block ${
-                  isScrolled ? 'h-6 sm:h-7 lg:h-8' : 'h-7 sm:h-8 lg:h-9'
-                }`}
-              />
+                viewBox="0 0 180 44" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <style>{`
+                    .header-logo-text { 
+                      font-family: 'Inter', sans-serif; 
+                      font-weight: 700; 
+                      font-size: 20px;
+                      letter-spacing: -0.5px;
+                    }
+                    .header-logo-bg { fill: #4c82ee; }
+                    .header-logo-lines { fill: #ffffff; }
+                    .header-logo-text { fill: #1f2937; }
+                    .dark .header-logo-bg { fill: #60a5fa; }
+                    .dark .header-logo-text { fill: #ffffff; }
+                  `}</style>
+                </defs>
+                
+                <g>
+                  <rect className="header-logo-bg" x="2" y="8" width="28" height="28" rx="8"/>
+                  <g className="header-logo-lines">
+                    <rect x="8" y="16" width="16" height="3" rx="1"/>
+                    <rect x="8" y="21" width="12" height="3" rx="1"/>
+                    <rect x="8" y="26" width="8" height="3" rx="1"/>
+                  </g>
+                </g>
+                
+                <text x="38" y="28" className="header-logo-text">Weblify Studio</text>
+              </svg>
             </Link>
           </div>
 
