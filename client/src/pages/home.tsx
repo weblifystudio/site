@@ -245,10 +245,10 @@ export default function Home() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="hover:bg-primary/90 transition-colors duration-200">
-                  <Link href="/offres" onClick={scrollToTop}>🚀 Je veux mon devis</Link>
+                <Button asChild size="lg" className="hover:bg-primary/90 transition-colors duration-300">
+                  <Link href="/offres" onClick={scrollToTop}>Je veux mon devis</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="hover:bg-secondary transition-colors duration-200">
+                <Button asChild variant="outline" size="lg" className="hover:bg-secondary transition-colors duration-300">
                   <Link href="/contact" onClick={scrollToTop}>Contactez-nous</Link>
                 </Button>
               </div>
@@ -552,10 +552,10 @@ export default function Home() {
             Transformons votre vision en réalité digitale
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
-              <Link href="/offres" onClick={scrollToTop}>🚀 Calculer mon devis</Link>
+            <Button asChild size="lg" className="hover:bg-primary/90 transition-colors duration-300">
+              <Link href="/offres" onClick={scrollToTop}>Calculer mon devis</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            <Button asChild variant="outline" size="lg" className="hover:bg-secondary transition-colors duration-300">
               <Link href="/contact" onClick={scrollToTop}>Nous contacter</Link>
             </Button>
           </div>

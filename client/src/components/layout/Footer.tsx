@@ -170,7 +170,6 @@ export default function Footer() {
             <p className="mb-2">© 2025 Weblify. Tous droits réservés.</p>
             <p className="footer-signature text-center md:text-left mb-1">
               Créé par <strong>Weblify Studio</strong> — Votre partenaire digital
-              <span className="rocket ml-1">🚀</span>
             </p>
             <p className="text-center md:text-left text-xs text-gray-400 dark:text-gray-500">
               Web design & développement web performant, optimisé SEO.
