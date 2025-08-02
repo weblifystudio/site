@@ -232,14 +232,16 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-fade-in">
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                Créez un site qui{' '}
-                <span className="text-primary">vous ressemble</span>,
-                <span className="block">performant et unique</span>
+                <span className="text-primary">Agence Web Paris #1</span>{' '}
+                <span className="block">Sites Internet Professionnels</span>
+                <span className="block text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300 mt-2">
+                  Par Noah Delenclos - Expert Développement Sur-Mesure
+                </span>
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Weblify Studio transforme vos idées en expériences web exceptionnelles. 
-                Design moderne, développement sur-mesure et accompagnement personnalisé.
+                <strong>Weblify Studio Paris</strong> - Création sites internet professionnels, e-commerce et applications web sur-mesure. 
+                SEO optimisé, délai 7 jours, 100% satisfait ou remboursé. <strong>Devis gratuit en 24h.</strong>
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
