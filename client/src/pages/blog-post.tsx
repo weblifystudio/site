@@ -3,7 +3,7 @@ import { useRoute, Link } from 'wouter';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, Calendar, Clock, User, Share2, BookOpen } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, User, Download, BookOpen } from 'lucide-react';
 import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const scrollToTop = () => {
@@ -313,6 +313,37 @@ export default function BlogPost() {
     .filter(p => p.category === post.category && p.id !== post.id)
     .slice(0, 3);
 
+  // Fonction de téléchargement de l'article
+  const downloadArticle = () => {
+    const content = `${post.title}
+    
+${post.excerpt}
+
+Auteur: ${post.author}
+Date: ${new Date(post.publishDate).toLocaleDateString('fr-FR')}
+Temps de lecture: ${post.readTime}
+Catégorie: ${post.category}
+
+---
+
+${post.content}
+
+---
+
+© 2025 Weblify Studio - https://weblify-studio.com
+`;
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${post.slug}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="pt-28 pb-16">
       <div className="container mx-auto px-6">
@@ -396,10 +427,10 @@ export default function BlogPost() {
           <div className="mt-12 pt-8 border-t border-border">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-center sm:text-left">
-                <p className="text-sm text-muted-foreground mb-2">Cet article vous a plu ?</p>
-                <Button size="sm" variant="outline">
-                  <Share2 className="w-4 h-4 mr-2" />
-                  Partager l'article
+                <p className="text-sm text-muted-foreground mb-2">Télécharger cet article</p>
+                <Button size="sm" variant="outline" onClick={downloadArticle}>
+                  <Download className="w-4 h-4 mr-2" />
+                  Télécharger
                 </Button>
               </div>
               <Link href="/contact" onClick={scrollToTop}>

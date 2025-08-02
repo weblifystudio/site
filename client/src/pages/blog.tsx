@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, ArrowRight, User, Tag, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, User, Tag, ChevronDown, ChevronUp, BookOpen, Download } from 'lucide-react';
 import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const scrollToTop = () => {
@@ -286,6 +286,37 @@ export default function Blog() {
     setExpandedPosts(newExpandedPosts);
   };
 
+  // Fonction de téléchargement d'un article
+  const downloadArticle = (post: any) => {
+    const content = `${post.title}
+    
+${post.excerpt}
+
+Auteur: ${post.author}
+Date: ${new Date(post.publishDate).toLocaleDateString('fr-FR')}
+Temps de lecture: ${post.readTime}
+Catégorie: ${post.category}
+
+---
+
+${post.content}
+
+---
+
+© 2025 Weblify Studio - https://weblify-studio.com
+`;
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${post.slug}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const formatContent = (content: string) => {
     const lines = content.split('\n');
     return lines.map((line, index) => {
@@ -424,6 +455,15 @@ export default function Blog() {
                           <ChevronDown className="w-4 h-4 ml-2" />
                         </>
                       )}
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="ghost" 
+                      className="hover:bg-primary/10"
+                      onClick={() => downloadArticle(post)}
+                      title="Télécharger l'article"
+                    >
+                      <Download className="w-4 h-4" />
                     </Button>
                     <Link href={`/blog/${post.slug}`} onClick={scrollToTop}>
                       <Button size="sm" variant="ghost" className="hover:bg-primary/10">
