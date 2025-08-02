@@ -371,15 +371,10 @@ export default function Blog() {
                     height="400"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-4 left-4 flex items-center space-x-2">
+                  <div className="absolute top-4 left-4">
                     <Badge variant="outline" className="bg-white/90 text-primary border-primary backdrop-blur-sm">
                       {post.category}
                     </Badge>
-                    {post.featured && (
-                      <Badge variant="secondary" className="bg-orange-100/90 text-orange-600 backdrop-blur-sm">
-                        À la une
-                      </Badge>
-                    )}
                   </div>
                 </div>
                 
