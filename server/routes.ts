@@ -112,6 +112,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Envoyer un email depuis l'interface admin
+  app.post("/api/admin/send-email", requireAuth, async (req, res) => {
+    try {
+      const { to, subject, content } = req.body;
+      
+      if (!to || !subject || !content) {
+        return res.status(400).json({
+          success: false,
+          message: "Destinataire, sujet et contenu requis"
+        });
+      }
+
+      // Stocker l'email envoyé dans la base
+      await db.insert(emails).values({
+        fromName: 'Noah Delenclos (Weblify Studio)',
+        fromEmail: 'noah.delenclos@gmail.com',
+        toEmail: to,
+        subject: subject,
+        content: content,
+        isRead: true // Les emails envoyés sont marqués comme "lus"
+      });
+
+      console.log(`📧 Email envoyé depuis l'admin vers ${to}: ${subject}`);
+      
+      res.json({ 
+        success: true, 
+        message: "Email envoyé et stocké avec succès" 
+      });
+    } catch (error) {
+      console.error('❌ Error sending admin email:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Erreur lors de l'envoi de l'email" 
+      });
+    }
+  });
+
   // Newsletter subscription
   app.post("/api/newsletter", async (req, res) => {
     try {

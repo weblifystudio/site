@@ -12,6 +12,7 @@ import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import Admin from "@/pages/admin";
 import AdminLogin from "@/pages/admin-login";
+import AdminCompose from "@/pages/admin-compose";
 import About from "@/pages/about";
 import FAQ from "@/pages/faq";
 import Contact from "@/pages/contact";
@@ -64,6 +65,7 @@ function Router() {
       <Route path="/cookies" component={Cookies} />
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={Admin} />
+      <Route path="/admin/compose" component={AdminCompose} />
       <Route path="/admin" component={AdminLogin} />
       <Route component={NotFound} />
     </Switch>

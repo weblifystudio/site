@@ -181,14 +181,23 @@ export default function Admin() {
                 Consultation des messages de contact - Session protégée
               </p>
             </div>
-            <Button 
-              onClick={handleLogout}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              <LogOut className="w-4 h-4" />
-              Déconnexion
-            </Button>
+            <div className="flex gap-3">
+              <Button 
+                onClick={() => setLocation('/admin/compose')}
+                className="flex items-center gap-2"
+              >
+                <Mail className="w-4 h-4" />
+                Composer
+              </Button>
+              <Button 
+                onClick={handleLogout}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Déconnexion
+              </Button>
+            </div>
           </div>
 
           {/* Stats */}
