@@ -165,12 +165,12 @@ export default function Home() {
   const [projectsCount, setProjectsCount] = useState(0);
   const [satisfactionCount, setSatisfactionCount] = useState(0);
   const [delayCount, setDelayCount] = useState(0);
-  const [completedSteps, setCompletedSteps] = useState(new Set());
-  const [hoveredStep, setHoveredStep] = useState(null);
+  const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
   const statsRef = useRef(null);
 
   // Fonction pour marquer une étape comme terminée
-  const handleStepClick = (stepNumber) => {
+  const handleStepClick = (stepNumber: number) => {
     setCompletedSteps(prev => {
       const newCompleted = new Set(prev);
       if (newCompleted.has(stepNumber)) {
