@@ -7,8 +7,8 @@ import { mailchimpService } from './mailchimp';
 // Validation des données newsletter
 const newsletterSchema = z.object({
   email: z.string().email('Email invalide').min(1, 'Email requis'),
-  firstName: z.string().min(2, 'Prénom requis (min 2 caractères)').max(50),
-  lastName: z.string().min(2, 'Nom requis (min 2 caractères)').max(50),
+  firstName: z.string().min(2, 'Prénom requis (min 2 caractères)').max(50).optional(),
+  lastName: z.string().min(2, 'Nom requis (min 2 caractères)').max(50).optional(),
   interests: z.array(z.string()).optional().default([]),
   source: z.string().optional().default('website'),
 });
