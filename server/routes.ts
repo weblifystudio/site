@@ -5,6 +5,9 @@ import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
 import { sendContactEmail } from "./email";
 import { addToNewsletter } from "./newsletter";
+import { db } from "./db";
+import { emails } from "@shared/schema";
+import { desc, eq } from "drizzle-orm";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -71,6 +74,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false, 
         message: "Failed to retrieve contacts" 
+      });
+    }
+  });
+
+  // Get all emails (for admin purposes)
+  app.get("/api/emails", async (req, res) => {
+    try {
+      const allEmails = await db.select().from(emails).orderBy(desc(emails.createdAt));
+      res.json(allEmails);
+    } catch (error) {
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to retrieve emails" 
+      });
+    }
+  });
+
+  // Mark email as read
+  app.patch("/api/emails/:id/read", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await db.update(emails).set({ isRead: true }).where(eq(emails.id, id));
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to mark email as read" 
       });
     }
   });
