@@ -84,7 +84,9 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         <p className="text-green-700 mb-4">
           Votre devis <strong>{quoteNumber}</strong> a été téléchargé automatiquement.
           <br />
-          Vous avez également reçu une copie par email.
+          <span className="text-sm">
+            💡 Pour recevoir le devis par email, contactez-nous ou configurez l'envoi automatique.
+          </span>
         </p>
         
         <div className="flex gap-3 justify-center">

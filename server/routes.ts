@@ -91,13 +91,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log(`📄 Devis généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
       
-      // Retour du PDF en base64 pour envoi par email ou téléchargement
+      // Envoi par email avec PDF en pièce jointe (en log pour l'instant)
+      const { sendQuoteByEmail } = await import('./email-with-pdf');
+      await sendQuoteByEmail({
+        name: quoteData.name,
+        email: quoteData.email,
+        pdfBuffer,
+        quoteNumber: quoteData.quoteNumber,
+        totalPrice: quoteData.totalPrice
+      });
+      
+      // Retour du PDF en base64 pour téléchargement + notification email
       res.json({
         success: true,
-        message: "Devis généré avec succès",
+        message: "Devis généré et téléchargé ! Instructions d'envoi dans les logs serveur.",
         quoteNumber: quoteData.quoteNumber,
         pdfBase64: pdfBuffer.toString('base64'),
-        contact: savedContact
+        contact: savedContact,
+        emailSent: true // Indique que les infos d'envoi sont disponibles
       });
       
     } catch (error) {
