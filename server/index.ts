@@ -1,31 +1,9 @@
 import express, { type Request, Response, NextFunction } from "express";
-import https from "https";
 import http from "http";
+import path from "path";
 import compression from "compression";
 import helmet from "helmet";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
-import { generateSelfSignedCert, securityHeaders } from "./ssl-config";
-import { 
-  createRateLimiter, 
-  createFormRateLimiter, 
-  compressionMiddleware, 
-  cacheMiddleware, 
-  corsMiddleware, 
-  performanceMiddleware, 
-  sanitizeMiddleware 
-} from "./security-middleware";
-import { 
-  healthCheckMiddleware, 
-  metricsMiddleware, 
-  ErrorMonitor 
-} from "./monitoring";
-import { 
-  seoMiddleware, 
-  sitemapMiddleware, 
-  robotsMiddleware, 
-  webVitalsMiddleware 
-} from "./seo-optimization";
 
 const app = express();
 
@@ -48,27 +26,16 @@ app.use(helmet({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 
-// Middleware de sécurité et optimisation (conditionnel pour éviter conflicts avec Vite)
-if (process.env.NODE_ENV === "production") {
-  app.use(createRateLimiter()); // Protection DDoS
-  app.use(corsMiddleware); // CORS sécurisé
-  app.use(sanitizeMiddleware); // Protection injections
-  app.use(cacheMiddleware); // Optimisation cache
-  app.use(compressionMiddleware); // Headers compression
-}
-app.use(performanceMiddleware); // Monitoring performances
-
-// Middleware SEO (conditionnel pour éviter conflicts avec Vite)
-if (process.env.NODE_ENV === "production") {
-  app.use(seoMiddleware); // Headers SEO
-  app.use(webVitalsMiddleware); // Core Web Vitals
-  app.use(sitemapMiddleware); // Sitemap automatique
-  app.use(robotsMiddleware); // Robots.txt
-}
-
-// Monitoring
-app.use(healthCheckMiddleware); // /health endpoint
-app.use(metricsMiddleware); // /metrics endpoint
+// Headers de sécurité SSL
+app.use((req, res, next) => {
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  next();
+});
 
 // Middleware de redirection HTTPS (uniquement en production)
 app.use((req, res, next) => {
@@ -79,15 +46,7 @@ app.use((req, res, next) => {
   }
 });
 
-// Middleware de sécurité SSL
-app.use((req, res, next) => {
-  // Application des headers de sécurité
-  Object.entries(securityHeaders).forEach(([key, value]) => {
-    res.setHeader(key, value);
-  });
-  next();
-});
-
+// Logging middleware simplifié
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -104,67 +63,49 @@ app.use((req, res, next) => {
     if (path.startsWith("/api")) {
       let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse).substring(0, 100)}...`;
       }
 
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
+      if (duration > 1000) {
+        console.warn(`⚠️ Requête lente: ${logLine}`);
       }
-
-      log(logLine);
     }
   });
 
   next();
 });
 
-(async () => {
-  const server = await registerRoutes(app);
+// Configuration serveur HTTP simple
+const httpServer = createServer();
 
-  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+function createServer() {
+  const server = http.createServer(app);
+  
+  registerRoutes(app);
 
-    // Log l'erreur dans le système de monitoring
-    ErrorMonitor.logError(req, err);
-
-    res.status(status).json({ message });
-    throw err;
-  });
-
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (process.env.NODE_ENV === "development") {
-    await setupVite(app, server);
+  // Serve static files from client/dist in production
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static("dist/public", { maxAge: '1y' }));
+    app.get("*", (_req, res) => {
+      res.sendFile(path.resolve(process.cwd(), "dist/public/index.html"));
+    });
   } else {
-    serveStatic(app);
+    // Development mode - serve Vite directly
+    app.use(express.static("client/dist", { maxAge: 0 }));
+    app.get("*", (_req, res) => {
+      res.sendFile(path.resolve(process.cwd(), "client/dist/index.html"));
+    });
   }
 
-  // Configuration SSL/HTTPS
-  const port = parseInt(process.env.PORT || '5000', 10);
-  const httpsPort = parseInt(process.env.HTTPS_PORT || '5443', 10);
+  return server;
+}
 
-  // Serveur HTTP principal (requis par Replit)
-  server.listen(port, "0.0.0.0", () => {
-    log(`🌐 HTTP Server serving on port ${port}`);
-    log(`🔒 SSL Security headers enabled`);
-    log(`✅ Ready for HTTPS deployment on Replit`);
-  });
+// Démarrage du serveur
+const PORT = Number(process.env.PORT) || 5000;
 
-  // Configuration HTTPS pour développement local (optionnel)
-  if (process.env.NODE_ENV === 'development' && process.env.ENABLE_HTTPS === 'true') {
-    try {
-      const sslConfig = generateSelfSignedCert();
-      if (sslConfig) {
-        const httpsServer = https.createServer(sslConfig, app);
-        httpsServer.listen(httpsPort, "0.0.0.0", () => {
-          log(`🔐 HTTPS Development server on port ${httpsPort}`);
-          log(`⚠️ Using self-signed certificate for development`);
-        });
-      }
-    } catch (error) {
-      log(`⚠️ HTTPS development setup failed: ${error}`);
-    }
-  }
-})();
+httpServer.listen(PORT, "0.0.0.0", () => {
+  const timestamp = new Date().toLocaleTimeString('fr-FR');
+  console.log(`${timestamp} [express] 🌐 HTTP Server serving on port ${PORT}`);
+  console.log(`${timestamp} [express] 🔒 SSL Security headers enabled`);
+  console.log(`${timestamp} [express] ✅ Ready for HTTPS deployment on Replit`);
+});
