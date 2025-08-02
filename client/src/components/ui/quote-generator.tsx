@@ -69,10 +69,10 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
 
   if (pdfGenerated) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-        <div className="flex justify-center mb-4">
-          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-            <FileText className="w-6 h-6 text-green-600" />
+      <div className="bg-green-50 border border-green-200 rounded-lg p-8 text-center max-w-2xl mx-auto">
+        <div className="flex justify-center mb-6">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+            <FileText className="w-8 h-8 text-green-600" />
           </div>
         </div>
         

@@ -54,10 +54,10 @@ export default function Header() {
 
       <header className={`fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border z-40 transition-all duration-300 ${isScrolled ? 'header-compact' : ''}`}>
         <div className={`container mx-auto px-4 lg:px-6 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
-        <nav className="flex items-center justify-between">
+        <nav className="flex items-center justify-between min-h-[60px]">
           
-          {/* Logo - Positioning parfait à gauche */}
-          <div className="flex-shrink-0">
+          {/* Logo - Alignement parfait à gauche */}
+          <div className="flex-shrink-0 min-w-0">
             <Link href="/" className="flex items-center group" onClick={scrollToTop}>
               <img 
                 src="/Logo_entier.svg" 
@@ -76,28 +76,28 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Navigation Desktop - Centré parfaitement */}
-          <div className="hidden md:flex items-center justify-center flex-1 px-8">
-            <div className="flex items-center space-x-8 lg:space-x-10">
+          {/* Navigation Desktop - Centrage absolu parfait */}
+          <div className="hidden md:flex items-center justify-center flex-1 mx-8">
+            <nav className="flex items-center justify-center space-x-6 lg:space-x-8 xl:space-x-10">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={scrollToTop}
-                  className={`header-link text-sm font-medium transition-colors duration-200 ${
+                  className={`header-link text-sm font-medium transition-all duration-200 px-2 py-1 rounded-md ${
                     location === item.href
-                      ? 'text-primary font-semibold'
-                      : 'text-muted-foreground hover:text-primary'
+                      ? 'text-primary font-semibold bg-primary/10'
+                      : 'text-muted-foreground hover:text-primary hover:bg-muted/50'
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
-            </div>
+            </nav>
           </div>
 
-          {/* Actions Desktop - Positioning parfait à droite */}
-          <div className="hidden md:flex items-center">
+          {/* Actions Desktop - Alignement parfait à droite */}
+          <div className="hidden md:flex items-center justify-end flex-shrink-0">
             <ThemeToggle />
           </div>
 

@@ -53,13 +53,13 @@ export default function Footer() {
               Agence web parisienne spécialisée dans la création de sites internet modernes et performants.
               Transformons ensemble votre vision en réalité digitale.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex items-center justify-start space-x-3">
               {/* LinkedIn */}
               <a
                 href="https://www.linkedin.com/in/noah-delenclos-b8952a377"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-700 dark:bg-gray-800 hover:bg-blue-600 text-gray-300 dark:text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200"
+                className="w-10 h-10 bg-gray-700 dark:bg-gray-800 hover:bg-blue-600 text-gray-300 dark:text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
                 aria-label="LinkedIn de Noah Delenclos"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@ export default function Footer() {
                 href="https://pin.it/5pd8oYiac"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-700 dark:bg-gray-800 hover:bg-red-600 text-gray-300 dark:text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200"
+                className="w-10 h-10 bg-gray-700 dark:bg-gray-800 hover:bg-red-600 text-gray-300 dark:text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
                 aria-label="Pinterest Weblify"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -83,7 +83,7 @@ export default function Footer() {
                 href="https://github.com/weblifystudio"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-700 dark:bg-gray-800 hover:bg-gray-600 text-gray-300 dark:text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200"
+                className="w-10 h-10 bg-gray-700 dark:bg-gray-800 hover:bg-gray-600 text-gray-300 dark:text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
                 aria-label="GitHub Weblify Studio"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -95,7 +95,7 @@ export default function Footer() {
                 href="https://x.com/weblifystudio"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-700 dark:bg-gray-800 hover:bg-blue-500 text-gray-300 dark:text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200"
+                className="w-10 h-10 bg-gray-700 dark:bg-gray-800 hover:bg-blue-500 text-gray-300 dark:text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
                 aria-label="Twitter/X Weblify Studio"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

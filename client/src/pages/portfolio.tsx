@@ -77,42 +77,44 @@ export default function Portfolio() {
         {/* Breadcrumbs */}
         <Breadcrumbs className="mb-8" />
         
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        {/* Header - Alignement parfait */}
+        <div className="text-center mb-16 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Portfolio en construction
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Agence récente fondée en 2025, nos premiers projets clients 
             seront bientôt présentés ici. Découvrez notre expertise dès maintenant.
           </p>
         </div>
 
-        {/* Info Card pour vrais projets */}
-        <Card className="mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
-          <CardContent className="p-8 text-center">
-            <div className="max-w-2xl mx-auto">
-              <h3 className="text-xl font-bold mb-3 text-blue-900 dark:text-blue-100">
-                Portfolio en construction
-              </h3>
-              <p className="text-blue-700 dark:text-blue-300 mb-4">
-                Nos premiers projets clients seront bientôt disponibles ici. En attendant, vous pouvez découvrir notre approche et notre expertise à travers nos services.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button asChild variant="default">
-                  <Link href="/offres" onClick={scrollToTop}>
-                    Découvrir nos offres
-                  </Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link href="/contact" onClick={scrollToTop}>
-                    Discuter de votre projet
-                  </Link>
-                </Button>
+        {/* Info Card pour vrais projets - Centrage optimal */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
+            <CardContent className="p-8 text-center">
+              <div className="max-w-3xl mx-auto">
+                <h3 className="text-xl font-bold mb-4 text-blue-900 dark:text-blue-100">
+                  Portfolio en construction
+                </h3>
+                <p className="text-blue-700 dark:text-blue-300 mb-6 leading-relaxed">
+                  Nos premiers projets clients seront bientôt disponibles ici. En attendant, vous pouvez découvrir notre approche et notre expertise à travers nos services.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button asChild size="lg" variant="default">
+                    <Link href="/offres" onClick={scrollToTop}>
+                      Découvrir nos offres
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline">
+                    <Link href="/contact" onClick={scrollToTop}>
+                      Discuter de votre projet
+                    </Link>
+                  </Button>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">

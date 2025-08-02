@@ -49,12 +49,12 @@ export default function Services() {
           <Breadcrumbs />
         </div>
 
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        {/* Header - Alignement perfectionné */}
+        <div className="text-center mb-12 max-w-5xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Estimez votre <span className="text-primary">projet web</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
             Calculateur intelligent, devis instantané et tarifs transparents. 
             Découvrez votre estimation en quelques clics.
           </p>
@@ -63,16 +63,17 @@ export default function Services() {
         {/* Calculateur de prix */}
         <PricingCalculatorProgressive />
 
-        {/* Additional Services */}
-        <div className="bg-muted/50 rounded-2xl p-8 md:p-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Services Complémentaires</h2>
-            <p className="text-muted-foreground">
-              Optimisez et maintenez votre présence web avec nos services additionnels
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-6">
+        {/* Additional Services - Centrage amélioré */}
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-muted/50 rounded-2xl p-8 md:p-12">
+            <div className="text-center mb-12 max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold mb-4">Services Complémentaires</h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Optimisez et maintenez votre présence web avec nos services additionnels
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {additionalServices.map((service, index) => (
               <Card key={index} className="hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-6">
@@ -88,13 +89,14 @@ export default function Services() {
                 </CardContent>
               </Card>
             ))}
+            </div>
           </div>
         </div>
 
-        {/* Process Overview */}
-        <div className="mt-20 text-center">
+        {/* Process Overview - Alignement optimal */}
+        <div className="mt-20 text-center max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-8">Comment ça marche ?</h2>
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             <div className="space-y-4">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto">
                 <span className="text-white font-bold text-xl">1</span>

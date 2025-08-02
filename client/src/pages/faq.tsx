@@ -17,12 +17,12 @@ export default function FAQ() {
           <Breadcrumbs />
         </div>
 
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        {/* Header - Alignement parfait */}
+        <div className="text-center mb-16 max-w-5xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Toutes vos <span className="text-primary">réponses</span> en un clic
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Prix, délais, process, maintenance... Découvrez tout ce que vous devez savoir 
             avant de vous lancer dans votre projet web.
           </p>
@@ -33,25 +33,28 @@ export default function FAQ() {
           <InteractiveFAQ />
         </div>
 
-        {/* CTA Section */}
-        <div className="mt-20 text-center bg-gradient-to-r from-primary/10 to-blue-50 dark:from-primary/20 dark:to-blue-900/20 rounded-2xl p-12">
-          <h2 className="text-3xl font-bold mb-4">Vous ne trouvez pas votre réponse ?</h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Notre équipe est là pour répondre à toutes vos questions spécifiques. 
-            N'hésitez pas à nous contacter pour un conseil personnalisé.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg">
-              <Link href="/contact" onClick={scrollToTop}>Poser ma question</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="/offres" onClick={scrollToTop}>Voir nos offres</Link>
-            </Button>
+        {/* CTA Section - Centrage amélioré */}
+        <div className="mt-20 max-w-5xl mx-auto">
+          <div className="text-center bg-gradient-to-r from-primary/10 to-blue-50 dark:from-primary/20 dark:to-blue-900/20 rounded-2xl p-12">
+            <h2 className="text-3xl font-bold mb-4">Vous ne trouvez pas votre réponse ?</h2>
+            <p className="text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+              Notre équipe est là pour répondre à toutes vos questions spécifiques. 
+              N'hésitez pas à nous contacter pour un conseil personnalisé.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button asChild size="lg">
+                <Link href="/contact" onClick={scrollToTop}>Poser ma question</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="/offres" onClick={scrollToTop}>Voir nos offres</Link>
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Quick Help */}
-        <div className="mt-16 grid md:grid-cols-3 gap-6">
+        {/* Quick Help - Centrage optimal */}
+        <div className="mt-16 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
           <div className="text-center p-6 border border-border rounded-lg">
             <div className="w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-4 flex items-center justify-center">
               <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,6 +99,7 @@ export default function FAQ() {
             <Button asChild variant="outline" size="sm">
               <Link href="/realisations" onClick={scrollToTop}>Portfolio</Link>
             </Button>
+          </div>
           </div>
         </div>
       </div>

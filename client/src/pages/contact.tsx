@@ -183,12 +183,12 @@ export default function Contact() {
           <Breadcrumbs />
         </div>
 
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        {/* Header - Centrage optimal */}
+        <div className="text-center mb-16 max-w-5xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Concrétisons votre projet ensemble
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Réponse sous 24h garantie. Devis gratuit et conseils personnalisés 
             pour transformer votre vision en succès digital.
           </p>

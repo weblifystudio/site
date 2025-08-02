@@ -16,12 +16,12 @@ export default function About() {
         {/* Breadcrumbs */}
         <Breadcrumbs className="mb-8" />
         
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        {/* Header - Centrage parfait */}
+        <div className="text-center mb-16 max-w-5xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             L'expertise au service de votre vision
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Noah Delenclos, développeur full-stack passionné basé à Paris. 
             5 ans d'expérience pour transformer vos idées en succès digitaux.
           </p>
