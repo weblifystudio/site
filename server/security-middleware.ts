@@ -5,12 +5,19 @@ import { rateLimit } from 'express-rate-limit';
 export const createRateLimiter = () => {
   return rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limite chaque IP à 100 requêtes par fenêtre
+    max: process.env.NODE_ENV === 'development' ? 10000 : 300, // Plus permissif en dev
     message: {
       error: 'Trop de requêtes depuis cette IP, réessayez dans 15 minutes.'
     },
     standardHeaders: true,
     legacyHeaders: false,
+    skip: (req) => {
+      // Skip rate limiting pour les assets en développement
+      if (process.env.NODE_ENV === 'development' && req.url.match(/\.(css|js|ts|tsx|jsx|json|svg|png|jpg|ico|woff|woff2)$/)) {
+        return true;
+      }
+      return false;
+    }
   });
 };
 
