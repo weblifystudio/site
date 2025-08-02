@@ -25,7 +25,8 @@ import {
   Gem,
   Clock,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Check
 } from 'lucide-react';
 
 const scrollToTop = () => {
@@ -164,7 +165,22 @@ export default function Home() {
   const [projectsCount, setProjectsCount] = useState(0);
   const [satisfactionCount, setSatisfactionCount] = useState(0);
   const [delayCount, setDelayCount] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState(new Set());
+  const [hoveredStep, setHoveredStep] = useState(null);
   const statsRef = useRef(null);
+
+  // Fonction pour simuler la progression des étapes
+  const handleStepClick = (stepNumber) => {
+    setCompletedSteps(prev => {
+      const newCompleted = new Set(prev);
+      if (newCompleted.has(stepNumber)) {
+        newCompleted.delete(stepNumber);
+      } else {
+        newCompleted.add(stepNumber);
+      }
+      return newCompleted;
+    });
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -426,8 +442,23 @@ export default function Home() {
                 <Card className="shadow-xl border-l-4 border-l-primary">
                   <CardContent className="p-6">
                     <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <span className="text-white text-lg font-bold">{step.step}</span>
+                      <div 
+                        className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 cursor-pointer transition-all duration-300 transform hover:scale-110 ${
+                          completedSteps.has(step.step) 
+                            ? 'bg-gradient-to-br from-green-500 to-green-600 shadow-green-200 shadow-lg' 
+                            : hoveredStep === step.step
+                            ? 'bg-gradient-to-br from-primary to-blue-600 shadow-blue-200 shadow-lg scale-105'
+                            : 'bg-gradient-to-br from-primary to-blue-600'
+                        }`}
+                        onClick={() => handleStepClick(step.step)}
+                        onMouseEnter={() => setHoveredStep(step.step)}
+                        onMouseLeave={() => setHoveredStep(null)}
+                      >
+                        {completedSteps.has(step.step) ? (
+                          <Check className="w-6 h-6 text-white animate-in slide-in-from-bottom-2 duration-300" />
+                        ) : (
+                          <span className="text-white text-lg font-bold">{step.step}</span>
+                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-xl font-bold mb-3">{step.title}</h3>
@@ -476,16 +507,46 @@ export default function Home() {
                           </CardContent>
                         </Card>
                       </div>
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-blue-600 rounded-full border-4 border-background shadow-xl z-10 flex items-center justify-center">
-                        <span className="text-white text-lg font-bold">{step.step}</span>
+                      <div 
+                        className={`w-12 h-12 rounded-full border-4 border-background shadow-xl z-10 flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-110 ${
+                          completedSteps.has(step.step) 
+                            ? 'bg-gradient-to-br from-green-500 to-green-600 shadow-green-200 shadow-lg' 
+                            : hoveredStep === step.step
+                            ? 'bg-gradient-to-br from-primary to-blue-600 shadow-blue-200 shadow-lg scale-105'
+                            : 'bg-gradient-to-br from-primary to-blue-600'
+                        }`}
+                        onClick={() => handleStepClick(step.step)}
+                        onMouseEnter={() => setHoveredStep(step.step)}
+                        onMouseLeave={() => setHoveredStep(null)}
+                      >
+                        {completedSteps.has(step.step) ? (
+                          <Check className="w-6 h-6 text-white animate-in slide-in-from-bottom-2 duration-300" />
+                        ) : (
+                          <span className="text-white text-lg font-bold">{step.step}</span>
+                        )}
                       </div>
                       <div className="w-1/2 pl-8"></div>
                     </>
                   ) : (
                     <>
                       <div className="w-1/2 pr-8"></div>
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-blue-600 rounded-full border-4 border-background shadow-xl z-10 flex items-center justify-center">
-                        <span className="text-white text-lg font-bold">{step.step}</span>
+                      <div 
+                        className={`w-12 h-12 rounded-full border-4 border-background shadow-xl z-10 flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-110 ${
+                          completedSteps.has(step.step) 
+                            ? 'bg-gradient-to-br from-green-500 to-green-600 shadow-green-200 shadow-lg' 
+                            : hoveredStep === step.step
+                            ? 'bg-gradient-to-br from-primary to-blue-600 shadow-blue-200 shadow-lg scale-105'
+                            : 'bg-gradient-to-br from-primary to-blue-600'
+                        }`}
+                        onClick={() => handleStepClick(step.step)}
+                        onMouseEnter={() => setHoveredStep(step.step)}
+                        onMouseLeave={() => setHoveredStep(null)}
+                      >
+                        {completedSteps.has(step.step) ? (
+                          <Check className="w-6 h-6 text-white animate-in slide-in-from-bottom-2 duration-300" />
+                        ) : (
+                          <span className="text-white text-lg font-bold">{step.step}</span>
+                        )}
                       </div>
                       <div className="w-1/2 pl-8">
                         <Card className="shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
