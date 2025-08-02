@@ -68,12 +68,21 @@ const additionalFeatures: Feature[] = [
 ];
 
 export default function PricingCalculator() {
-  const [selectedBase, setSelectedBase] = useState<string>('vitrine');
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedBase, setSelectedBase] = useState<string>('');
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [pages, setPages] = useState([8]);
   const [expressDelivery, setExpressDelivery] = useState(false);
   
-  const baseOption = baseOptions.find(opt => opt.id === selectedBase)!;
+  const baseOption = baseOptions.find(opt => opt.id === selectedBase);
+
+  const handleBaseSelection = (baseId: string) => {
+    setSelectedBase(baseId);
+    setCurrentStep(2);
+  };
+
+  const goToNextStep = () => setCurrentStep(prev => prev + 1);
+  const goToPreviousStep = () => setCurrentStep(prev => Math.max(1, prev - 1));
   
   // Calcul automatique du délai de livraison basé sur la complexité
   const calculateEstimatedDelivery = () => {
@@ -104,6 +113,7 @@ export default function PricingCalculator() {
   };
 
   const calculateTotal = () => {
+    if (!baseOption) return 0;
     let total = baseOption.basePrice;
     
     // Pages supplémentaires (au-delà de 8 pages de base)
@@ -157,40 +167,80 @@ export default function PricingCalculator() {
   return (
     <section className="py-24 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-8">
-          {/* Configuration */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Type de site */}
-            <Card>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {baseOptions.map((option) => (
-                    <div
-                      key={option.id}
-                      onClick={() => setSelectedBase(option.id)}
-                      className={`relative p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                        selectedBase === option.id
-                          ? 'border-primary bg-primary/5'
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      {option.popular && (
-                        <Badge className="absolute -top-2 left-4 bg-primary">
-                          Populaire
-                        </Badge>
-                      )}
-                      <h4 className="font-semibold mb-2">{option.name}</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                        {option.description}
-                      </p>
-                      <p className="text-lg font-bold text-primary">
-                        À partir de {option.basePrice}€
-                      </p>
-                    </div>
-                  ))}
+        <div className="max-w-6xl mx-auto">
+          
+          {/* Indicateur d'étapes */}
+          <div className="mb-12">
+            <div className="flex items-center justify-center space-x-8">
+              {[1, 2, 3, 4, 5].map((step) => (
+                <div key={step} className="flex items-center">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                    step <= currentStep 
+                      ? 'bg-primary text-white' 
+                      : 'bg-gray-200 text-gray-500'
+                  }`}>
+                    {step}
+                  </div>
+                  {step < 5 && (
+                    <div className={`w-16 h-1 mx-2 transition-all ${
+                      step < currentStep ? 'bg-primary' : 'bg-gray-200'
+                    }`} />
+                  )}
                 </div>
-              </CardContent>
-            </Card>
+              ))}
+            </div>
+            <div className="text-center mt-4">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                {currentStep === 1 && "Choisissez votre type de site"}
+                {currentStep === 2 && "Nombre de pages"}
+                {currentStep === 3 && "Délai de livraison"}
+                {currentStep === 4 && "Fonctionnalités additionnelles"}
+                {currentStep === 5 && "Récapitulatif et commande"}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Configuration progressive */}
+            <div className="lg:col-span-2">
+              
+              {/* Étape 1: Type de site */}
+              {currentStep === 1 && (
+                <Card className="animate-fade-in">
+                  <CardHeader>
+                    <CardTitle className="text-center text-2xl">Quel type de site voulez-vous ?</CardTitle>
+                    <p className="text-center text-gray-600 dark:text-gray-300">
+                      Sélectionnez l'option qui correspond le mieux à votre projet
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {baseOptions.map((option) => (
+                        <div
+                          key={option.id}
+                          onClick={() => handleBaseSelection(option.id)}
+                          className="relative p-6 rounded-lg border-2 cursor-pointer transition-all hover:border-primary hover:shadow-lg hover:scale-105 group"
+                        >
+                          {option.popular && (
+                            <Badge className="absolute -top-2 left-4 bg-primary">
+                              Populaire
+                            </Badge>
+                          )}
+                          <h4 className="font-semibold mb-3 text-lg group-hover:text-primary transition-colors">
+                            {option.name}
+                          </h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                            {option.description}
+                          </p>
+                          <p className="text-xl font-bold text-primary">
+                            À partir de {option.basePrice}€
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
             {/* Nombre de pages */}
             <Card>

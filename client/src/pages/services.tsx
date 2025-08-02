@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'wouter';
-import PricingCalculator from '@/components/ui/pricing-calculator';
+import PricingCalculatorProgressive from '@/components/ui/pricing-calculator-progressive';
 import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const scrollToTop = () => {
@@ -61,7 +61,7 @@ export default function Services() {
         </div>
 
         {/* Calculateur de prix */}
-        <PricingCalculator />
+        <PricingCalculatorProgressive />
 
         {/* Additional Services */}
         <div className="bg-muted/50 rounded-2xl p-8 md:p-12">
