@@ -138,8 +138,6 @@ export default function PricingCalculator() {
           <div className="lg:col-span-2 space-y-8">
             {/* Type de site */}
             <Card>
-              <CardHeader>
-              </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-4">
                   {baseOptions.map((option) => (
