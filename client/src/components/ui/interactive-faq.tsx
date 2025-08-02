@@ -92,6 +92,65 @@ const faqData: FAQItem[] = [
     answer: 'Nous travaillons avec tous les secteurs : restaurants, cabinets médicaux, artisans, e-commerce, startups, associations, etc. Chaque projet est adapté aux spécificités de votre métier.',
     category: 'general',
     tags: ['secteur', 'activité', 'métier', 'spécialisation']
+  },
+  {
+    id: '11',
+    question: 'Mon site sera-t-il sécurisé et conforme RGPD ?',
+    answer: 'Oui, nous intégrons systématiquement : certificat SSL gratuit, protection contre les attaques, sauvegardes automatiques, cookies conformes RGPD, politique de confidentialité, et mentions légales adaptées à votre activité.',
+    category: 'technique',
+    tags: ['sécurité', 'RGPD', 'SSL', 'protection', 'conformité'],
+    popular: true
+  },
+  {
+    id: '12',
+    question: 'Comment se déroule concrètement un projet ?',
+    answer: 'Étape 1 : Briefing détaillé et devis (24h). Étape 2 : Validation et acompte de 50%. Étape 3 : Création avec points réguliers. Étape 4 : Révisions et ajustements. Étape 5 : Livraison et formation. Communication via email, WhatsApp ou visio selon vos préférences.',
+    category: 'general',
+    tags: ['process', 'étapes', 'déroulement', 'communication'],
+    popular: true
+  },
+  {
+    id: '13',
+    question: 'Quand et comment dois-je payer ?',
+    answer: 'Acompte de 50% à la validation du devis, solde à la livraison. Paiement par virement, chèque ou PayPal. Aucun paiement avant d\'avoir validé votre maquette. Facture avec TVA fournie.',
+    category: 'prix',
+    tags: ['paiement', 'facturation', 'acompte', 'TVA'],
+    popular: true
+  },
+  {
+    id: '14',
+    question: 'Quelles technologies utilisez-vous ?',
+    answer: 'Nous utilisons les technologies modernes : React/TypeScript pour les applications web, WordPress pour les sites simples, bases de données PostgreSQL, hébergement cloud sécurisé, et outils d\'optimisation performance (Lighthouse 90+).',
+    category: 'technique',
+    tags: ['technologie', 'React', 'WordPress', 'moderne', 'performance']
+  },
+  {
+    id: '15',
+    question: 'Que se passe-t-il en cas de panne de mon site ?',
+    answer: 'Support d\'urgence 7j/7 pour les pannes critiques. Surveillance automatique, sauvegardes quotidiennes, restauration en moins de 4h. Pendant le 1er mois : intervention gratuite. Ensuite : forfait maintenance recommandé.',
+    category: 'maintenance',
+    tags: ['panne', 'urgence', 'support', 'surveillance', 'restauration']
+  },
+  {
+    id: '16',
+    question: 'Puis-je avoir accès aux statistiques de mon site ?',
+    answer: 'Oui ! Nous installons Google Analytics 4, Search Console, et un tableau de bord simple. Vous recevez un rapport mensuel avec : visiteurs, pages populaires, sources de trafic, et conseils d\'amélioration.',
+    category: 'technique',
+    tags: ['statistiques', 'analytics', 'rapport', 'données', 'suivi']
+  },
+  {
+    id: '17',
+    question: 'Pour un e-commerce, comment ça marche pour les paiements ?',
+    answer: 'Nous intégrons Stripe (leader mondial) : cartes bancaires, PayPal, Apple Pay. Frais : 1,4% + 0,25€ par transaction (standard Stripe). Paiements sécurisés, conformes PCI-DSS. Virements automatiques sur votre compte.',
+    category: 'technique',
+    tags: ['e-commerce', 'paiement', 'Stripe', 'commissions', 'sécurité']
+  },
+  {
+    id: '18',
+    question: 'Qui possède le code source et les droits de mon site ?',
+    answer: 'Vous êtes propriétaire à 100% : code source, design, contenu, nom de domaine. Pas de dépendance, pas d\'abonnement forcé. Nous vous fournissons tous les accès et fichiers sources à la livraison.',
+    category: 'general',
+    tags: ['propriété', 'code source', 'droits', 'accès', 'indépendance']
   }
 ];
 

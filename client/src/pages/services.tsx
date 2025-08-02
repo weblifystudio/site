@@ -52,11 +52,11 @@ export default function Services() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Estimez votre projet web
+            Estimez votre <span className="text-primary">projet web</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Calculateur intelligent, devis instantané et tarifs transparents. 
-            Découvrez le prix de votre site web en quelques clics.
+            Découvrez votre estimation en quelques clics.
           </p>
         </div>
 
