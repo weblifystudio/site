@@ -543,7 +543,12 @@ export default function PricingCalculatorProgressive() {
                         Retour
                       </Button>
                       <Button 
-                        onClick={() => document.getElementById('configuration-summary')?.scrollIntoView({ behavior: 'smooth' })}
+                        onClick={() => {
+                          setCurrentStep(4);
+                          setTimeout(() => {
+                            document.getElementById('configuration-summary')?.scrollIntoView({ behavior: 'smooth' });
+                          }, 100);
+                        }}
                         size="lg"
                       >
                         <Calculator className="w-4 h-4 mr-2" />
@@ -631,45 +636,31 @@ export default function PricingCalculatorProgressive() {
                       </div>
                     </div>
 
-                    <div className="flex justify-between pt-4">
-                      <Button variant="outline" onClick={goToPreviousStep}>
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Modifier
-                      </Button>
-                      <QuoteGenerator
-                        calculatorData={{
-                          name: `${contactInfo.firstName} ${contactInfo.lastName}`,
-                          email: contactInfo.email,
-                          phone: contactInfo.phone,
-                          company: contactInfo.company,
-                          websiteType: baseOption.id,
-                          pages: pages[0],
-                          features: selectedFeatures.map(id => 
-                            additionalFeatures.find(f => f.id === id)?.name || ''
-                          ).filter(Boolean),
-                          timeline: expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText,
-                          budget: `${calculateTotal()}€`
-                        }}
-                      />
-                    </div>
-                    
-                    {/* Générateur de devis après acceptation */}
-                    <div className="mt-6">
-                      <QuoteGenerator
-                        calculatorData={{
-                          name: `${contactInfo.firstName} ${contactInfo.lastName}`,
-                          email: contactInfo.email,
-                          phone: contactInfo.phone,
-                          company: contactInfo.company,
-                          websiteType: baseOption.id,
-                          pages: pages[0],
-                          features: selectedFeatures.map(id => 
-                            additionalFeatures.find(f => f.id === id)?.name || ''
-                          ).filter(Boolean),
-                          timeline: expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText,
-                          budget: `${calculateTotal()}€`
-                        }}
-                      />
+                    <div className="flex flex-col gap-4 pt-6">
+                      <div className="flex justify-between">
+                        <Button variant="outline" onClick={goToPreviousStep}>
+                          <ArrowLeft className="w-4 h-4 mr-2" />
+                          Modifier ma configuration
+                        </Button>
+                      </div>
+                      
+                      <div className="text-center">
+                        <QuoteGenerator
+                          calculatorData={{
+                            name: `${contactInfo.firstName} ${contactInfo.lastName}`,
+                            email: contactInfo.email,
+                            phone: contactInfo.phone,
+                            company: contactInfo.company,
+                            websiteType: baseOption.id,
+                            pages: pages[0],
+                            features: selectedFeatures.map(id => 
+                              additionalFeatures.find(f => f.id === id)?.name || ''
+                            ).filter(Boolean),
+                            timeline: expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText,
+                            budget: `${calculateTotal()}€`
+                          }}
+                        />
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
