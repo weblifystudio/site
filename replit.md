@@ -109,14 +109,14 @@ The application consists of 10 main pages:
 
 ## Recent Changes (February 2025)
 
-### February 2, 2025 - Suppression Système Admin + Calculateur Progressive
+### February 2, 2025 - Suppression Admin + Calculateur Progressive + Nettoyage Email
 - ✓ **SUPPRESSION ADMIN**: Supprimé complètement le système admin et stockage d'emails sur demande utilisateur
 - ✓ **CALCULATEUR AMÉLIORÉ**: Restructuration complète en 4 étapes logiques avec capture précoce des leads
 - ✓ **ÉTAPES REGROUPÉES**: 1-Coordonnées, 2-Type+Pages, 3-Délai+Fonctionnalités, 4-Récapitulatif
 - ✓ **UX OPTIMISÉE**: Collecte des coordonnées dès le début pour éviter l'abandon des prospects
 - ✓ **NAVIGATION LIBRE**: Toutes les bulles d'étapes cliquables, animations supprimées qui déformaient
-- ✓ **SYSTÈME SIMPLIFIÉ**: Email simplifié en log uniquement, suppression tables admin/newsletter
-- ✓ **NETTOYAGE COMPLET**: Routes admin supprimées, fichiers admin supprimés, schéma nettoyé
+- ✓ **SYSTÈME ULTRA-SIMPLIFIÉ**: Contact en log uniquement, utilisateur gère ses propres emails
+- ✓ **NETTOYAGE TOTAL**: MailerSend supprimé, 0 dépendance email, système 100% autonome
 
 ### February 1, 2025 - SEO Maximum + Newsletter Autonome + Micro-interactions
 - ✓ **SEO PAROXYSME**: Meta optimisés avec émojis, keywords stratégiques, Schema.org complet (WebDesignService + LocalBusiness)
