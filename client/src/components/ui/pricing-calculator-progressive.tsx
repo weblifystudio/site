@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
-import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight, User, Mail, Phone, Building } from 'lucide-react';
 import ContactFormIntegrated from '@/components/ui/contact-form-integrated';
 
 interface PricingOption {
@@ -69,6 +71,13 @@ const additionalFeatures: Feature[] = [
 
 export default function PricingCalculatorProgressive() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [contactInfo, setContactInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    company: ''
+  });
   const [selectedBase, setSelectedBase] = useState<string>('');
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [pages, setPages] = useState([8]);
@@ -177,10 +186,10 @@ export default function PricingCalculatorProgressive() {
   };
 
   const stepTitles = [
-    "Choisissez votre type de site",
-    "Nombre de pages", 
-    "Délai de livraison",
-    "Fonctionnalités additionnelles"
+    "Vos coordonnées",
+    "Type de site + Pages", 
+    "Délai et fonctionnalités",
+    "Récapitulatif"
   ];
 
   return (
@@ -234,218 +243,297 @@ export default function PricingCalculatorProgressive() {
             {/* Configuration progressive */}
             <div className="lg:col-span-2">
               
-              {/* Étape 1: Type de site */}
+              {/* Étape 1: Coordonnées */}
               {currentStep === 1 && (
+                <Card className="animate-fade-in shadow-lg">
+                  <CardHeader className="pb-6">
+                    <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
+                      Pour commencer, nous avons besoin de quelques informations
+                    </p>
+                  </CardHeader>
+                  <CardContent className="p-8">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="firstName" className="flex items-center gap-2">
+                          <User className="w-4 h-4" />
+                          Prénom *
+                        </Label>
+                        <Input
+                          id="firstName"
+                          value={contactInfo.firstName}
+                          onChange={(e) => setContactInfo({...contactInfo, firstName: e.target.value})}
+                          placeholder="Votre prénom"
+                          className="h-12"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="lastName" className="flex items-center gap-2">
+                          <User className="w-4 h-4" />
+                          Nom *
+                        </Label>
+                        <Input
+                          id="lastName"
+                          value={contactInfo.lastName}
+                          onChange={(e) => setContactInfo({...contactInfo, lastName: e.target.value})}
+                          placeholder="Votre nom"
+                          className="h-12"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="flex items-center gap-2">
+                          <Mail className="w-4 h-4" />
+                          Email *
+                        </Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={contactInfo.email}
+                          onChange={(e) => setContactInfo({...contactInfo, email: e.target.value})}
+                          placeholder="votre.email@exemple.com"
+                          className="h-12"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="phone" className="flex items-center gap-2">
+                          <Phone className="w-4 h-4" />
+                          Téléphone *
+                        </Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          value={contactInfo.phone}
+                          onChange={(e) => setContactInfo({...contactInfo, phone: e.target.value})}
+                          placeholder="06 12 34 56 78"
+                          className="h-12"
+                        />
+                      </div>
+                      <div className="space-y-2 md:col-span-2">
+                        <Label htmlFor="company" className="flex items-center gap-2">
+                          <Building className="w-4 h-4" />
+                          Entreprise (optionnel)
+                        </Label>
+                        <Input
+                          id="company"
+                          value={contactInfo.company}
+                          onChange={(e) => setContactInfo({...contactInfo, company: e.target.value})}
+                          placeholder="Nom de votre entreprise"
+                          className="h-12"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-end pt-6">
+                      <Button 
+                        onClick={goToNextStep}
+                        disabled={!contactInfo.firstName || !contactInfo.lastName || !contactInfo.email || !contactInfo.phone}
+                        size="lg"
+                      >
+                        Continuer
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Étape 2: Type de site + Pages */}
+              {currentStep === 2 && (
                 <Card className="animate-fade-in shadow-lg">
                   <CardHeader className="pb-6">
                     <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
                       Sélectionnez l'option qui correspond le mieux à votre projet
                     </p>
                   </CardHeader>
-                  <CardContent className="p-8">
-                    <div className="grid md:grid-cols-3 gap-8">
-                      {baseOptions.map((option) => (
-                        <div
-                          key={option.id}
-                          onClick={() => handleBaseSelection(option.id)}
-                          className="relative p-8 rounded-xl border-2 cursor-pointer transition-all hover:border-primary hover:shadow-xl hover:scale-105 group min-h-[200px] flex flex-col justify-between"
-                        >
-                          {option.popular && (
-                            <Badge className="absolute -top-3 left-6 bg-primary text-white px-4 py-1">
-                              Populaire
-                            </Badge>
-                          )}
-                          <div className="flex-grow">
-                            <h4 className="font-bold mb-4 text-2xl group-hover:text-primary transition-colors">
-                              {option.name}
-                            </h4>
-                            <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                              {option.description}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-2xl font-bold text-primary mb-4">
-                              À partir de {option.basePrice}€
-                            </p>
-                            <div className="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                              <span className="text-primary font-medium mr-2">Sélectionner</span>
-                              <ChevronRight className="w-5 h-5 text-primary" />
+                  <CardContent className="p-8 space-y-8">
+                    {/* Type de site */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-4 text-center">1. Choisissez votre type de site</h3>
+                      <div className="grid md:grid-cols-3 gap-6">
+                        {baseOptions.map((option) => (
+                          <div
+                            key={option.id}
+                            onClick={() => setSelectedBase(option.id)}
+                            className={`relative p-6 rounded-xl border-2 cursor-pointer transition-all hover:border-primary hover:shadow-xl group min-h-[160px] flex flex-col justify-between ${
+                              selectedBase === option.id ? 'border-primary bg-primary/5' : 'border-gray-200'
+                            }`}
+                          >
+                            {option.popular && (
+                              <Badge className="absolute -top-2 left-4 bg-primary text-white px-3 py-1">
+                                Populaire
+                              </Badge>
+                            )}
+                            <div className="flex-grow">
+                              <h4 className="font-bold mb-3 text-xl group-hover:text-primary transition-colors">
+                                {option.name}
+                              </h4>
+                              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                                {option.description}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-xl font-bold text-primary">
+                                À partir de {option.basePrice}€
+                              </p>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Étape 2: Nombre de pages */}
-              {currentStep === 2 && baseOption && (
-                <Card className="animate-fade-in">
-                  <CardHeader>
-                    <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
-                      Votre {baseOption.name} inclut déjà 8 pages de base
-                    </p>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="text-center">
-                      <div className="text-4xl font-bold text-primary mb-2">
-                        {pages[0]} page{pages[0] > 1 ? 's' : ''}
+                        ))}
                       </div>
-                      {pages[0] > 8 && (
-                        <Badge variant="outline" className="text-orange-600 border-orange-600">
-                          +{(pages[0] - 8) * 65}€ pour {pages[0] - 8} page{pages[0] - 8 > 1 ? 's' : ''} supplémentaire{pages[0] - 8 > 1 ? 's' : ''}
-                        </Badge>
-                      )}
                     </div>
-                    <Slider
-                      value={pages}
-                      onValueChange={setPages}
-                      max={20}
-                      min={5}
-                      step={1}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500">
-                      <span>5 pages</span>
-                      <span>20 pages</span>
-                    </div>
+
+                    {/* Nombre de pages */}
+                    {selectedBase && (
+                      <div className="animate-fade-in">
+                        <h3 className="text-lg font-semibold mb-4 text-center">2. Combien de pages voulez-vous ?</h3>
+                        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
+                          <div className="text-center mb-6">
+                            <div className="text-4xl font-bold text-primary mb-2">
+                              {pages[0]} page{pages[0] > 1 ? 's' : ''}
+                            </div>
+                            <p className="text-gray-600 dark:text-gray-300">
+                              8 pages incluses dans votre {baseOptions.find(opt => opt.id === selectedBase)?.name}
+                            </p>
+                            {pages[0] > 8 && (
+                              <Badge variant="outline" className="text-orange-600 border-orange-600 mt-2">
+                                +{(pages[0] - 8) * 65}€ pour {pages[0] - 8} page{pages[0] - 8 > 1 ? 's' : ''} supplémentaire{pages[0] - 8 > 1 ? 's' : ''}
+                              </Badge>
+                            )}
+                          </div>
+                          <Slider
+                            value={pages}
+                            onValueChange={setPages}
+                            max={20}
+                            min={5}
+                            step={1}
+                            className="w-full mb-4"
+                          />
+                          <div className="flex justify-between text-xs text-gray-500">
+                            <span>5 pages</span>
+                            <span>20 pages</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="flex justify-between pt-4">
                       <Button variant="outline" onClick={goToPreviousStep}>
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Retour
                       </Button>
-                      <Button onClick={goToNextStep}>
-                        Continuer
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
+                      {selectedBase && (
+                        <Button onClick={goToNextStep} size="lg">
+                          Continuer
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
               )}
 
-              {/* Étape 3: Délai de livraison */}
+              {/* Étape 3: Délai et fonctionnalités */}
               {currentStep === 3 && baseOption && (
                 <Card className="animate-fade-in">
                   <CardHeader>
-                    <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
-                      Délai calculé automatiquement selon la complexité de votre projet
+                    <p className="text-center text-gray-600 dark:text-gray-300 text-xl">
+                      Délai de livraison et options supplémentaires
                     </p>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    {/* Délai standard calculé automatiquement */}
-                    <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="font-medium text-lg">Livraison standard</h4>
-                          <p className="text-gray-600 dark:text-gray-300">
-                            {getDeliveryInfo().estimatedText}
-                          </p>
-                        </div>
-                        <Badge variant="outline" className="text-green-600 border-green-600">
-                          Inclus
-                        </Badge>
-                      </div>
-                    </div>
-
-                    {/* Option livraison express */}
-                    <div className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
-                      expressDelivery 
-                        ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20' 
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                    onClick={() => setExpressDelivery(!expressDelivery)}>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Checkbox 
-                            checked={expressDelivery}
-                            onCheckedChange={(checked) => setExpressDelivery(checked === true)}
-                          />
-                          <div>
-                            <h4 className="font-medium text-lg flex items-center gap-2">
-                              <Zap className="w-5 h-5 text-orange-500" />
-                              Livraison express
-                            </h4>
-                            <p className="text-gray-600 dark:text-gray-300">
-                              {getDeliveryInfo().expressText}
-                            </p>
+                  <CardContent className="space-y-8">
+                    {/* Délai de livraison */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-4 text-center">1. Délai de livraison</h3>
+                      <div className="space-y-4">
+                        {/* Délai standard */}
+                        <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="font-medium">Livraison standard</h4>
+                              <p className="text-sm text-gray-600 dark:text-gray-300">
+                                {getDeliveryInfo().estimatedText}
+                              </p>
+                            </div>
+                            <Badge variant="outline" className="text-green-600 border-green-600">
+                              Inclus
+                            </Badge>
                           </div>
                         </div>
-                        <Badge variant="outline" className="text-orange-600 border-orange-600">
-                          +{calculateEstimatedDelivery() > 14 ? '40%' : '30%'}
-                        </Badge>
-                      </div>
-                    </div>
 
-                    <p className="text-xs text-gray-500 text-center">
-                      * Délai calculé selon le nombre de pages et fonctionnalités sélectionnées
-                    </p>
-
-                    <div className="flex justify-between pt-4">
-                      <Button variant="outline" onClick={goToPreviousStep}>
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Retour
-                      </Button>
-                      <Button onClick={goToNextStep}>
-                        Continuer
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Étape 4: Fonctionnalités additionnelles */}
-              {currentStep === 4 && baseOption && (
-                <Card className="animate-fade-in">
-                  <CardHeader>
-                    <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
-                      Personnalisez votre {baseOption.name} avec des options supplémentaires
-                    </p>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="space-y-6">
-                      {Object.entries(groupedFeatures).map(([category, features]) => (
-                        <div key={category}>
-                          <h4 className="font-semibold mb-4 text-gray-800 dark:text-gray-200 text-lg">
-                            {categoryLabels[category as keyof typeof categoryLabels]}
-                          </h4>
-                          <div className="grid md:grid-cols-2 gap-4">
-                            {features.map((feature) => (
-                              <div
-                                key={feature.id}
-                                className="flex items-start space-x-3 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border"
-                              >
-                                <Checkbox
-                                  id={feature.id}
-                                  checked={selectedFeatures.includes(feature.id)}
-                                  onCheckedChange={(checked) => {
-                                    if (checked) {
-                                      setSelectedFeatures([...selectedFeatures, feature.id]);
-                                    } else {
-                                      setSelectedFeatures(selectedFeatures.filter(id => id !== feature.id));
-                                    }
-                                  }}
-                                />
-                                <div className="flex-1">
-                                  <label
-                                    htmlFor={feature.id}
-                                    className="text-sm font-medium cursor-pointer"
-                                  >
-                                    {feature.name}
-                                    <span className="text-primary font-semibold ml-2">
-                                      +{feature.price}€{feature.category === 'maintenance' ? '/mois' : ''}
-                                    </span>
-                                  </label>
-                                  <p className="text-xs text-gray-500 mt-1">
-                                    {feature.description}
-                                  </p>
-                                </div>
+                        {/* Option express */}
+                        <div className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                          expressDelivery 
+                            ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20' 
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                        onClick={() => setExpressDelivery(!expressDelivery)}>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Checkbox 
+                                checked={expressDelivery}
+                                onCheckedChange={(checked) => setExpressDelivery(checked === true)}
+                              />
+                              <div>
+                                <h4 className="font-medium flex items-center gap-2">
+                                  <Zap className="w-4 h-4 text-orange-500" />
+                                  Livraison express
+                                </h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">
+                                  {getDeliveryInfo().expressText}
+                                </p>
                               </div>
-                            ))}
+                            </div>
+                            <Badge variant="outline" className="text-orange-600 border-orange-600">
+                              +{calculateEstimatedDelivery() > 14 ? '40%' : '30%'}
+                            </Badge>
                           </div>
                         </div>
-                      ))}
+                      </div>
+                    </div>
+
+                    {/* Fonctionnalités additionnelles */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-4 text-center">2. Fonctionnalités additionnelles (optionnel)</h3>
+                      <div className="space-y-6">
+                        {Object.entries(groupedFeatures).map(([category, features]) => (
+                          <div key={category}>
+                            <h4 className="font-medium mb-3 text-gray-800 dark:text-gray-200">
+                              {categoryLabels[category as keyof typeof categoryLabels]}
+                            </h4>
+                            <div className="grid md:grid-cols-2 gap-3">
+                              {features.map((feature) => (
+                                <div
+                                  key={feature.id}
+                                  className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border"
+                                >
+                                  <Checkbox
+                                    id={feature.id}
+                                    checked={selectedFeatures.includes(feature.id)}
+                                    onCheckedChange={(checked) => {
+                                      if (checked) {
+                                        setSelectedFeatures([...selectedFeatures, feature.id]);
+                                      } else {
+                                        setSelectedFeatures(selectedFeatures.filter(id => id !== feature.id));
+                                      }
+                                    }}
+                                  />
+                                  <div className="flex-1">
+                                    <label
+                                      htmlFor={feature.id}
+                                      className="text-sm font-medium cursor-pointer"
+                                    >
+                                      {feature.name}
+                                      <span className="text-primary font-semibold ml-2">
+                                        +{feature.price}€{feature.category === 'maintenance' ? '/mois' : ''}
+                                      </span>
+                                    </label>
+                                    <p className="text-xs text-gray-500 mt-1">
+                                      {feature.description}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     <div className="flex justify-between pt-4">
@@ -461,6 +549,105 @@ export default function PricingCalculatorProgressive() {
                         Voir mon récapitulatif
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Étape 4: Récapitulatif */}
+              {currentStep === 4 && baseOption && (
+                <Card className="animate-fade-in" id="configuration-summary">
+                  <CardHeader>
+                    <h3 className="text-2xl font-bold text-center">Récapitulatif de votre projet</h3>
+                    <p className="text-center text-gray-600 dark:text-gray-300">
+                      Vérifiez votre configuration avant envoi
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Informations de contact */}
+                    <div className="border rounded-lg p-4">
+                      <h4 className="font-semibold mb-3">Vos informations</h4>
+                      <div className="grid md:grid-cols-2 gap-4 text-sm">
+                        <div><strong>Nom :</strong> {contactInfo.firstName} {contactInfo.lastName}</div>
+                        <div><strong>Email :</strong> {contactInfo.email}</div>
+                        <div><strong>Téléphone :</strong> {contactInfo.phone}</div>
+                        {contactInfo.company && <div><strong>Entreprise :</strong> {contactInfo.company}</div>}
+                      </div>
+                    </div>
+
+                    {/* Configuration du projet */}
+                    <div className="border rounded-lg p-4">
+                      <h4 className="font-semibold mb-3">Configuration de votre site</h4>
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span><strong>Type de site :</strong> {baseOption.name}</span>
+                          <span className="font-bold text-primary">{baseOption.basePrice}€</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span><strong>Nombre de pages :</strong> {pages[0]} pages</span>
+                          {pages[0] > 8 && (
+                            <span className="font-bold text-orange-600">+{(pages[0] - 8) * 65}€</span>
+                          )}
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span><strong>Délai :</strong> {expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText}</span>
+                          {expressDelivery && (
+                            <span className="font-bold text-orange-600">+{calculateEstimatedDelivery() > 14 ? '40%' : '30%'}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Fonctionnalités sélectionnées */}
+                    {selectedFeatures.length > 0 && (
+                      <div className="border rounded-lg p-4">
+                        <h4 className="font-semibold mb-3">Fonctionnalités additionnelles</h4>
+                        <div className="space-y-2">
+                          {selectedFeatures.map(featureId => {
+                            const feature = additionalFeatures.find(f => f.id === featureId);
+                            return feature ? (
+                              <div key={feature.id} className="flex justify-between items-center text-sm">
+                                <span>{feature.name}</span>
+                                <span className="font-bold text-primary">
+                                  +{feature.price}€{feature.category === 'maintenance' ? '/mois' : ''}
+                                </span>
+                              </div>
+                            ) : null;
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Total */}
+                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-primary mb-2">
+                          Total : {totalPrice}€
+                        </div>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          Délai estimé : {expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between pt-4">
+                      <Button variant="outline" onClick={goToPreviousStep}>
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Modifier
+                      </Button>
+                      <ContactFormIntegrated 
+                        calculatorData={{
+                          contact: contactInfo,
+                          baseOption: baseOption.name,
+                          pages: pages[0],
+                          expressDelivery,
+                          selectedFeatures: selectedFeatures.map(id => 
+                            additionalFeatures.find(f => f.id === id)?.name || ''
+                          ).filter(Boolean),
+                          totalPrice,
+                          deliveryText: expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText
+                        }}
+                      />
                     </div>
                   </CardContent>
                 </Card>
