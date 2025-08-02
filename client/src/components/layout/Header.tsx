@@ -61,7 +61,7 @@ export default function Header() {
             <Link href="/" className="flex items-center group" onClick={scrollToTop}>
               <svg 
                 className={`transition-all duration-300 ${
-                  isScrolled ? 'h-8 sm:h-9 lg:h-10' : 'h-9 sm:h-10 lg:h-11'
+                  isScrolled ? 'h-9 sm:h-10 lg:h-11' : 'h-10 sm:h-11 lg:h-12'
                 }`}
                 viewBox="0 0 180 44" 
                 xmlns="http://www.w3.org/2000/svg"

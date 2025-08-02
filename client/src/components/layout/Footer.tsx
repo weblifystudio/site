@@ -16,7 +16,7 @@ export default function Footer() {
             <div className="flex items-center mb-4">
               <svg 
                 viewBox="0 0 280 45" 
-                className="h-8 sm:h-10 w-auto"
+                className="h-9 sm:h-11 w-auto"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <defs>
