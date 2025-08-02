@@ -121,13 +121,10 @@ export default function PricingCalculator() {
     <section className="py-24 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Estimez votre <span className="text-primary">projet web</span>
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
-            Configurez votre projet selon vos besoins et obtenez une estimation instantanée.
-          </p>
+          <Badge variant="outline" className="mb-4 text-primary border-primary">
+            <Calculator className="w-4 h-4 mr-2" />
+            Calculateur de prix
+          </Badge>
         </div>
 
         <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-8">
