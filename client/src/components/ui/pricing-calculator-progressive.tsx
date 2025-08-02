@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight, User, Mail, Phone, Building } from 'lucide-react';
 import ContactFormIntegrated from '@/components/ui/contact-form-integrated';
+import { QuoteGenerator } from '@/components/ui/quote-generator';
 
 interface PricingOption {
   id: string;
@@ -622,7 +623,7 @@ export default function PricingCalculatorProgressive() {
                     <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                       <div className="text-center">
                         <div className="text-3xl font-bold text-primary mb-2">
-                          Total : {totalPrice}€
+                          Total : {calculateTotal()}€
                         </div>
                         <p className="text-gray-600 dark:text-gray-300">
                           Délai estimé : {expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText}
@@ -635,17 +636,38 @@ export default function PricingCalculatorProgressive() {
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Modifier
                       </Button>
-                      <ContactFormIntegrated 
+                      <QuoteGenerator
                         calculatorData={{
-                          contact: contactInfo,
-                          baseOption: baseOption.name,
+                          name: `${contactInfo.firstName} ${contactInfo.lastName}`,
+                          email: contactInfo.email,
+                          phone: contactInfo.phone,
+                          company: contactInfo.company,
+                          websiteType: baseOption.id,
                           pages: pages[0],
-                          expressDelivery,
-                          selectedFeatures: selectedFeatures.map(id => 
+                          features: selectedFeatures.map(id => 
                             additionalFeatures.find(f => f.id === id)?.name || ''
                           ).filter(Boolean),
-                          totalPrice,
-                          deliveryText: expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText
+                          timeline: expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText,
+                          budget: `${calculateTotal()}€`
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Générateur de devis après acceptation */}
+                    <div className="mt-6">
+                      <QuoteGenerator
+                        calculatorData={{
+                          name: `${contactInfo.firstName} ${contactInfo.lastName}`,
+                          email: contactInfo.email,
+                          phone: contactInfo.phone,
+                          company: contactInfo.company,
+                          websiteType: baseOption.id,
+                          pages: pages[0],
+                          features: selectedFeatures.map(id => 
+                            additionalFeatures.find(f => f.id === id)?.name || ''
+                          ).filter(Boolean),
+                          timeline: expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText,
+                          budget: `${calculateTotal()}€`
                         }}
                       />
                     </div>

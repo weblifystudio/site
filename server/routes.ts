@@ -61,6 +61,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Endpoint pour générer et envoyer un devis PDF
+  app.post("/api/generate-quote", async (req, res) => {
+    try {
+      const calculatorData = req.body;
+      
+      // Validation des données essentielles
+      if (!calculatorData.name || !calculatorData.email) {
+        return res.status(400).json({ error: "Nom et email requis pour le devis" });
+      }
+
+      // Import dynamique pour éviter les erreurs de build
+      const { generateQuotePDF, mapCalculatorToQuote } = await import('./pdf-generator');
+      
+      // Mapping des données du calculateur vers le format devis
+      const quoteData = mapCalculatorToQuote(calculatorData);
+      
+      // Génération du PDF
+      const pdfBuffer = await generateQuotePDF(quoteData);
+      
+      // Sauvegarde du contact avec les données du devis
+      const contactData = {
+        ...calculatorData,
+        message: `Demande de devis automatique - ${quoteData.projectType} - ${quoteData.totalPrice}€`,
+        budget: quoteData.totalPrice.toString()
+      };
+      
+      const savedContact = await storage.createContact(contactData);
+      
+      console.log(`📄 Devis généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
+      
+      // Retour du PDF en base64 pour envoi par email ou téléchargement
+      res.json({
+        success: true,
+        message: "Devis généré avec succès",
+        quoteNumber: quoteData.quoteNumber,
+        pdfBase64: pdfBuffer.toString('base64'),
+        contact: savedContact
+      });
+      
+    } catch (error) {
+      console.error("Erreur génération devis:", error);
+      res.status(500).json({ 
+        error: "Erreur lors de la génération du devis",
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
