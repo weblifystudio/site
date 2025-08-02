@@ -44,6 +44,9 @@ const contactSchema = z.object({
   budget: z.string().optional(),
   projectTypes: z.array(z.string()).optional(),
   message: z.string().min(10, 'Le message doit contenir au moins 10 caractères'),
+  privacy: z.boolean().refine(val => val === true, {
+    message: 'Vous devez accepter l\'utilisation de vos données pour continuer'
+  }),
   newsletter: z.boolean().default(false),
 });
 
@@ -109,6 +112,7 @@ export default function Contact() {
       budget: '',
       projectTypes: [],
       message: '',
+      privacy: false,
       newsletter: false,
     },
   });
@@ -423,15 +427,28 @@ export default function Contact() {
                     />
 
                     <div className="space-y-3">
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="privacy" required />
-                        <label
-                          htmlFor="privacy"
-                          className="text-sm text-muted-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                          J'accepte que mes données soient utilisées pour me recontacter concernant ma demande *
-                        </label>
-                      </div>
+                      <FormField
+                        control={form.control}
+                        name="privacy"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                id="privacy"
+                                required
+                              />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                              <FormLabel htmlFor="privacy" className="text-sm font-normal text-muted-foreground cursor-pointer">
+                                J'accepte que mes données soient utilisées pour me recontacter concernant ma demande *
+                              </FormLabel>
+                              <FormMessage />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
 
                       <FormField
                         control={form.control}

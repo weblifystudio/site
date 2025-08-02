@@ -2,6 +2,8 @@ import type { Request, Response } from 'express';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 import crypto from 'crypto';
+import multer from 'multer';
+import fs from 'fs/promises';
 
 // Configuration sécurisée pour les uploads
 const UPLOAD_DIR = './uploads';
@@ -37,11 +39,44 @@ export interface UploadedFile {
   uploadedAt: Date;
 }
 
-// Simulation d'upload sécurisé (en réalité, les fichiers seraient stockés)
+// Configuration multer pour les uploads sécurisés
+const storage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    try {
+      await fs.mkdir(UPLOAD_DIR, { recursive: true });
+      cb(null, UPLOAD_DIR);
+    } catch (error) {
+      cb(error as Error, UPLOAD_DIR);
+    }
+  },
+  filename: (req, file, cb) => {
+    const fileId = crypto.randomUUID();
+    const extension = file.originalname.split('.').pop();
+    const filename = `${fileId}.${extension}`;
+    cb(null, filename);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: MAX_FILE_SIZE,
+  },
+  fileFilter: (req, file, cb) => {
+    if (ALLOWED_TYPES.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Type de fichier non autorisé'));
+    }
+  }
+});
+
+export const uploadMiddleware = upload.single('file');
+
+// Handler d'upload sécurisé avec multer
 export async function handleFileUpload(req: Request, res: Response) {
   try {
-    // Simulation de réception de fichier
-    const file = req.body.file; // En réalité, il faudrait multer pour gérer les uploads
+    const file = req.file;
     
     if (!file) {
       return res.status(400).json({
@@ -50,33 +85,14 @@ export async function handleFileUpload(req: Request, res: Response) {
       });
     }
 
-    // Validation du type de fichier
-    if (!ALLOWED_TYPES.includes(file.mimetype)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Type de fichier non autorisé'
-      });
-    }
-
-    // Validation de la taille
-    if (file.size > MAX_FILE_SIZE) {
-      return res.status(400).json({
-        success: false,
-        message: 'Fichier trop volumineux (max 25MB)'
-      });
-    }
-
-    // Création d'un ID unique pour le fichier
-    const fileId = crypto.randomUUID();
-    const filename = `${fileId}_${file.originalname}`;
-    
+    // Le fichier a déjà été validé par multer
     const uploadedFile: UploadedFile = {
-      id: fileId,
+      id: crypto.randomUUID(),
       originalName: file.originalname,
-      filename: filename,
+      filename: file.filename,
       mimetype: file.mimetype,
       size: file.size,
-      path: join(UPLOAD_DIR, filename),
+      path: file.path,
       uploadedAt: new Date()
     };
 
