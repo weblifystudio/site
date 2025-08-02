@@ -6,11 +6,22 @@ export interface QuoteData {
   email: string;
   phone?: string;
   company?: string;
-  websiteType: string;
+  projectType: 'vitrine' | 'premium' | 'ecommerce' | 'sur-mesure';
   pages: number;
   features: string[];
   timeline: string;
   totalPrice: number;
+}
+
+// Fonction utilitaire pour convertir le type de projet en label
+function getWebsiteTypeLabel(projectType: string): string {
+  const labels: Record<string, string> = {
+    'vitrine': 'Site Vitrine',
+    'premium': 'Site Premium', 
+    'ecommerce': 'Site E-commerce',
+    'sur-mesure': 'Site Sur-Mesure'
+  };
+  return labels[projectType] || projectType;
 }
 
 // Génère un HTML de devis que l'utilisateur peut imprimer en PDF
@@ -223,7 +234,7 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
         <div class="project-details">
             <h2>Configuration de votre site web</h2>
             <div class="info-item">
-                <span class="info-label">Type de site :</span> ${data.websiteType}
+                <span class="info-label">Type de site :</span> ${getWebsiteTypeLabel(data.projectType)}
             </div>
             <div class="info-item">
                 <span class="info-label">Nombre de pages :</span> ${data.pages} pages
@@ -246,11 +257,18 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
         </div>
         
         <div class="signature-zone">
-            <h3>Acceptation du devis</h3>
-            <p>Pour accepter ce devis, merci de le signer avec la mention "Bon pour accord" et nous le retourner.</p>
-            <br><br>
-            <p>Date et signature du client :</p>
-            <br><br><br>
+            <h3>🖊️ Acceptation du devis</h3>
+            <p>Pour accepter ce devis, merci de :</p>
+            <p>1. Ajouter la mention <strong>"Bon pour accord"</strong></p>
+            <p>2. Signer et dater ci-dessous</p>
+            <p>3. Nous retourner ce devis signé par email</p>
+            <br>
+            <div style="border: 1px solid #d1d5db; padding: 20px; margin: 20px 0; min-height: 80px;">
+                <p><strong>Date :</strong> ____________________</p>
+                <br>
+                <p><strong>Signature du client :</strong></p>
+                <br><br>
+            </div>
         </div>
         
         <div class="legal">
@@ -260,13 +278,14 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
             <p>Adresse : Paris, France</p>
             <p>Email : contact@weblify-studio.fr</p>
             <br>
-            <p><strong>Conditions :</strong></p>
+            <p><strong>Conditions générales :</strong></p>
             <p>• Devis valable 30 jours à compter de la date d'émission</p>
-            <p>• Acompte de 50% à la signature, solde à la livraison</p>
+            <p>• Acompte de 50% à la signature du devis, solde à la livraison</p>
             <p>• Délais indicatifs, début des travaux après signature et réception de l'acompte</p>
             <p>• Révisions incluses : 2 allers-retours sur le design initial</p>
-            <p>• Formation à l'utilisation incluse (1h)</p>
-            <p>• Garantie technique : 3 mois</p>
+            <p>• Formation à l'utilisation du site incluse (1 heure)</p>
+            <p>• Garantie technique : 3 mois après livraison</p>
+            <p>• TVA non applicable - Article 293 B du Code général des impôts</p>
         </div>
     </div>
     

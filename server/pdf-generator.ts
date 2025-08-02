@@ -584,11 +584,12 @@ export function mapCalculatorToQuote(calculatorData: any): QuoteData {
         pages: calculatorData.pages || 5,
         features: features,
         timeline: calculatorData.timeline || '2-3 semaines',
-        budget: calculatorData.budget || 'Sur mesure',
-        basePrice: basePrice,
-        totalPrice: totalPrice,
+        totalPrice: parseInt(calculatorData.budget?.replace('€', '') || totalPrice.toString()),
         quoteNumber: `WS-${Date.now().toString().slice(-6)}`,
-        date: new Date().toISOString(),
-        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+        date: new Date().toLocaleDateString('fr-FR', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        })
     };
 }
