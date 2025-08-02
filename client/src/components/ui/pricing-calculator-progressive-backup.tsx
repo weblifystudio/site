@@ -7,6 +7,7 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight, User, Mail, Phone, Building } from 'lucide-react';
+import ContactFormIntegrated from '@/components/ui/contact-form-integrated';
 import { QuoteGenerator } from '@/components/ui/quote-generator';
 
 interface PricingOption {
@@ -93,7 +94,16 @@ export default function PricingCalculatorProgressive() {
   const goToNextStep = () => setCurrentStep(prev => prev + 1);
   const goToPreviousStep = () => setCurrentStep(prev => Math.max(1, prev - 1));
   const goToStep = (step: number) => {
+    // Toutes les étapes sont toujours accessibles
     setCurrentStep(step);
+  };
+
+  // Déterminer la dernière étape complétée
+  const getMaxCompletedStep = () => {
+    if (!selectedBase) return 1;
+    if (selectedBase && !pages) return 2;
+    if (selectedBase && pages) return 4; // Toutes les étapes accessibles une fois qu'on a une base
+    return 1;
   };
 
   // Calcul automatique du délai de livraison basé sur la complexité
@@ -113,56 +123,54 @@ export default function PricingCalculatorProgressive() {
     }
     
     // Ajout de temps pour les fonctionnalités complexes
-    selectedFeatures.forEach(featureId => {
-      const feature = additionalFeatures.find(f => f.id === featureId);
-      if (feature) {
-        switch (feature.category) {
-          case 'fonctionnalite': baseDays += 2; break;
-          case 'design': baseDays += 1; break;
-          case 'seo': baseDays += 1; break;
-        }
-      }
-    });
+    const complexFeatures = ['booking', 'crm', 'multilingue'];
+    const complexCount = selectedFeatures.filter(id => complexFeatures.includes(id)).length;
+    baseDays += complexCount * 3;
+    
+    // Autres fonctionnalités (+1 jour par 2 fonctionnalités)
+    const otherFeatures = selectedFeatures.filter(id => !complexFeatures.includes(id)).length;
+    baseDays += Math.ceil(otherFeatures / 2);
     
     return baseDays;
   };
 
-  const getDeliveryInfo = () => {
-    const estimatedDays = calculateEstimatedDelivery();
-    
-    return {
-      estimated: estimatedDays,
-      estimatedText: `${estimatedDays} jour${estimatedDays > 1 ? 's' : ''}`,
-      express: Math.max(3, Math.ceil(estimatedDays * 0.6)),
-      expressText: `${Math.max(3, Math.ceil(estimatedDays * 0.6))} jour${Math.max(3, Math.ceil(estimatedDays * 0.6)) > 1 ? 's' : ''}`
-    };
-  };
-
   const calculateTotal = () => {
     if (!baseOption) return 0;
-    
     let total = baseOption.basePrice;
     
-    // Pages supplémentaires
+    // Pages supplémentaires (au-delà de 8 pages de base)
     if (pages[0] > 8) {
       total += (pages[0] - 8) * 65;
+    }
+    
+    // Livraison express (proportionnelle à la complexité)
+    if (expressDelivery) {
+      const complexity = calculateEstimatedDelivery();
+      const expressRate = complexity > 14 ? 0.4 : 0.3; // 40% si très complexe, 30% sinon
+      total += total * expressRate;
     }
     
     // Fonctionnalités additionnelles
     selectedFeatures.forEach(featureId => {
       const feature = additionalFeatures.find(f => f.id === featureId);
-      if (feature && feature.category !== 'maintenance') {
+      if (feature) {
         total += feature.price;
       }
     });
     
-    // Livraison express (majorant le prix)
-    if (expressDelivery) {
-      const multiplier = calculateEstimatedDelivery() > 14 ? 1.4 : 1.3;
-      total = Math.round(total * multiplier);
-    }
+    return Math.round(total);
+  };
+
+  const getDeliveryInfo = () => {
+    const estimatedDays = calculateEstimatedDelivery();
+    const expressDays = Math.max(Math.ceil(estimatedDays / 2), 5); // Express = moitié du temps, min 5 jours
     
-    return total;
+    return {
+      estimated: estimatedDays,
+      express: expressDays,
+      estimatedText: `${estimatedDays} jours ouvrés`,
+      expressText: `${expressDays} jours ouvrés (Express)`
+    };
   };
 
   const groupedFeatures = additionalFeatures.reduce((acc, feature) => {
@@ -201,13 +209,18 @@ export default function PricingCalculatorProgressive() {
                   <div key={step} className="flex items-center flex-shrink-0">
                     <div 
                       onClick={() => goToStep(step)}
-                      className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-colors duration-300 cursor-pointer ${
+                      className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-colors duration-300 ${
                         isCurrent
                           ? 'bg-primary text-white shadow-lg' 
                           : isCompleted
-                          ? 'bg-green-500 text-white shadow-lg hover:bg-green-600'
-                          : 'bg-primary/30 text-primary hover:bg-primary/50'
+                          ? 'bg-green-500 text-white shadow-lg cursor-pointer hover:bg-green-600'
+                          : 'bg-primary/30 text-primary cursor-pointer hover:bg-primary/50'
                       }`}
+                      title={
+                        isCompleted ? `Étape ${step} complétée - Cliquer pour modifier` :
+                        isCurrent ? `Étape ${step} en cours` :
+                        `Aller à l'étape ${step}`
+                      }
                     >
                       {isCompleted ? '✓' : step}
                     </div>
@@ -654,8 +667,210 @@ export default function PricingCalculatorProgressive() {
                 </Card>
               )}
 
+
             </div>
           </div>
+
+          {/* Panneau de prix centré sous le calculateur */}
+          {selectedBase && (
+            <div className="max-w-4xl mx-auto px-4 mt-8">
+              <Card className="bg-gradient-to-br from-primary/5 to-blue-50 dark:from-primary/10 dark:to-gray-800">
+                  <CardHeader>
+                    <CardTitle className="text-center">Estimation de votre projet</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-primary mb-2">
+                        {calculateTotal().toLocaleString()}€
+                      </div>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Prix estimé tout compris
+                      </p>
+                    </div>
+
+                    <div className="space-y-3 text-sm">
+                      <div className="flex justify-between">
+                        <span>Base ({baseOption?.name})</span>
+                        <span className="font-medium">{baseOption?.basePrice}€</span>
+                      </div>
+                      
+                      {pages[0] > 8 && (
+                        <div className="flex justify-between">
+                          <span>Pages supplémentaires</span>
+                          <span className="font-medium">+{(pages[0] - 8) * 65}€</span>
+                        </div>
+                      )}
+                      
+                      {expressDelivery && (
+                        <div className="flex justify-between">
+                          <span>Livraison express</span>
+                          <span className="font-medium text-orange-600">+{calculateEstimatedDelivery() > 14 ? '40%' : '30%'}</span>
+                        </div>
+                      )}
+                      
+                      {selectedFeatures.map(featureId => {
+                        const feature = additionalFeatures.find(f => f.id === featureId);
+                        if (!feature) return null;
+                        return (
+                          <div key={featureId} className="flex justify-between">
+                            <span className="text-xs">{feature.name}</span>
+                            <span className="font-medium text-xs">+{feature.price}€</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="border-t pt-4">
+                      <div className="flex justify-between text-base font-semibold">
+                        <span>Total estimé</span>
+                        <span className="text-primary">{calculateTotal().toLocaleString()}€</span>
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <p className="text-xs text-gray-500">
+                        Estimation basée sur vos sélections • Devis final après étude personnalisée
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
+          
+          {/* Récapitulatif de Configuration */}
+          {selectedBase && currentStep >= 4 && (
+            <div id="configuration-summary" className="mt-16">
+              <Card className="shadow-xl border-2 border-primary/20">
+                <CardHeader className="bg-gradient-to-r from-primary/5 to-blue-50 dark:from-primary/10 dark:to-gray-800">
+                  <CardTitle className="text-center text-2xl text-primary">
+                    Récapitulatif de votre configuration
+                  </CardTitle>
+                  <p className="text-center text-gray-600 dark:text-gray-300">
+                    Voici le détail de votre projet personnalisé
+                  </p>
+                </CardHeader>
+                <CardContent className="p-8 space-y-8">
+                  {/* Configuration détaillée */}
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-6">
+                      <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <h4 className="font-bold mb-2 text-primary">Type de site sélectionné</h4>
+                        <p className="text-lg font-semibold">{baseOption?.name}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                          {baseOption?.description}
+                        </p>
+                        <p className="text-lg font-bold text-primary mt-2">
+                          Base : {baseOption?.basePrice}€
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <h4 className="font-bold mb-2 text-primary">Structure du site</h4>
+                        <p className="text-lg font-semibold">{pages[0]} pages au total</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                          8 pages incluses + {pages[0] > 8 ? pages[0] - 8 : 0} page{pages[0] > 8 && pages[0] - 8 > 1 ? 's' : ''} supplémentaire{pages[0] > 8 && pages[0] - 8 > 1 ? 's' : ''}
+                        </p>
+                        {pages[0] > 8 && (
+                          <p className="text-lg font-bold text-primary mt-2">
+                            +{(pages[0] - 8) * 65}€ pour les pages supplémentaires
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <h4 className="font-bold mb-2 text-primary">Délai de livraison</h4>
+                        <p className="text-lg font-semibold">
+                          {expressDelivery ? getDeliveryInfo().expressText : getDeliveryInfo().estimatedText}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                          {expressDelivery ? "Livraison express sélectionnée" : "Délai standard calculé selon la complexité"}
+                        </p>
+                        {expressDelivery && (
+                          <p className="text-lg font-bold text-orange-600 mt-2">
+                            +{calculateEstimatedDelivery() > 14 ? '40%' : '30%'} du prix total
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <h4 className="font-bold mb-2 text-primary">Fonctionnalités additionnelles</h4>
+                        {selectedFeatures.length > 0 ? (
+                          <div className="space-y-2">
+                            {selectedFeatures.map(featureId => {
+                              const feature = additionalFeatures.find(f => f.id === featureId);
+                              if (!feature) return null;
+                              return (
+                                <div key={featureId} className="flex justify-between items-center">
+                                  <span className="text-sm font-medium">{feature.name}</span>
+                                  <span className="font-bold text-primary">
+                                    +{feature.price}€{feature.category === 'maintenance' ? '/mois' : ''}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <p className="text-gray-600 dark:text-gray-300 italic">
+                            Aucune fonctionnalité supplémentaire sélectionnée
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Prix total récapitulatif */}
+                  <div className="border-t pt-6">
+                    <div className="bg-gradient-to-r from-primary/10 to-blue-50 dark:from-primary/10 dark:to-gray-800 p-6 rounded-xl">
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-2xl font-bold">Total de votre projet</h3>
+                        <div className="text-4xl font-bold text-primary">
+                          {calculateTotal().toLocaleString()}€
+                        </div>
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-300 text-center">
+                        Prix estimé tout compris • Devis final après étude personnalisée
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Boutons d'action */}
+                  <div className="flex flex-col md:flex-row gap-4 pt-4">
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setCurrentStep(1)}
+                      className="flex-1"
+                    >
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Modifier ma configuration
+                    </Button>
+                    <Button 
+                      onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                      size="lg"
+                      className="flex-1"
+                    >
+                      <Calculator className="w-4 h-4 mr-2" />
+                      Commander ce projet
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Formulaire de Contact Intégré */}
+              <div className="mt-12">
+                <ContactFormIntegrated 
+                  selectedBase={selectedBase}
+                  selectedFeatures={selectedFeatures}
+                  pages={pages[0]}
+                  timeline={expressDelivery ? getDeliveryInfo().express : getDeliveryInfo().estimated}
+                  totalPrice={calculateTotal()}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
