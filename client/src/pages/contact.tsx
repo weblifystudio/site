@@ -66,7 +66,7 @@ const projectTypeOptions = [
   { value: 'maintenance', label: 'Maintenance' },
 ];
 
-// Fonction pour formater le numéro de téléphone français
+// Fonction pour formater le numéro de téléphone français automatiquement
 const formatPhoneNumber = (value: string) => {
   // Enlever tous les caractères non-numériques sauf le +
   const cleaned = value.replace(/[^\d+]/g, '');
@@ -77,18 +77,17 @@ const formatPhoneNumber = (value: string) => {
   // Prendre seulement les 10 premiers chiffres
   formatted = formatted.substring(0, 10);
   
-  // Appliquer le format 06 12 34 56 78 - séparation dès le 3ème chiffre
+  // Formatage automatique dès le 3ème chiffre : XX XX XX XX XX
   if (formatted.length >= 3) {
-    formatted = formatted.replace(/(\d{2})(\d{1,2})?(\d{1,2})?(\d{1,2})?(\d{1,2})?/, 
-      (match, p1, p2, p3, p4, p5) => {
-        let result = p1;
-        if (p2) result += ' ' + p2;
-        if (p3) result += ' ' + p3;
-        if (p4) result += ' ' + p4;
-        if (p5) result += ' ' + p5;
-        return result;
+    const parts = [];
+    for (let i = 0; i < formatted.length; i += 2) {
+      if (i === 0) {
+        parts.push(formatted.substring(i, i + 2)); // 2 premiers chiffres
+      } else {
+        parts.push(formatted.substring(i, i + 2)); // Groupes de 2
       }
-    );
+    }
+    formatted = parts.filter(part => part.length > 0).join(' ');
   }
   
   return formatted;

@@ -9,6 +9,46 @@ import { Label } from '@/components/ui/label';
 import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight, User, Mail, Phone, Building } from 'lucide-react';
 import { QuoteGenerator } from '@/components/ui/quote-generator';
 
+// Fonction pour formater le numéro de téléphone français automatiquement
+const formatPhoneNumber = (value: string) => {
+  // Enlever tous les caractères non-numériques sauf le +
+  const cleaned = value.replace(/[^\d+]/g, '');
+  
+  // Si commence par +33, remplacer par 0
+  let formatted = cleaned.replace(/^\+33/, '0');
+  
+  // Prendre seulement les 10 premiers chiffres
+  formatted = formatted.substring(0, 10);
+  
+  // Formatage automatique dès le 3ème chiffre : XX XX XX XX XX
+  if (formatted.length >= 3) {
+    const parts = [];
+    for (let i = 0; i < formatted.length; i += 2) {
+      if (i === 0) {
+        parts.push(formatted.substring(i, i + 2)); // 2 premiers chiffres
+      } else {
+        parts.push(formatted.substring(i, i + 2)); // Groupes de 2
+      }
+    }
+    formatted = parts.filter(part => part.length > 0).join(' ');
+  }
+  
+  return formatted;
+};
+
+// Fonctions de validation
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const isValidPhone = (phone: string) => {
+  if (!phone) return true; // Optionnel
+  const phoneRegex = /^(?:(?:\+33|0)[1-9](?:[0-9]{8}))$/;
+  const cleanPhone = phone.replace(/\s/g, '');
+  return phoneRegex.test(cleanPhone);
+};
+
 interface PricingOption {
   id: string;
   name: string;
@@ -279,8 +319,11 @@ export default function PricingCalculatorProgressive() {
                           value={contactInfo.email}
                           onChange={(e) => setContactInfo({...contactInfo, email: e.target.value})}
                           placeholder="votre.email@exemple.com"
-                          className="h-12"
+                          className={`h-12 ${contactInfo.email && !isValidEmail(contactInfo.email) ? 'border-red-500' : ''}`}
                         />
+                        {contactInfo.email && !isValidEmail(contactInfo.email) && (
+                          <p className="text-sm text-red-500">Adresse email invalide</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="phone" className="flex items-center gap-2">
@@ -291,10 +334,17 @@ export default function PricingCalculatorProgressive() {
                           id="phone"
                           type="tel"
                           value={contactInfo.phone}
-                          onChange={(e) => setContactInfo({...contactInfo, phone: e.target.value})}
+                          onChange={(e) => {
+                            const formatted = formatPhoneNumber(e.target.value);
+                            setContactInfo({...contactInfo, phone: formatted});
+                          }}
                           placeholder="06 12 34 56 78"
-                          className="h-12"
+                          className={`h-12 ${contactInfo.phone && !isValidPhone(contactInfo.phone) ? 'border-red-500' : ''}`}
+                          maxLength={14}
                         />
+                        {contactInfo.phone && !isValidPhone(contactInfo.phone) && (
+                          <p className="text-sm text-red-500">Numéro de téléphone français invalide</p>
+                        )}
                       </div>
                       <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="company" className="flex items-center gap-2">
@@ -313,7 +363,14 @@ export default function PricingCalculatorProgressive() {
                     <div className="flex justify-end pt-6">
                       <Button 
                         onClick={goToNextStep}
-                        disabled={!contactInfo.firstName || !contactInfo.lastName || !contactInfo.email || !contactInfo.phone}
+                        disabled={
+                          !contactInfo.firstName || 
+                          !contactInfo.lastName || 
+                          !contactInfo.email || 
+                          !isValidEmail(contactInfo.email) ||
+                          !contactInfo.phone ||
+                          !isValidPhone(contactInfo.phone)
+                        }
                         size="lg"
                       >
                         Continuer
