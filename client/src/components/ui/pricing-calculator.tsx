@@ -139,10 +139,6 @@ export default function PricingCalculator() {
             {/* Type de site */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Zap className="w-5 h-5 mr-2 text-primary" />
-                  Type de site web
-                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-4">
