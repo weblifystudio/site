@@ -1,4 +1,4 @@
-import sgMail from '@sendgrid/mail';
+import nodemailer from 'nodemailer';
 
 interface ContactEmailData {
   name: string;
@@ -45,17 +45,25 @@ Date: ${new Date().toLocaleString('fr-FR', {
 ==========================================
     `);
 
-    // Configuration SendGrid pour envoi d'email réel
-    const sendGridApiKey = process.env.SENDGRID_API_KEY;
+    // Configuration SMTP pour webmail
+    const smtpConfig = {
+      host: process.env.SMTP_HOST || 'mail.weblifystudio.fr',
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: false, // true pour port 465, false pour autres ports
+      auth: {
+        user: process.env.SMTP_USER || 'noreply@weblifystudio.fr',
+        pass: process.env.SMTP_PASS || ''
+      }
+    };
     
-    if (!sendGridApiKey) {
-      console.warn('⚠️ SENDGRID_API_KEY non configuré - Mode simulation activé');
+    if (!process.env.SMTP_PASS) {
+      console.warn('⚠️ Configuration SMTP manquante - Mode simulation activé');
       console.log(`📧 SIMULATION - Email à envoyer à : ${recipientEmail}`);
       return { success: true };
     }
 
-    // Configuration SendGrid
-    sgMail.setApiKey(sendGridApiKey);
+    // Création du transporteur SMTP
+    const transporter = nodemailer.createTransporter(smtpConfig);
 
     // Template HTML professionnel pour l'email
     const emailHTML = `
@@ -175,21 +183,18 @@ Pour répondre au client: ${contactData.email}
 
     // Configuration de l'email
     const emailConfig = {
+      from: `"Weblify Studio - Contact" <noreply@weblifystudio.fr>`,
       to: recipientEmail, // contact@weblifystudio.fr
-      from: {
-        email: 'noreply@weblifystudio.fr',
-        name: 'Weblify Studio - Contact'
-      },
       replyTo: contactData.email, // Réponse directe au client
-      subject: `🚀 Nouveau contact: ${contactData.name} - ${projectTypesText}`,
+      subject: `Nouveau contact: ${contactData.name} - ${projectTypesText}`,
       text: emailText,
       html: emailHTML,
     };
 
     // Envoi de l'email
-    await sgMail.send(emailConfig);
+    await transporter.sendMail(emailConfig);
     
-    console.log(`✅ Email de contact envoyé à ${recipientEmail} via SendGrid`);
+    console.log(`✅ Email de contact envoyé à ${recipientEmail} via SMTP`);
     return { success: true };
 
   } catch (error) {
