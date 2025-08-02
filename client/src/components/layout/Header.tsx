@@ -3,7 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-// import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import MegaMenu from '@/components/ui/mega-menu';
 import AnimatedHamburger from '@/components/ui/animated-hamburger';
 
@@ -117,13 +117,13 @@ export default function Header() {
           </div>
 
           {/* Actions Desktop - Alignement parfait à droite */}
-          <div className="hidden md:flex items-center justify-end flex-shrink-0">
-            {/* ThemeToggle temporairement désactivé */}
+          <div className="hidden md:flex items-center justify-end flex-shrink-0 space-x-2">
+            <ThemeToggle />
           </div>
 
           {/* Actions Mobile - Compact et aligné */}
           <div className="md:hidden flex items-center space-x-3">
-            {/* ThemeToggle temporairement désactivé */}
+            <ThemeToggle />
             <Button
               variant="ghost"
               size="icon"
