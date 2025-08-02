@@ -18,6 +18,7 @@ import Legal from "@/pages/legal";
 import CGV from "@/pages/cgv";
 import Privacy from "@/pages/privacy";
 import Cookies from "@/pages/cookies";
+import NewsletterAdmin from "@/pages/newsletter-admin";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BackToTop from "@/components/ui/back-to-top";
@@ -61,6 +62,7 @@ function Router() {
       <Route path="/cgv" component={CGV} />
       <Route path="/politique-confidentialite" component={Privacy} />
       <Route path="/cookies" component={Cookies} />
+      <Route path="/newsletter-admin" component={NewsletterAdmin} />
 
       <Route component={NotFound} />
     </Switch>
