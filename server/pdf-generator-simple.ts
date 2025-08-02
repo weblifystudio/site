@@ -35,6 +35,8 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Devis ${data.quoteNumber} - Weblify Studio</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -42,260 +44,470 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-            color: #1f2937;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #1a1a1a;
             line-height: 1.6;
-            background: white;
+            background: #ffffff;
+            font-size: 14px;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
         }
         
         .header {
-            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 40px;
+            padding: 60px 40px;
             text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.4;
         }
         
         .logo {
             font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
         }
         
         .tagline {
             font-size: 16px;
-            opacity: 0.9;
+            opacity: 0.95;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
         }
         
         .content {
-            padding: 40px;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 60px 40px;
         }
         
-        .quote-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e5e7eb;
+        .document-title {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f1f5f9;
         }
         
-        .client-info, .quote-details {
-            flex: 1;
+        .document-title h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            letter-spacing: -0.8px;
         }
         
-        .client-info {
-            margin-right: 40px;
+        .document-title .quote-number {
+            font-size: 18px;
+            color: #64748b;
+            font-weight: 500;
+            background: #f8fafc;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
         }
         
-        h2 {
-            color: #1e40af;
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .info-section {
+            background: #fafbfc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px 0 0 16px;
+        }
+        
+        .section-title {
             font-size: 20px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #3b82f6;
-            padding-bottom: 5px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            letter-spacing: -0.4px;
         }
         
-        .info-item {
-            margin-bottom: 8px;
+        .info-row {
+            display: flex;
+            margin-bottom: 16px;
+            align-items: flex-start;
         }
         
         .info-label {
+            font-weight: 500;
+            color: #64748b;
+            min-width: 90px;
+            margin-right: 16px;
+            font-size: 13px;
+        }
+        
+        .info-value {
+            color: #1a1a1a;
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .project-section {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        
+        .project-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            letter-spacing: -0.4px;
+        }
+        
+        .features-section {
+            margin-top: 30px;
+        }
+        
+        .features-title {
+            font-size: 18px;
             font-weight: 600;
             color: #374151;
+            margin-bottom: 20px;
         }
         
-        .project-details {
-            background: #f8fafc;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
         }
         
-        .feature-list {
-            list-style: none;
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+        }
+        
+        .feature-check {
+            color: #10b981;
+            font-weight: 700;
+            margin-right: 12px;
+            font-size: 14px;
+        }
+        
+        .feature-text {
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .pricing-section {
+            background: linear-gradient(135deg, #f8faff 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-section::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            z-index: -1;
+        }
+        
+        .price-main {
+            font-size: 56px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            letter-spacing: -2px;
+        }
+        
+        .price-subtitle {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .price-details {
+            font-size: 14px;
+            color: #64748b;
+            font-style: italic;
+        }
+        
+        .signature-section {
+            background: #fafbfc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 50px 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+        
+        .signature-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+        
+        .signature-instructions {
+            font-size: 15px;
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .signature-box {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 40px;
+            margin: 24px 0;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .signature-line {
+            border-bottom: 1px solid #cbd5e1;
             margin: 20px 0;
         }
         
-        .feature-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e7eb;
+        .legal-section {
+            border-top: 2px solid #f1f5f9;
+            padding-top: 40px;
+            margin-top: 60px;
         }
         
-        .feature-list li:before {
-            content: "✓";
-            color: #059669;
-            font-weight: bold;
-            margin-right: 10px;
+        .legal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 30px;
         }
         
-        .pricing {
-            background: #f0f9ff;
-            border: 2px solid #0ea5e9;
-            border-radius: 10px;
-            padding: 30px;
-            margin: 30px 0;
-            text-align: center;
+        .legal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
         }
         
-        .total-price {
-            font-size: 36px;
-            font-weight: bold;
-            color: #0c4a6e;
-            margin-bottom: 10px;
+        .legal-block {
+            font-size: 13px;
+            color: #4b5563;
+            line-height: 1.5;
         }
         
-        .legal {
+        .legal-block h4 {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        .legal-text {
             font-size: 12px;
             color: #6b7280;
-            margin-top: 40px;
+            margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-        }
-        
-        .signature-zone {
-            margin-top: 40px;
-            padding: 30px;
-            border: 2px dashed #d1d5db;
-            text-align: center;
-        }
-        
-        .footer {
-            background: #374151;
-            color: white;
-            padding: 30px;
-            text-align: center;
-            margin-top: 40px;
+            border-top: 1px solid #f3f4f6;
+            line-height: 1.5;
         }
         
         .print-button {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #3b82f6;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 20px;
+            border-radius: 30px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.25);
             z-index: 1000;
+            transition: all 0.2s;
         }
         
         .print-button:hover {
-            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
         }
         
         @media print {
-            .print-button { display: none; }
-            body { margin: 0; }
-            .header { background: #3b82f6 !important; }
+            .print-button { display: none !important; }
+            body { font-size: 12px; }
+            .container { max-width: none; }
+            .header { background: linear-gradient(135deg, #667eea, #764ba2) !important; }
+            .info-grid { grid-template-columns: 1fr; gap: 20px; }
+            .features-list { grid-template-columns: 1fr; }
+            .legal-grid { grid-template-columns: 1fr; }
+            .pricing-section { break-inside: avoid; }
+            .signature-section { break-inside: avoid; }
         }
     </style>
 </head>
 <body>
-    <button class="print-button" onclick="window.print()">🖨️ Imprimer en PDF</button>
-    
-    <div class="header">
-        <div class="logo">🚀 Weblify Studio</div>
-        <div class="tagline">Votre vision, notre expertise</div>
-    </div>
-    
-    <div class="content">
-        <div class="quote-info">
-            <div class="client-info">
-                <h2>Informations Client</h2>
-                <div class="info-item">
-                    <span class="info-label">Nom :</span> ${data.name}
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Email :</span> ${data.email}
-                </div>
-                ${data.phone ? `<div class="info-item"><span class="info-label">T&eacute;l&eacute;phone :</span> ${data.phone}</div>` : ''}
-                ${data.company ? `<div class="info-item"><span class="info-label">Entreprise :</span> ${data.company}</div>` : ''}
+    <div class="container">
+        <button class="print-button" onclick="window.print()">&#128438; Imprimer en PDF</button>
+        
+        <div class="header">
+            <div class="logo">&#128640; Weblify Studio</div>
+            <div class="tagline">Votre vision, notre expertise</div>
+        </div>
+        
+        <div class="content">
+            <div class="document-title">
+                <h1>Devis</h1>
+                <div class="quote-number">${data.quoteNumber}</div>
             </div>
             
-            <div class="quote-details">
-                <h2>D&eacute;tails du Devis</h2>
-                <div class="info-item">
-                    <span class="info-label">Num&eacute;ro :</span> ${data.quoteNumber}
+            <div class="info-grid">
+                <div class="info-section">
+                    <div class="section-title">Informations Client</div>
+                    <div class="info-row">
+                        <div class="info-label">Nom :</div>
+                        <div class="info-value">${data.name}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Email :</div>
+                        <div class="info-value">${data.email}</div>
+                    </div>
+                    ${data.phone ? `<div class="info-row"><div class="info-label">T&eacute;l&eacute;phone :</div><div class="info-value">${data.phone}</div></div>` : ''}
+                    ${data.company ? `<div class="info-row"><div class="info-label">Entreprise :</div><div class="info-value">${data.company}</div></div>` : ''}
                 </div>
-                <div class="info-item">
-                    <span class="info-label">Date :</span> ${data.date}
+                
+                <div class="info-section">
+                    <div class="section-title">D&eacute;tails du Devis</div>
+                    <div class="info-row">
+                        <div class="info-label">Date :</div>
+                        <div class="info-value">${data.date}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Validit&eacute; :</div>
+                        <div class="info-value">30 jours</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">D&eacute;lai :</div>
+                        <div class="info-value">${data.timeline}</div>
+                    </div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">Validit&eacute; :</span> 30 jours
-                </div>
-                <div class="info-item">
-                    <span class="info-label">D&eacute;lai :</span> ${data.timeline}
-                </div>
-            </div>
-        </div>
-        
-        <div class="project-details">
-            <h2>Configuration de votre site web</h2>
-            <div class="info-item">
-                <span class="info-label">Type de site :</span> ${getWebsiteTypeLabel(data.projectType)}
-            </div>
-            <div class="info-item">
-                <span class="info-label">Nombre de pages :</span> ${data.pages} pages
             </div>
             
-            ${data.features.length > 0 ? `
-            <h3 style="margin-top: 20px; color: #1e40af;">Fonctionnalit&eacute;s incluses :</h3>
-            <ul class="feature-list">
-                ${data.features.map(feature => `<li>${feature}</li>`).join('')}
-            </ul>
-            ` : ''}
-        </div>
-        
-        <div class="pricing">
-            <div class="total-price">${data.totalPrice}&euro;</div>
-            <p>Prix tout compris TTC</p>
-            <p style="font-size: 14px; margin-top: 10px;">
-                TVA non applicable - Article 293 B du CGI
-            </p>
-        </div>
-        
-        <div class="signature-zone">
-            <h3>&#9998;&#65039; Acceptation du devis</h3>
-            <p>Pour accepter ce devis, merci de :</p>
-            <p>1. Ajouter la mention <strong>"Bon pour accord"</strong></p>
-            <p>2. Signer et dater ci-dessous</p>
-            <p>3. Nous retourner ce devis sign&eacute; par email</p>
-            <br>
-            <div style="border: 1px solid #d1d5db; padding: 20px; margin: 20px 0; min-height: 80px;">
-                <p><strong>Date :</strong> ____________________</p>
-                <br>
-                <p><strong>Signature du client :</strong></p>
-                <br><br>
+            <div class="project-section">
+                <div class="project-title">Configuration de votre projet</div>
+                <div class="info-row">
+                    <div class="info-label">Type de site :</div>
+                    <div class="info-value">${getWebsiteTypeLabel(data.projectType)}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Pages :</div>
+                    <div class="info-value">${data.pages} pages</div>
+                </div>
+                
+                ${data.features.length > 0 ? `
+                <div class="features-section">
+                    <div class="features-title">Fonctionnalit&eacute;s incluses</div>
+                    <div class="features-list">
+                        ${data.features.map(feature => `
+                        <div class="feature-item">
+                            <div class="feature-check">&check;</div>
+                            <div class="feature-text">${feature}</div>
+                        </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+            
+            <div class="pricing-section">
+                <div class="price-main">${data.totalPrice}&euro;</div>
+                <div class="price-subtitle">Prix tout compris TTC</div>
+                <div class="price-details">TVA non applicable - Article 293 B du CGI</div>
+            </div>
+            
+            <div class="signature-section">
+                <div class="signature-title">Acceptation du devis</div>
+                <div class="signature-instructions">
+                    Pour accepter ce devis, merci d'ajouter la mention <strong>&laquo; Bon pour accord &raquo;</strong>, 
+                    de signer et dater ci-dessous, puis nous retourner ce document par email.
+                </div>
+                <div class="signature-box">
+                    <div><strong>Date :</strong> ________________________</div>
+                    <div class="signature-line"></div>
+                    <div><strong>Signature du client :</strong></div>
+                </div>
+            </div>
+            
+            <div class="legal-section">
+                <div class="legal-title">Mentions l&eacute;gales</div>
+                
+                <div class="legal-grid">
+                    <div class="legal-block">
+                        <h4>Weblify Studio</h4>
+                        <p>Noah Delenclos</p>
+                        <p>Micro-entrepreneur</p>
+                        <p>SIRET : En cours d'attribution</p>
+                        <p>Adresse : Paris, France</p>
+                        <p>Email : contact@weblify-studio.fr</p>
+                    </div>
+                    
+                    <div class="legal-block">
+                        <h4>Conditions du Devis</h4>
+                        <p>&bull; Devis valable 30 jours</p>
+                        <p>&bull; Acompte 50% &agrave; la signature</p>
+                        <p>&bull; Solde &agrave; la livraison</p>
+                        <p>&bull; 2 r&eacute;visions incluses</p>
+                        <p>&bull; Formation 1h incluse</p>
+                        <p>&bull; Garantie 3 mois</p>
+                    </div>
+                </div>
+                
+                <div class="legal-text">
+                    <strong>Mentions l&eacute;gales :</strong> Ce devis est &eacute;tabli conform&eacute;ment aux articles L441-1 et suivants du Code de commerce. 
+                    Les travaux ne commenceront qu'apr&egrave;s acceptation &eacute;crite du pr&eacute;sent devis avec signature du client. 
+                    TVA non applicable selon l'article 293 B du Code g&eacute;n&eacute;ral des imp&ocirc;ts.
+                </div>
             </div>
         </div>
-        
-        <div class="legal">
-            <h3>Mentions l&eacute;gales</h3>
-            <p><strong>Weblify Studio</strong> - Noah Delenclos</p>
-            <p>Micro-entrepreneur &bull; SIRET : En cours d'attribution</p>
-            <p>Adresse : Paris, France</p>
-            <p>Email : contact@weblify-studio.fr</p>
-            <br>
-            <p><strong>Conditions g&eacute;n&eacute;rales :</strong></p>
-            <p>&bull; Devis valable 30 jours &agrave; compter de la date d'&eacute;mission</p>
-            <p>&bull; Acompte de 50% &agrave; la signature du devis, solde &agrave; la livraison</p>
-            <p>&bull; D&eacute;lais indicatifs, d&eacute;but des travaux apr&egrave;s signature et r&eacute;ception de l'acompte</p>
-            <p>&bull; R&eacute;visions incluses : 2 allers-retours sur le design initial</p>
-            <p>&bull; Formation &agrave; l'utilisation du site incluse (1 heure)</p>
-            <p>&bull; Garantie technique : 3 mois apr&egrave;s livraison</p>
-            <p>&bull; TVA non applicable - Article 293 B du Code g&eacute;n&eacute;ral des imp&ocirc;ts</p>
-        </div>
-    </div>
-    
-    <div class="footer">
-        <p>Merci de votre confiance ! &#128640;</p>
-        <p>Weblify Studio - Cr&eacute;ation de sites web professionnels</p>
-        <p>contact@weblify-studio.fr &bull; Bas&eacute; &agrave; Paris</p>
     </div>
 </body>
 </html>
