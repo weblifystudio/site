@@ -22,8 +22,8 @@
   <!-- Background -->
   <rect width="1200" height="600" fill="url(#twitterGradient)"/>
   
-  <!-- Logo -->
-  <g transform="translate(100, 180)">
+  <!-- Logo centré -->
+  <g transform="translate(550, 200)">
     <rect class="twitter-logo-bg" width="100" height="100" rx="20"/>
     <g class="twitter-logo-lines">
       <rect x="20" y="30" width="60" height="10" rx="3"/>
@@ -32,7 +32,7 @@
     </g>
   </g>
   
-  <!-- Text -->
-  <text x="240" y="250" class="twitter-text twitter-title">Weblify Studio</text>
-  <text x="240" y="290" class="twitter-text twitter-subtitle">Sites Web Professionnels</text>
+  <!-- Text centré -->
+  <text x="600" y="350" class="twitter-text twitter-title" text-anchor="middle">Weblify Studio</text>
+  <text x="600" y="390" class="twitter-text twitter-subtitle" text-anchor="middle">Sites Web Professionnels</text>
 </svg>

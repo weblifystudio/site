@@ -246,7 +246,7 @@ export default function Home() {
                 <Button asChild size="lg" className="hover:bg-primary/90 transition-colors duration-300">
                   <Link href="/offres" onClick={scrollToTop}>Je veux mon devis</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="hover:bg-secondary transition-colors duration-300">
+                <Button asChild variant="outline" size="lg">
                   <Link href="/contact" onClick={scrollToTop}>Contactez-nous</Link>
                 </Button>
               </div>

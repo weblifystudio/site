@@ -22,8 +22,8 @@
   <!-- Background -->
   <rect width="1200" height="630" fill="url(#ogGradient)"/>
   
-  <!-- Logo -->
-  <g transform="translate(100, 200)">
+  <!-- Logo centré -->
+  <g transform="translate(540, 215)">
     <rect class="og-logo-bg" width="120" height="120" rx="24"/>
     <g class="og-logo-lines">
       <rect x="24" y="36" width="72" height="12" rx="4"/>
@@ -32,7 +32,7 @@
     </g>
   </g>
   
-  <!-- Text -->
-  <text x="260" y="280" class="og-text og-title">Weblify Studio</text>
-  <text x="260" y="330" class="og-text og-subtitle">Agence Web Professionnelle</text>
+  <!-- Text centré -->
+  <text x="600" y="380" class="og-text og-title" text-anchor="middle">Weblify Studio</text>
+  <text x="600" y="430" class="og-text og-subtitle" text-anchor="middle">Agence Web Professionnelle</text>
 </svg>
