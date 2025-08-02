@@ -1200,9 +1200,9 @@ function createServer2() {
       res.sendFile(path.resolve(process.cwd(), "dist/public/index.html"));
     });
   } else {
-    app.use(express.static("client/dist", { maxAge: 0 }));
+    app.use(express.static("dist/public", { maxAge: 0 }));
     app.get("*", (_req, res) => {
-      res.sendFile(path.resolve(process.cwd(), "client/dist/index.html"));
+      res.sendFile(path.resolve(process.cwd(), "dist/public/index.html"));
     });
   }
   return server;

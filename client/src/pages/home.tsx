@@ -8,26 +8,25 @@ import TypewriterText from '@/components/TypewriterText';
 // import Testimonials from '@/components/ui/testimonials';
 
 import SocialProof from '@/components/ui/social-proof';
-import { 
-  Palette, 
-  Rocket, 
-  Search, 
-  Headphones, 
-  Zap, 
-  Wand2, 
-  TrendingUp, 
-  Heart,
-  RotateCcw,
-  Settings,
-  Shield,
-  Layers,
-  Eye,
-  Gem,
-  Clock,
-  ChevronLeft,
-  ChevronRight,
-  Check
-} from 'lucide-react';
+// Icônes SVG légères pour remplacer lucide-react
+const PaletteIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v6a2 2 0 002 2h4a2 2 0 002-2V5z" /></svg>;
+const RocketIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
+const SearchIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>;
+const HeadphonesIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 016 0v6a3 3 0 01-3 3z" /></svg>;
+const ZapIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
+const WandIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>;
+const TrendingUpIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
+const HeartIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>;
+const RotateIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>;
+const SettingsIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>;
+const ShieldIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>;
+const LayersIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>;
+const EyeIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>;
+const GemIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a4 4 0 100 8m0-8a4 4 0 110 8m-6 8a2 2 0 002-2v-3a2 2 0 012-2h8a2 2 0 012 2v3a2 2 0 002 2H6z" /></svg>;
+const ClockIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
+const ChevronLeftIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>;
+const ChevronRightIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>;
+const CheckIcon = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>;
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -35,22 +34,22 @@ const scrollToTop = () => {
 
 const carouselSlides = [
   {
-    icon: Palette,
+    icon: PaletteIcon,
     title: "Design Exceptionnel",
     description: "Chaque site est unique, conçu sur-mesure pour refléter votre identité et captiver vos visiteurs dès le premier regard."
   },
   {
-    icon: Rocket,
+    icon: RocketIcon,
     title: "Rapidité Garantie", 
     description: "Sites ultra-performants avec des temps de chargement optimisés pour une expérience utilisateur fluide et efficace."
   },
   {
-    icon: Search,
+    icon: SearchIcon,
     title: "SEO Optimisé",
     description: "Votre site sera visible sur Google avec notre expertise en référencement naturel et techniques SEO avancées."
   },
   {
-    icon: Headphones,
+    icon: HeadphonesIcon,
     title: "Accompagnement Premium",
     description: "Support personnalisé et accompagnement continu pour assurer le succès de votre présence en ligne."
   }
@@ -58,28 +57,28 @@ const carouselSlides = [
 
 const keyStrengths = [
   {
-    icon: Zap,
+    icon: ZapIcon,
     title: "Rapidité de Livraison",
     description: "Votre site prêt en 7 jours en moyenne. Processus optimisé pour des résultats rapides sans compromis sur la qualité.",
     highlight: "→ 7 jours max",
     color: "from-primary to-blue-600"
   },
   {
-    icon: Wand2,
+    icon: WandIcon,
     title: "Design Esthétique",
     description: "Interfaces modernes et élégantes qui captivent vos visiteurs et renforcent votre image de marque professionnelle.",
     highlight: "→ 100% sur-mesure",
     color: "from-purple-500 to-pink-500"
   },
   {
-    icon: TrendingUp,
+    icon: TrendingUpIcon,
     title: "SEO Optimisé",
     description: "Référencement naturel intégré dès la conception pour maximiser votre visibilité sur les moteurs de recherche.",
     highlight: "→ Top 3 Google",
     color: "from-green-500 to-emerald-500"
   },
   {
-    icon: Heart,
+    icon: HeartIcon,
     title: "UX Fluide",
     description: "Expérience utilisateur pensée et optimisée pour convertir vos visiteurs en clients fidèles.",
     highlight: "→ +40% conversion",
@@ -89,25 +88,25 @@ const keyStrengths = [
 
 const additionalServices = [
   { 
-    icon: RotateCcw, 
+    icon: RotateIcon, 
     title: "Refonte de Sites", 
     description: "Modernisation et optimisation de votre site existant",
     color: "bg-blue-100 dark:bg-blue-900/30 text-primary"
   },
   { 
-    icon: Settings, 
+    icon: SettingsIcon, 
     title: "Maintenance", 
     description: "Mises à jour et support technique continu",
     color: "bg-green-100 dark:bg-green-900/30 text-green-500"
   },
   { 
-    icon: Shield, 
+    icon: ShieldIcon, 
     title: "Cybersécurité", 
     description: "Tests de sécurité et débogage professionnel",
     color: "bg-red-100 dark:bg-red-900/30 text-red-500"
   },
   { 
-    icon: Layers, 
+    icon: LayersIcon, 
     title: "Templates Premium", 
     description: "Modèles professionnels prêts à l'emploi",
     color: "bg-purple-100 dark:bg-purple-900/30 text-purple-500"
@@ -143,17 +142,17 @@ const timelineSteps = [
 
 const commitments = [
   {
-    icon: Eye,
+    icon: EyeIcon,
     title: "Transparence",
     description: "Communication claire, devis détaillés et suivi en temps réel de votre projet."
   },
   {
-    icon: Gem,
+    icon: GemIcon,
     title: "Qualité",
     description: "Code propre, design soigné et respect des meilleures pratiques du web."
   },
   {
-    icon: Clock,
+    icon: ClockIcon,
     title: "Rapidité",
     description: "Respect des délais et livraison dans les temps convenus, sans compromis."
   }
@@ -342,13 +341,13 @@ export default function Home() {
                 onClick={prevSlide}
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-background/80 backdrop-blur-sm border border-border rounded-full flex items-center justify-center hover:bg-background hover:shadow-lg transition-all duration-200 z-10"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeftIcon />
               </button>
               <button
                 onClick={nextSlide}
                 className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-background/80 backdrop-blur-sm border border-border rounded-full flex items-center justify-center hover:bg-background hover:shadow-lg transition-all duration-200 z-10"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRightIcon />
               </button>
               
               {/* Pagination Dots */}
@@ -457,7 +456,7 @@ export default function Home() {
                         onMouseLeave={() => setHoveredStep(null)}
                       >
                         {completedSteps.has(step.step) ? (
-                          <Check className="w-6 h-6 text-white animate-in slide-in-from-bottom-2 duration-300" />
+                          <CheckIcon />
                         ) : (
                           <span className="text-white text-lg font-bold">{step.step}</span>
                         )}
@@ -522,7 +521,7 @@ export default function Home() {
                         onMouseLeave={() => setHoveredStep(null)}
                       >
                         {completedSteps.has(step.step) ? (
-                          <Check className="w-6 h-6 text-white animate-in slide-in-from-bottom-2 duration-300" />
+                          <CheckIcon />
                         ) : (
                           <span className="text-white text-lg font-bold">{step.step}</span>
                         )}
@@ -545,7 +544,7 @@ export default function Home() {
                         onMouseLeave={() => setHoveredStep(null)}
                       >
                         {completedSteps.has(step.step) ? (
-                          <Check className="w-6 h-6 text-white animate-in slide-in-from-bottom-2 duration-300" />
+                          <CheckIcon />
                         ) : (
                           <span className="text-white text-lg font-bold">{step.step}</span>
                         )}

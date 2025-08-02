@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+// Icône SVG légère pour remplacer lucide-react
+const ChevronDownIconIcon = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
+// import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import MegaMenu from '@/components/ui/mega-menu';
@@ -39,18 +40,12 @@ export default function Header() {
   return (
     <>
       {/* Overlay pour le menu mobile */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 md:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        )}
-      </AnimatePresence>
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 md:hidden transition-opacity duration-200"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
 
       <header className={`fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border z-40 transition-all duration-300 ${isScrolled ? 'header-compact' : ''}`}>
         <div className={`container mx-auto px-4 lg:px-6 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
@@ -137,61 +132,30 @@ export default function Header() {
         </nav>
 
         {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              className="md:hidden border-t border-border overflow-hidden"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{
-                duration: 0.4,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-            >
-              <motion.div
-                className="flex flex-col space-y-3 pt-4 pb-4"
-                initial={{ y: -20 }}
-                animate={{ y: 0 }}
-                exit={{ y: -20 }}
-                transition={{
-                  duration: 0.4,
-                  ease: [0.25, 0.1, 0.25, 1],
-                  delay: 0.1,
-                }}
-              >
-                {navigation.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{
-                      duration: 0.4,
-                      ease: [0.25, 0.1, 0.25, 1],
-                      delay: index * 0.08,
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-border overflow-hidden transition-all duration-300 ease-out">
+            <div className="flex flex-col space-y-3 pt-4 pb-4 animate-in slide-in-from-top-2 duration-300">
+              {navigation.map((item, index) => (
+                <div key={item.name} className={`animate-in slide-in-from-left-2 duration-300`} style={{ animationDelay: `${index * 50}ms` }}>
+                  <Link
+                    href={item.href}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      scrollToTop();
                     }}
+                    className={`header-link py-2 block transition-colors duration-200 ${
+                      location === item.href
+                        ? 'text-primary font-medium'
+                        : 'text-muted-foreground hover:text-primary'
+                    }`}
                   >
-                    <Link
-                      href={item.href}
-                      onClick={() => {
-                        setIsMobileMenuOpen(false);
-                        scrollToTop();
-                      }}
-                      className={`header-link py-2 block transition-colors duration-200 ${
-                        location === item.href
-                          ? 'text-primary font-medium'
-                          : 'text-muted-foreground hover:text-primary'
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    {item.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         </div>
       </header>
     </>
