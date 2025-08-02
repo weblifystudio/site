@@ -1,13 +1,70 @@
 import express, { type Request, Response, NextFunction } from "express";
 import https from "https";
 import http from "http";
+import compression from "compression";
+import helmet from "helmet";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { generateSelfSignedCert, securityHeaders } from "./ssl-config";
+import { 
+  createRateLimiter, 
+  createFormRateLimiter, 
+  compressionMiddleware, 
+  cacheMiddleware, 
+  corsMiddleware, 
+  performanceMiddleware, 
+  sanitizeMiddleware 
+} from "./security-middleware";
+import { 
+  healthCheckMiddleware, 
+  metricsMiddleware, 
+  ErrorMonitor 
+} from "./monitoring";
+import { 
+  seoMiddleware, 
+  sitemapMiddleware, 
+  robotsMiddleware, 
+  webVitalsMiddleware 
+} from "./seo-optimization";
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
+// Configuration trust proxy pour Replit
+app.set('trust proxy', 1);
+
+// Middleware de base
+app.use(compression()); // Compression gzip
+app.use(helmet({ 
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  }
+})); // Protection avec CSP adaptée
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+
+// Middleware de sécurité et optimisation
+app.use(createRateLimiter()); // Protection DDoS
+app.use(corsMiddleware); // CORS sécurisé
+app.use(sanitizeMiddleware); // Protection injections
+app.use(performanceMiddleware); // Monitoring performances
+app.use(cacheMiddleware); // Optimisation cache
+app.use(compressionMiddleware); // Headers compression
+
+// Middleware SEO
+app.use(seoMiddleware); // Headers SEO
+app.use(webVitalsMiddleware); // Core Web Vitals
+app.use(sitemapMiddleware); // Sitemap automatique
+app.use(robotsMiddleware); // Robots.txt
+
+// Monitoring
+app.use(healthCheckMiddleware); // /health endpoint
+app.use(metricsMiddleware); // /metrics endpoint
 
 // Middleware de redirection HTTPS (uniquement en production)
 app.use((req, res, next) => {
@@ -60,9 +117,12 @@ app.use((req, res, next) => {
 (async () => {
   const server = await registerRoutes(app);
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
+
+    // Log l'erreur dans le système de monitoring
+    ErrorMonitor.logError(req, err);
 
     res.status(status).json({ message });
     throw err;

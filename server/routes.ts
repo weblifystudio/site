@@ -24,10 +24,11 @@ const contactValidationSchema = z.object({
   newsletter: z.boolean().default(false),
 });
 import { sendContactEmail } from "./email";
+import { createFormRateLimiter } from "./security-middleware";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Contact form submission
-  app.post("/api/contact", async (req, res) => {
+  // Contact form submission avec protection renforcée
+  app.post("/api/contact", createFormRateLimiter(), async (req, res) => {
     try {
       const validatedData = contactValidationSchema.parse(req.body);
       
