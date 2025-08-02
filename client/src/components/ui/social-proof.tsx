@@ -1,6 +1,8 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Star, Award, Users, Zap } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Star, Award, Users, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const stats = [
   {
@@ -52,7 +54,52 @@ const certifications = [
   }
 ];
 
+// Badges par groupes pour le défilement
+const techPartnerGroups = [
+  {
+    label: "Cloud & Infrastructure",
+    badges: ["Vercel", "Cloudflare", "Google Cloud"]
+  },
+  {
+    label: "Paiements & Marketing", 
+    badges: ["Stripe", "Mailchimp", "SendGrid"]
+  },
+  {
+    label: "Développement & Design",
+    badges: ["React", "TypeScript", "Tailwind CSS"]
+  },
+  {
+    label: "SEO & Analytics",
+    badges: ["Google Analytics", "Search Console", "Lighthouse"]
+  }
+];
+
 export default function SocialProof() {
+  const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Auto-rotation du défilement
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentGroupIndex((prev) => (prev + 1) % techPartnerGroups.length);
+    }, 4000); // Change toutes les 4 secondes
+    
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const goToNext = () => {
+    setCurrentGroupIndex((prev) => (prev + 1) % techPartnerGroups.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  };
+
+  const goToPrevious = () => {
+    setCurrentGroupIndex((prev) => (prev - 1 + techPartnerGroups.length) % techPartnerGroups.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  };
   return (
     <section className="py-16 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
@@ -101,15 +148,77 @@ export default function SocialProof() {
           ))}
         </div>
 
-        {/* Trust indicators */}
-        <div className="mt-16 text-center">
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-            <div className="text-sm font-medium">Partenaires technologiques :</div>
-            <Badge variant="outline">Vercel</Badge>
-            <Badge variant="outline">Cloudflare</Badge>
-            <Badge variant="outline">Google Cloud</Badge>
-            <Badge variant="outline">Stripe</Badge>
-            <Badge variant="outline">Mailchimp</Badge>
+        {/* Trust indicators - Défilement avec navigation */}
+        <div className="mt-16">
+          <div className="text-center mb-6">
+            <div className="text-sm font-medium text-muted-foreground mb-4">
+              {techPartnerGroups[currentGroupIndex].label}
+            </div>
+          </div>
+          
+          {/* Container avec navigation */}
+          <div className="relative max-w-2xl mx-auto">
+            {/* Badges avec transition */}
+            <div className="overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentGroupIndex * 100}%)` }}
+              >
+                {techPartnerGroups.map((group, groupIndex) => (
+                  <div key={groupIndex} className="w-full flex-shrink-0 flex justify-center items-center gap-4 py-4">
+                    {group.badges.map((badge, badgeIndex) => (
+                      <Badge 
+                        key={badgeIndex} 
+                        variant="outline" 
+                        className="transition-all duration-300 hover:bg-primary hover:text-white hover:scale-105"
+                      >
+                        {badge}
+                      </Badge>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-between items-center mt-6">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={goToPrevious}
+                className="rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+
+              {/* Indicateurs (petits ronds) */}
+              <div className="flex space-x-2">
+                {techPartnerGroups.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setCurrentGroupIndex(index);
+                      setIsAutoPlaying(false);
+                      setTimeout(() => setIsAutoPlaying(true), 8000);
+                    }}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentGroupIndex
+                        ? 'bg-primary scale-125'
+                        : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={goToNext}
+                className="rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
