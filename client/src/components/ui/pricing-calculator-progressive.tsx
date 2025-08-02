@@ -9,45 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight, User, Mail, Phone, Building } from 'lucide-react';
 import { QuoteGenerator } from '@/components/ui/quote-generator';
 
-// Fonction pour formater le numéro de téléphone français automatiquement
-const formatPhoneNumber = (value: string) => {
-  // Enlever tous les caractères non-numériques sauf le +
-  const cleaned = value.replace(/[^\d+]/g, '');
-  
-  // Si commence par +33, remplacer par 0
-  let formatted = cleaned.replace(/^\+33/, '0');
-  
-  // Prendre seulement les 10 premiers chiffres
-  formatted = formatted.substring(0, 10);
-  
-  // Formatage automatique dès le 3ème chiffre : XX XX XX XX XX
-  if (formatted.length >= 3) {
-    const parts = [];
-    for (let i = 0; i < formatted.length; i += 2) {
-      if (i === 0) {
-        parts.push(formatted.substring(i, i + 2)); // 2 premiers chiffres
-      } else {
-        parts.push(formatted.substring(i, i + 2)); // Groupes de 2
-      }
-    }
-    formatted = parts.filter(part => part.length > 0).join(' ');
-  }
-  
-  return formatted;
-};
-
-// Fonctions de validation
-const isValidEmail = (email: string) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
-const isValidPhone = (phone: string) => {
-  if (!phone) return true; // Optionnel
-  const phoneRegex = /^(?:(?:\+33|0)[1-9](?:[0-9]{8}))$/;
-  const cleanPhone = phone.replace(/\s/g, '');
-  return phoneRegex.test(cleanPhone);
-};
+import { formatPhoneNumber, isValidEmail, isValidPhoneNumber } from '@/lib/phoneFormat';
 
 interface PricingOption {
   id: string;
@@ -339,10 +301,10 @@ export default function PricingCalculatorProgressive() {
                             setContactInfo({...contactInfo, phone: formatted});
                           }}
                           placeholder="06 12 34 56 78"
-                          className={`h-12 ${contactInfo.phone && !isValidPhone(contactInfo.phone) ? 'border-red-500' : ''}`}
+                          className={`h-12 ${contactInfo.phone && !isValidPhoneNumber(contactInfo.phone) ? 'border-red-500' : ''}`}
                           maxLength={14}
                         />
-                        {contactInfo.phone && !isValidPhone(contactInfo.phone) && (
+                        {contactInfo.phone && !isValidPhoneNumber(contactInfo.phone) && (
                           <p className="text-sm text-red-500">Numéro de téléphone français invalide</p>
                         )}
                       </div>
@@ -369,7 +331,7 @@ export default function PricingCalculatorProgressive() {
                           !contactInfo.email || 
                           !isValidEmail(contactInfo.email) ||
                           !contactInfo.phone ||
-                          !isValidPhone(contactInfo.phone)
+                          !isValidPhoneNumber(contactInfo.phone)
                         }
                         size="lg"
                       >
