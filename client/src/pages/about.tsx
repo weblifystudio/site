@@ -18,9 +18,6 @@ export default function About() {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            À Propos
-          </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Noah Delenclos, Fondateur de Weblify Studio
           </h1>

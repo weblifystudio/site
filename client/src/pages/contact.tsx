@@ -185,9 +185,6 @@ export default function Contact() {
 
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            Contact
-          </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Démarrons Votre Projet
           </h1>

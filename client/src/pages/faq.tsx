@@ -19,7 +19,6 @@ export default function FAQ() {
 
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4">FAQ</Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Questions <span className="text-primary">Fréquentes</span>
           </h1>

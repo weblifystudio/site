@@ -79,9 +79,6 @@ export default function Portfolio() {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            Nos Réalisations
-          </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Découvrez nos derniers projets
           </h1>
