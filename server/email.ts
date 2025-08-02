@@ -60,9 +60,9 @@ Date: ${new Date().toLocaleString('fr-FR', {
       apiKey: process.env.MAILERSEND_API_KEY,
     });
 
-    // Utilisation de votre domaine d'entreprise ou du domaine vérifié MailerSend
-    const sentFrom = new Sender("contact@weblify-studio.fr", "Weblify Studio");
-    const recipients = [new Recipient("noah.delenclos@gmail.com", "Noah Delenclos")];
+    // Envoi depuis le site vers votre adresse d'entreprise
+    const sentFrom = new Sender("noreply@weblify-studio.fr", "Weblify Studio");
+    const recipients = [new Recipient("contact@weblify-studio.fr", "Noah Delenclos")];
 
     // Contenu de l'email en HTML
     const htmlContent = `
