@@ -177,30 +177,45 @@ export default function PricingCalculatorProgressive() {
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           
-          {/* Indicateur d'étapes */}
-          <div className="mb-12">
-            <div className="flex items-center justify-center space-x-4 md:space-x-8 overflow-x-auto">
-              {[1, 2, 3, 4, 5].map((step) => (
-                <div key={step} className="flex items-center flex-shrink-0">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
-                    step <= currentStep 
-                      ? 'bg-primary text-white' 
-                      : 'bg-gray-200 text-gray-500'
-                  }`}>
-                    {step}
+          {/* Indicateur d'étapes amélioré */}
+          <div className="mb-8">
+            <div className="flex items-center justify-center space-x-2 md:space-x-6 overflow-x-auto px-4">
+              {[
+                { num: 1, name: "Type" },
+                { num: 2, name: "Pages" }, 
+                { num: 3, name: "Délai" },
+                { num: 4, name: "Options" },
+                { num: 5, name: "Commande" }
+              ].map((step, index) => (
+                <div key={step.num} className="flex items-center flex-shrink-0">
+                  <div className="text-center">
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold transition-all duration-300 ${
+                      step.num <= currentStep 
+                        ? 'bg-primary text-white shadow-lg scale-110' 
+                        : 'bg-gray-200 text-gray-500'
+                    }`}>
+                      {step.num}
+                    </div>
+                    <div className={`mt-2 text-xs font-medium transition-colors ${
+                      step.num <= currentStep 
+                        ? 'text-primary' 
+                        : 'text-gray-400'
+                    }`}>
+                      {step.name}
+                    </div>
                   </div>
-                  {step < 5 && (
-                    <div className={`w-8 md:w-16 h-1 mx-2 transition-all ${
-                      step < currentStep ? 'bg-primary' : 'bg-gray-200'
+                  {index < 4 && (
+                    <div className={`w-6 md:w-12 h-1 mx-1 md:mx-2 transition-all ${
+                      step.num < currentStep ? 'bg-primary' : 'bg-gray-200'
                     }`} />
                   )}
                 </div>
               ))}
             </div>
-            <div className="text-center mt-4">
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="text-center mt-6">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200">
                 {stepTitles[currentStep - 1]}
-              </p>
+              </h2>
             </div>
           </div>
 
@@ -212,8 +227,7 @@ export default function PricingCalculatorProgressive() {
               {currentStep === 1 && (
                 <Card className="animate-fade-in">
                   <CardHeader>
-                    <CardTitle className="text-center text-2xl">Quel type de site voulez-vous ?</CardTitle>
-                    <p className="text-center text-gray-600 dark:text-gray-300">
+                    <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
                       Sélectionnez l'option qui correspond le mieux à votre projet
                     </p>
                   </CardHeader>
@@ -253,8 +267,7 @@ export default function PricingCalculatorProgressive() {
               {currentStep === 2 && baseOption && (
                 <Card className="animate-fade-in">
                   <CardHeader>
-                    <CardTitle className="text-center text-2xl">Combien de pages voulez-vous ?</CardTitle>
-                    <p className="text-center text-gray-600 dark:text-gray-300">
+                    <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
                       Votre {baseOption.name} inclut déjà 8 pages de base
                     </p>
                   </CardHeader>
@@ -299,11 +312,7 @@ export default function PricingCalculatorProgressive() {
               {currentStep === 3 && baseOption && (
                 <Card className="animate-fade-in">
                   <CardHeader>
-                    <CardTitle className="text-center text-2xl flex items-center justify-center gap-2">
-                      <Zap className="w-6 h-6" />
-                      Délai de livraison
-                    </CardTitle>
-                    <p className="text-center text-gray-600 dark:text-gray-300">
+                    <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
                       Délai calculé automatiquement selon la complexité de votre projet
                     </p>
                   </CardHeader>
@@ -374,8 +383,7 @@ export default function PricingCalculatorProgressive() {
               {currentStep === 4 && baseOption && (
                 <Card className="animate-fade-in">
                   <CardHeader>
-                    <CardTitle className="text-center text-2xl">Fonctionnalités additionnelles</CardTitle>
-                    <p className="text-center text-gray-600 dark:text-gray-300">
+                    <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
                       Personnalisez votre {baseOption.name} avec des options supplémentaires
                     </p>
                   </CardHeader>
@@ -443,8 +451,7 @@ export default function PricingCalculatorProgressive() {
                 <div className="space-y-8 animate-fade-in">
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-center text-2xl">Récapitulatif de votre projet</CardTitle>
-                      <p className="text-center text-gray-600 dark:text-gray-300">
+                      <p className="text-center text-gray-600 dark:text-gray-300 text-lg">
                         Vérifiez votre configuration avant de passer commande
                       </p>
                     </CardHeader>
