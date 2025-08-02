@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 
-import { ThemeProvider } from "@/components/ui/theme-provider";
+// import { ThemeProvider } from "@/components/ui/theme-provider";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Services from "@/pages/services";
@@ -13,7 +13,7 @@ import BlogPost from "@/pages/blog-post";
 
 import About from "@/pages/about";
 import FAQ from "@/pages/faq";
-import Contact from "@/pages/contact-simple";
+import Contact from "@/pages/contact";
 import Legal from "@/pages/legal";
 import CGV from "@/pages/cgv";
 import Privacy from "@/pages/privacy";
@@ -31,23 +31,23 @@ import { useAnalytics } from "./hooks/use-analytics";
 
 function Router() {
   // Track page views when routes change
-  useAnalytics();
+  // useAnalytics(); // Temporarily disabled
   
   // Optimisations performance au démarrage
-  useEffect(() => {
-    // Précharge des images critiques (hero section)
-    const criticalImages = [
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop&q=80'
-    ];
-    
-    criticalImages.forEach((url) => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = url;
-      document.head.appendChild(link);
-    });
-  }, []);
+  // useEffect(() => {
+  //   // Précharge des images critiques (hero section)
+  //   const criticalImages = [
+  //     'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop&q=80'
+  //   ];
+  //   
+  //   criticalImages.forEach((url) => {
+  //     const link = document.createElement('link');
+  //     link.rel = 'preload';
+  //     link.as = 'image';
+  //     link.href = url;
+  //     document.head.appendChild(link);
+  //   });
+  // }, []);
   
   return (
     <Switch>
@@ -112,18 +112,18 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <div className="min-h-screen flex flex-col">
-          <ReadingProgress />
-          <Header />
-          <main className="flex-1">
-            <Router />
-          </main>
-          <Footer />
-          <BackToTop />
-          <CookieBanner />
-        </div>
-      </ThemeProvider>
+      <div className="min-h-screen flex flex-col light">
+        {/* <ReadingProgress />
+        <Header /> */}
+        <main className="flex-1 p-8">
+          <h1 className="text-2xl font-bold">Test Application</h1>
+          <p>Site web en cours de chargement...</p>
+          <Router />
+        </main>
+        {/* <Footer />
+        <BackToTop />
+        <CookieBanner /> */}
+      </div>
     </QueryClientProvider>
   );
 }
