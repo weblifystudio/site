@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, ArrowRight, User, Tag, ChevronDown, ChevronUp, BookOpen, Download } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, User, Download } from 'lucide-react';
 import Breadcrumbs from '@/components/ui/breadcrumbs';
 
 const scrollToTop = () => {
@@ -270,21 +270,12 @@ const categories = ["Tous", "Stratégie", "UX/UI", "SEO", "Tendances", "Agence",
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Tous");
-  const [expandedPosts, setExpandedPosts] = useState<Set<number>>(new Set());
   
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const togglePostExpansion = (postId: number) => {
-    const newExpandedPosts = new Set(expandedPosts);
-    if (newExpandedPosts.has(postId)) {
-      newExpandedPosts.delete(postId);
-    } else {
-      newExpandedPosts.add(postId);
-    }
-    setExpandedPosts(newExpandedPosts);
-  };
+
 
   // Fonction de téléchargement d'un article
   const downloadArticle = (post: any) => {
@@ -317,21 +308,7 @@ ${post.content}
     URL.revokeObjectURL(url);
   };
 
-  const formatContent = (content: string) => {
-    const lines = content.split('\n');
-    return lines.map((line, index) => {
-      if (line.startsWith('## ')) {
-        return <h3 key={index} className="text-lg font-semibold mt-4 mb-2 text-primary">{line.replace('## ', '')}</h3>;
-      }
-      if (line.startsWith('**') && line.endsWith('**')) {
-        return <p key={index} className="font-medium mb-2">{line.replace(/\*\*/g, '')}</p>;
-      }
-      if (line.trim() === '') {
-        return <div key={index} className="mb-2"></div>;
-      }
-      return <p key={index} className="mb-2 text-sm leading-relaxed">{line}</p>;
-    });
-  };
+
 
   const featuredPosts = blogPosts.filter(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
@@ -417,11 +394,6 @@ ${post.content}
                     {post.excerpt}
                   </p>
                   
-                  {expandedPosts.has(post.id) && (
-                    <div className="mt-4 p-4 bg-muted/20 rounded-lg space-y-2 max-h-96 overflow-y-auto">
-                      {formatContent(post.content)}
-                    </div>
-                  )}
                   <div className="flex items-center justify-between text-sm text-muted-foreground">
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-1">
@@ -439,23 +411,12 @@ ${post.content}
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 group-hover:bg-primary group-hover:text-white transition-all"
-                      onClick={() => togglePostExpansion(post.id)}
-                    >
-                      {expandedPosts.has(post.id) ? (
-                        <>
-                          Réduire
-                          <ChevronUp className="w-4 h-4 ml-2" />
-                        </>
-                      ) : (
-                        <>
-                          Lire la suite
-                          <ChevronDown className="w-4 h-4 ml-2" />
-                        </>
-                      )}
-                    </Button>
+                    <Link href={`/blog/${post.slug}`} onClick={scrollToTop}>
+                      <Button variant="outline" className="flex-1 group-hover:bg-primary group-hover:text-white transition-all">
+                        Voir l'article complet
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </Link>
                     <Button 
                       size="sm" 
                       variant="ghost" 
@@ -465,23 +426,7 @@ ${post.content}
                     >
                       <Download className="w-4 h-4" />
                     </Button>
-                    <Link href={`/blog/${post.slug}`} onClick={scrollToTop}>
-                      <Button size="sm" variant="ghost" className="hover:bg-primary/10">
-                        <BookOpen className="w-4 h-4" />
-                      </Button>
-                    </Link>
                   </div>
-                  
-                  {expandedPosts.has(post.id) && (
-                    <div className="mt-4 text-center">
-                      <Link href={`/blog/${post.slug}`} onClick={scrollToTop}>
-                        <Button variant="default" size="sm">
-                          Voir l'article complet
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                      </Link>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
             ))}
