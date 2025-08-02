@@ -291,6 +291,7 @@ export default function PricingCalculator() {
           <div className="lg:col-span-1">
             <Card className="sticky top-8 bg-gradient-to-br from-primary/5 to-blue-50 dark:from-primary/10 dark:to-gray-800">
               <CardHeader>
+                <CardTitle className="text-center">Estimation de votre projet</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="text-center">
