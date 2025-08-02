@@ -51,13 +51,13 @@ export async function subscribeToNewsletter(req: Request, res: Response) {
         // Réactiver l'abonnement
         await storage.updateNewsletterSubscriber(validatedData.email, {
           isActive: true,
-          firstName: validatedData.firstName,
-          lastName: validatedData.lastName,
+          firstName: validatedData.firstName || 'Prénom',
+          lastName: validatedData.lastName || 'Nom',
           interests: validatedData.interests,
           subscribedAt: new Date(),
         });
         
-        await sendNewsletterWelcomeEmail(validatedData.email, validatedData.firstName);
+        await sendNewsletterWelcomeEmail(validatedData.email, validatedData.firstName || 'Abonné');
         
         return res.json({
           success: true,
@@ -71,8 +71,8 @@ export async function subscribeToNewsletter(req: Request, res: Response) {
     
     const subscriber = await storage.createNewsletterSubscriber({
       email: validatedData.email,
-      firstName: validatedData.firstName,
-      lastName: validatedData.lastName,
+      firstName: validatedData.firstName || 'Prénom',
+      lastName: validatedData.lastName || 'Nom',
       interests: validatedData.interests,
       source: validatedData.source,
       unsubscribeToken,
@@ -84,8 +84,8 @@ export async function subscribeToNewsletter(req: Request, res: Response) {
     if (mailchimpListId) {
       const mailchimpResult = await mailchimpService.addSubscriber({
         email: validatedData.email,
-        firstName: validatedData.firstName,
-        lastName: validatedData.lastName,
+        firstName: validatedData.firstName || 'Prénom',
+        lastName: validatedData.lastName || 'Nom',
         interests: validatedData.interests,
         source: validatedData.source
       }, mailchimpListId);
@@ -100,7 +100,7 @@ export async function subscribeToNewsletter(req: Request, res: Response) {
     // Envoyer email de confirmation
     await sendNewsletterConfirmationEmail(
       validatedData.email, 
-      validatedData.firstName,
+      validatedData.firstName || 'Abonné',
       unsubscribeToken
     );
     
