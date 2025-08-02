@@ -93,10 +93,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Log pour information sur le devis généré
       console.log(`📄 Devis HTML généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
       
-      // Retour du HTML en base64 pour ouverture dans nouvel onglet
+      // Retour du HTML en base64 pour téléchargement direct
       res.json({
         success: true,
-        message: "Devis généré ! Ouverture dans un nouvel onglet pour impression PDF.",
+        message: "Devis généré et téléchargé ! Ouvrez le fichier HTML pour l'imprimer en PDF.",
         quoteNumber: quoteData.quoteNumber,
         htmlContent: Buffer.from(htmlContent).toString('base64'),
         contact: savedContact,

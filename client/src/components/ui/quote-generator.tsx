@@ -41,14 +41,19 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         setPdfGenerated(true);
         
         if (result.isHtml) {
-          // Ouverture du devis HTML dans un nouvel onglet pour impression
+          // Téléchargement direct du fichier HTML
           const htmlContent = atob(result.htmlContent);
-          const newTab = window.open('', '_blank');
-          if (newTab) {
-            newTab.document.write(htmlContent);
-            newTab.document.close();
-            console.log('📄 Devis ouvert dans un nouvel onglet pour impression');
-          }
+          const blob = new Blob([htmlContent], { type: 'text/html' });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = `Devis-Weblify-Studio-${result.quoteNumber}.html`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+          console.log('📄 Devis HTML téléchargé automatiquement');
         } else {
           // Fallback pour le téléchargement PDF (si disponible)
           const pdfBlob = new Blob([
@@ -93,10 +98,10 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         </h3>
         
         <p className="text-green-700 mb-4">
-          Votre devis <strong>{quoteNumber}</strong> s'est ouvert dans un nouvel onglet.
+          Votre devis <strong>{quoteNumber}</strong> a été téléchargé automatiquement.
           <br />
           <span className="text-sm">
-            🖨️ Utilisez Ctrl+P pour l'imprimer en PDF ou l'enregistrer.
+            📁 Ouvrez le fichier HTML téléchargé et imprimez-le en PDF (Ctrl+P).
           </span>
         </p>
         
@@ -108,7 +113,7 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
             className="border-green-300 text-green-700 hover:bg-green-50"
           >
             <Download className="w-4 h-4 mr-2" />
-            Télécharger à nouveau
+            Retélécharger le devis
           </Button>
           
           <Button 
@@ -123,7 +128,7 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         </div>
         
         <p className="text-xs text-green-600 mt-4">
-          💡 Ce devis est valable 30 jours. Pour l'accepter, signez-le et renvoyez-le nous.
+          💡 Ce devis est valable 30 jours. Ouvrez le fichier téléchargé, imprimez-le en PDF, signez-le et renvoyez-le nous.
         </p>
       </div>
     );
