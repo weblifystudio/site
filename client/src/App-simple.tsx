@@ -18,7 +18,7 @@ import Cookies from "@/pages/cookies";
 import NotFound from "@/pages/not-found";
 
 // Import components
-import Header from "@/components/layout/Header-simple";
+import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/ui/cookie-banner";
 import BackToTop from "@/components/ui/back-to-top";
