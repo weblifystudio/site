@@ -42,10 +42,12 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
             color: #1f2937;
             line-height: 1.6;
             background: white;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .header {
@@ -211,23 +213,23 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
                 <div class="info-item">
                     <span class="info-label">Email :</span> ${data.email}
                 </div>
-                ${data.phone ? `<div class="info-item"><span class="info-label">Téléphone :</span> ${data.phone}</div>` : ''}
+                ${data.phone ? `<div class="info-item"><span class="info-label">T&eacute;l&eacute;phone :</span> ${data.phone}</div>` : ''}
                 ${data.company ? `<div class="info-item"><span class="info-label">Entreprise :</span> ${data.company}</div>` : ''}
             </div>
             
             <div class="quote-details">
-                <h2>Détails du Devis</h2>
+                <h2>D&eacute;tails du Devis</h2>
                 <div class="info-item">
-                    <span class="info-label">Numéro :</span> ${data.quoteNumber}
+                    <span class="info-label">Num&eacute;ro :</span> ${data.quoteNumber}
                 </div>
                 <div class="info-item">
                     <span class="info-label">Date :</span> ${data.date}
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Validité :</span> 30 jours
+                    <span class="info-label">Validit&eacute; :</span> 30 jours
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Délai :</span> ${data.timeline}
+                    <span class="info-label">D&eacute;lai :</span> ${data.timeline}
                 </div>
             </div>
         </div>
@@ -242,7 +244,7 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
             </div>
             
             ${data.features.length > 0 ? `
-            <h3 style="margin-top: 20px; color: #1e40af;">Fonctionnalités incluses :</h3>
+            <h3 style="margin-top: 20px; color: #1e40af;">Fonctionnalit&eacute;s incluses :</h3>
             <ul class="feature-list">
                 ${data.features.map(feature => `<li>${feature}</li>`).join('')}
             </ul>
@@ -250,7 +252,7 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
         </div>
         
         <div class="pricing">
-            <div class="total-price">${data.totalPrice}€</div>
+            <div class="total-price">${data.totalPrice}&euro;</div>
             <p>Prix tout compris TTC</p>
             <p style="font-size: 14px; margin-top: 10px;">
                 TVA non applicable - Article 293 B du CGI
@@ -258,11 +260,11 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
         </div>
         
         <div class="signature-zone">
-            <h3>🖊️ Acceptation du devis</h3>
+            <h3>&#9998;&#65039; Acceptation du devis</h3>
             <p>Pour accepter ce devis, merci de :</p>
             <p>1. Ajouter la mention <strong>"Bon pour accord"</strong></p>
             <p>2. Signer et dater ci-dessous</p>
-            <p>3. Nous retourner ce devis signé par email</p>
+            <p>3. Nous retourner ce devis sign&eacute; par email</p>
             <br>
             <div style="border: 1px solid #d1d5db; padding: 20px; margin: 20px 0; min-height: 80px;">
                 <p><strong>Date :</strong> ____________________</p>
@@ -273,26 +275,27 @@ export async function generateQuoteHTML(data: QuoteData): Promise<string> {
         </div>
         
         <div class="legal">
-            <h3>Mentions légales</h3>
+            <h3>Mentions l&eacute;gales</h3>
             <p><strong>Weblify Studio</strong> - Noah Delenclos</p>
-            <p>Micro-entrepreneur • SIRET : En cours d'attribution</p>
+            <p>Micro-entrepreneur &bull; SIRET : En cours d'attribution</p>
             <p>Adresse : Paris, France</p>
             <p>Email : contact@weblify-studio.fr</p>
             <br>
-            <p><strong>Conditions générales :</strong></p>
-            <p>• Devis valable 30 jours à compter de la date d'émission</p>
-            <p>• Acompte de 50% à la signature du devis, solde à la livraison</p>
-            <p>• Délais indicatifs, début des travaux après signature et réception de l'acompte</p>
-            <p>• Révisions incluses : 2 allers-retours sur le design initial</p>
-            <p>• Formation à l'utilisation du site incluse (1 heure)</p>
-            <p>• Garantie technique : 3 mois après livraison</p>
-            <p>• TVA non applicable - Article 293 B du Code général des impôts</p>
+            <p><strong>Conditions g&eacute;n&eacute;rales :</strong></p>
+            <p>&bull; Devis valable 30 jours &agrave; compter de la date d'&eacute;mission</p>
+            <p>&bull; Acompte de 50% &agrave; la signature du devis, solde &agrave; la livraison</p>
+            <p>&bull; D&eacute;lais indicatifs, d&eacute;but des travaux apr&egrave;s signature et r&eacute;ception de l'acompte</p>
+            <p>&bull; R&eacute;visions incluses : 2 allers-retours sur le design initial</p>
+            <p>&bull; Formation &agrave; l'utilisation du site incluse (1 heure)</p>
+            <p>&bull; Garantie technique : 3 mois apr&egrave;s livraison</p>
+            <p>&bull; TVA non applicable - Article 293 B du Code g&eacute;n&eacute;ral des imp&ocirc;ts</p>
         </div>
     </div>
     
     <div class="footer">
-        <p>Weblify Studio - Création de sites web professionnels</p>
-        <p>contact@weblify-studio.fr • Basé à Paris</p>
+        <p>Merci de votre confiance ! &#128640;</p>
+        <p>Weblify Studio - Cr&eacute;ation de sites web professionnels</p>
+        <p>contact@weblify-studio.fr &bull; Bas&eacute; &agrave; Paris</p>
     </div>
 </body>
 </html>

@@ -41,8 +41,8 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
         setPdfGenerated(true);
         
         if (result.isHtml) {
-          // Téléchargement direct du fichier HTML avec encodage UTF-8 correct
-          const htmlContent = atob(result.htmlContent);
+          // Téléchargement direct du fichier HTML avec décodage UTF-8 correct
+          const htmlContent = decodeURIComponent(escape(atob(result.htmlContent)));
           const blob = new Blob([htmlContent], { type: 'text/html; charset=utf-8' });
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
@@ -53,7 +53,7 @@ export function QuoteGenerator({ calculatorData }: QuoteGeneratorProps) {
           a.click();
           window.URL.revokeObjectURL(url);
           document.body.removeChild(a);
-          console.log('📄 Devis HTML téléchargé automatiquement avec encodage UTF-8');
+          console.log('📄 Devis HTML téléchargé avec correction UTF-8');
         } else {
           // Fallback pour le téléchargement PDF (si disponible)
           const pdfBlob = new Blob([

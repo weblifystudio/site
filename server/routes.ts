@@ -93,6 +93,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Log pour information sur le devis généré
       console.log(`📄 Devis HTML généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
       
+      // Configuration de l'en-tête pour UTF-8
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      
       // Retour du HTML en base64 pour téléchargement direct avec encodage UTF-8
       res.json({
         success: true,
