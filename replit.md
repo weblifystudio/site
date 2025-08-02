@@ -110,7 +110,7 @@ The application consists of 10 main pages:
 ## Recent Changes (February 2025)
 
 ### February 2, 2025 - Email Autonome Total + SEO Breadcrumbs Complet
-- ✓ **EMAIL 100% AUTONOME**: Suppression complète Brevo/SendGrid, système propre PostgreSQL
+- ✓ **EMAIL 100% AUTONOME**: Suppression complète des services externes, système propre PostgreSQL
 - ✓ **TABLE EMAILS**: Stockage local de tous les messages de contact dans `emails` table
 - ✓ **API EMAILS**: GET /api/emails et PATCH /api/emails/:id/read pour administration
 - ✓ **BREADCRUMBS PARTOUT**: Fil d'Ariane ajouté sur TOUTES les 14 pages du site pour SEO maximum
@@ -209,10 +209,10 @@ The application consists of 10 main pages:
 - ✓ **NEW**: Added custom CSS animations (float1, float2, float3, float4) with different trajectories
 - ✓ **NEW**: Implemented IntersectionObserver for counter animations
 - ✓ **NEW**: Enhanced carousel with arrow navigation and clickable pagination
-- ✓ **NEW**: Replaced nodemailer with professional SendGrid email system
+- ✓ **NEW**: Système d'email autonome avec base de données PostgreSQL
 - ✓ **NEW**: Beautiful HTML email templates for contact form notifications  
 - ✓ **NEW**: Fallback system - form works even if email fails temporarily
-- ✓ **NEW**: Environment variables for easy configuration (SENDGRID_API_KEY, CONTACT_EMAIL)
+- ✓ **NEW**: Configuration automatique sans clés externes nécessaires
 
 ### Animation & Interaction Improvements
 - ✓ **Floating Squares**: Desynchronized animations with unique trajectories, rotations, and scaling

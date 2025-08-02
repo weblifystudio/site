@@ -62,7 +62,7 @@ const techPartnerGroups = [
   },
   {
     label: "Paiements & Marketing", 
-    badges: ["Stripe", "Mailchimp", "SendGrid"]
+    badges: ["Stripe", "Mailchimp", "Email API"]
   },
   {
     label: "Développement & Design",
