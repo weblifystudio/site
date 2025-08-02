@@ -26,12 +26,6 @@
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
-    },
-    {
-      "src": "/apple-touch-icon-180x180.svg",
-      "sizes": "180x180",
-      "type": "image/svg+xml",
-      "purpose": "any"
     }
   ],
   "theme_color": "#3b82f6",
