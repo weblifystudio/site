@@ -125,8 +125,8 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             </div>
             <div className="mt-6">
               <Button asChild className="w-full">
-                <Link href="/offres" onClick={scrollToTop}>
-                  Voir tous nos services
+                <Link href="/contact" onClick={scrollToTop}>
+                  Demander un devis
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
