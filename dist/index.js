@@ -1038,9 +1038,7 @@ var contactValidationSchema = z4.object({
   budget: z4.string().optional(),
   projectTypes: z4.array(z4.string()).optional(),
   message: z4.string().min(10, "Le message doit contenir au moins 10 caract\xE8res"),
-  privacy: z4.boolean().refine((val) => val === true, {
-    message: "Vous devez accepter l'utilisation de vos donn\xE9es pour continuer"
-  }),
+  privacy: z4.boolean().optional().default(true),
   newsletter: z4.boolean().default(false)
 });
 async function registerRoutes(app2) {
@@ -1094,32 +1092,37 @@ async function registerRoutes(app2) {
     try {
       const calculatorData = req.body;
       if (!calculatorData.name || !calculatorData.email) {
-        return res.status(400).json({ error: "Nom et email requis pour le devis" });
+        return res.status(400).json({ error: "Nom et email requis pour la demande de devis" });
       }
-      const { mapCalculatorToQuote } = await import("./pdf-generator");
-      const quoteData = mapCalculatorToQuote(calculatorData);
+      const estimatedPrice = calculatorData.totalPrice || "\xC0 d\xE9finir";
       const contactData = {
-        ...calculatorData,
-        message: `Demande de devis automatique - ${quoteData.projectType} - ${quoteData.totalPrice}\u20AC`,
-        budget: quoteData.totalPrice.toString()
+        name: calculatorData.name,
+        email: calculatorData.email,
+        phone: calculatorData.phone || null,
+        budget: estimatedPrice.toString(),
+        projectTypes: calculatorData.projectTypes || ["Site vitrine"],
+        message: `Demande de devis via calculateur:
+
+Type de projet: ${calculatorData.projectType || "Non sp\xE9cifi\xE9"}
+Estimation: ${estimatedPrice}\u20AC
+
+D\xE9tails:
+${JSON.stringify(calculatorData, null, 2)}`,
+        newsletter: calculatorData.newsletter || false
       };
       const savedContact = await storage.createContact(contactData);
-      const { generateQuoteHTML } = await import("./pdf-generator-simple");
-      const htmlContent = await generateQuoteHTML(quoteData);
-      console.log(`\u{1F4C4} Devis HTML g\xE9n\xE9r\xE9 pour ${quoteData.name} - ${quoteData.totalPrice}\u20AC (${quoteData.quoteNumber})`);
-      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      const emailResult = await sendContactEmail(contactData);
+      console.log(`\u{1F4E7} Demande de devis re\xE7ue de ${calculatorData.name} - Estimation: ${estimatedPrice}\u20AC`);
       res.json({
         success: true,
-        message: "Devis g\xE9n\xE9r\xE9 et t\xE9l\xE9charg\xE9 ! Ouvrez le fichier HTML pour l'imprimer en PDF.",
-        quoteNumber: quoteData.quoteNumber,
-        htmlContent: Buffer.from(htmlContent, "utf8").toString("base64"),
+        message: "Votre demande de devis a \xE9t\xE9 envoy\xE9e ! Notre \xE9quipe vous contactera dans les 24h pour vous proposer un devis personnalis\xE9.",
         contact: savedContact,
-        isHtml: true
+        emailSent: emailResult.success
       });
     } catch (error) {
-      console.error("Erreur g\xE9n\xE9ration devis:", error);
+      console.error("Erreur demande devis:", error);
       res.status(500).json({
-        error: "Erreur lors de la g\xE9n\xE9ration du devis",
+        error: "Erreur lors de l'envoi de la demande de devis",
         details: error instanceof Error ? error.message : "Unknown error"
       });
     }
@@ -1212,5 +1215,5 @@ httpServer.listen(PORT, "0.0.0.0", () => {
   const timestamp2 = (/* @__PURE__ */ new Date()).toLocaleTimeString("fr-FR");
   console.log(`${timestamp2} [express] \u{1F310} HTTP Server serving on port ${PORT}`);
   console.log(`${timestamp2} [express] \u{1F512} SSL Security headers enabled`);
-  console.log(`${timestamp2} [express] \u2705 Ready for HTTPS deployment on Replit`);
+  console.log(`${timestamp2} [express] \u2705 Ready for HTTPS deployment`);
 });

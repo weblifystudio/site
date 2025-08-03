@@ -84,54 +84,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Endpoint pour générer et envoyer un devis PDF
+  // Endpoint pour demande de devis (envoi simple par email)
   app.post("/api/generate-quote", async (req, res) => {
     try {
       const calculatorData = req.body;
       
       // Validation des données essentielles
       if (!calculatorData.name || !calculatorData.email) {
-        return res.status(400).json({ error: "Nom et email requis pour le devis" });
+        return res.status(400).json({ error: "Nom et email requis pour la demande de devis" });
       }
 
-      // Import dynamique pour éviter les erreurs de build  
-      const { mapCalculatorToQuote } = await import('./pdf-generator');
-      
-      // Mapping des données du calculateur vers le format devis
-      const quoteData = mapCalculatorToQuote(calculatorData);
+      // Calcul simple du prix estimé
+      const estimatedPrice = calculatorData.totalPrice || "À définir";
       
       // Sauvegarde du contact avec les données du devis
       const contactData = {
-        ...calculatorData,
-        message: `Demande de devis automatique - ${quoteData.projectType} - ${quoteData.totalPrice}€`,
-        budget: quoteData.totalPrice.toString()
+        name: calculatorData.name,
+        email: calculatorData.email,
+        phone: calculatorData.phone || null,
+        budget: estimatedPrice.toString(),
+        projectTypes: calculatorData.projectTypes || ["Site vitrine"],
+        message: `Demande de devis via calculateur:\n\nType de projet: ${calculatorData.projectType || "Non spécifié"}\nEstimation: ${estimatedPrice}€\n\nDétails:\n${JSON.stringify(calculatorData, null, 2)}`,
+        newsletter: calculatorData.newsletter || false
       };
       
       const savedContact = await storage.createContact(contactData);
       
-      // Génération du devis HTML avec le beau design minimaliste
-      const { generateQuoteHTML } = await import('./pdf-generator-simple');
-      const htmlContent = await generateQuoteHTML(quoteData);
+      // Envoi de l'email de notification à l'agence
+      const emailResult = await sendContactEmail(contactData, 'contact@weblifystudio.fr');
       
-      console.log(`📄 Devis HTML généré pour ${quoteData.name} - ${quoteData.totalPrice}€ (${quoteData.quoteNumber})`);
+      console.log(`📧 Demande de devis reçue de ${calculatorData.name} - Estimation: ${estimatedPrice}€`);
       
-      // Configuration de l'en-tête pour UTF-8
-      res.setHeader('Content-Type', 'application/json; charset=utf-8');
-      
-      // Retour du HTML en base64 pour téléchargement direct avec encodage UTF-8
       res.json({
         success: true,
-        message: "Devis généré et téléchargé ! Ouvrez le fichier HTML pour l'imprimer en PDF.",
-        quoteNumber: quoteData.quoteNumber,
-        htmlContent: Buffer.from(htmlContent, 'utf8').toString('base64'),
+        message: "Votre demande de devis a été envoyée ! Notre équipe vous contactera dans les 24h pour vous proposer un devis personnalisé.",
         contact: savedContact,
-        isHtml: true
+        emailSent: emailResult.success
       });
       
     } catch (error) {
-      console.error("Erreur génération devis:", error);
+      console.error("Erreur demande devis:", error);
       res.status(500).json({ 
-        error: "Erreur lors de la génération du devis",
+        error: "Erreur lors de l'envoi de la demande de devis",
         details: error instanceof Error ? error.message : 'Unknown error'
       });
     }
