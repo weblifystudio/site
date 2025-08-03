@@ -18,9 +18,7 @@ const contactValidationSchema = z.object({
   budget: z.string().optional(),
   projectTypes: z.array(z.string()).optional(),
   message: z.string().min(10, 'Le message doit contenir au moins 10 caractères'),
-  privacy: z.boolean().refine(val => val === true, {
-    message: 'Vous devez accepter l\'utilisation de vos données pour continuer'
-  }),
+  privacy: z.boolean().optional().default(true),
   newsletter: z.boolean().default(false),
 });
 import { sendContactEmail } from "./email";
