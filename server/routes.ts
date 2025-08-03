@@ -97,6 +97,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Calcul simple du prix estimé
       const estimatedPrice = calculatorData.totalPrice || "À définir";
       
+      // Préparation du message détaillé avec TOUTES les informations du calculateur
+      const detailedMessage = `
+=== DEMANDE DE DEVIS VIA CALCULATEUR ===
+
+📋 INFORMATIONS CLIENT:
+• Nom: ${calculatorData.name}
+• Email: ${calculatorData.email}
+• Téléphone: ${calculatorData.phone || "Non renseigné"}
+
+🎯 PROJET DEMANDÉ:
+• Type: ${calculatorData.projectType || "Non spécifié"}
+• Budget estimé: ${estimatedPrice}€
+
+📝 DÉTAILS COMPLETS DU CALCULATEUR:
+${Object.entries(calculatorData).map(([key, value]) => {
+  if (typeof value === 'object' && value !== null) {
+    return `• ${key}: ${JSON.stringify(value, null, 2)}`;
+  }
+  return `• ${key}: ${value}`;
+}).join('\n')}
+
+💡 ACTION REQUISE:
+Créer et envoyer le devis personnalisé à ${calculatorData.email}
+
+Date de la demande: ${new Date().toLocaleString('fr-FR')}
+      `;
+
       // Sauvegarde du contact avec les données du devis
       const contactData = {
         name: calculatorData.name,
@@ -104,7 +131,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         phone: calculatorData.phone || null,
         budget: estimatedPrice.toString(),
         projectTypes: calculatorData.projectTypes || ["Site vitrine"],
-        message: `Demande de devis via calculateur:\n\nType de projet: ${calculatorData.projectType || "Non spécifié"}\nEstimation: ${estimatedPrice}€\n\nDétails:\n${JSON.stringify(calculatorData, null, 2)}`,
+        message: detailedMessage.trim(),
         newsletter: calculatorData.newsletter || false
       };
       
@@ -117,7 +144,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({
         success: true,
-        message: "Votre demande de devis a été envoyée ! Notre équipe vous contactera dans les 24h pour vous proposer un devis personnalisé.",
+        message: "Votre demande de devis a bien été envoyée ! Nous étudions votre projet et vous enverrons un devis personnalisé par email dans les 24h.",
         contact: savedContact,
         emailSent: emailResult.success
       });
