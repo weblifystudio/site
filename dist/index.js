@@ -5,6 +5,7 @@ var __export = (target, all) => {
 };
 
 // server/index.ts
+import "dotenv/config";
 import express from "express";
 import http from "http";
 import path from "path";
@@ -1095,27 +1096,46 @@ async function registerRoutes(app2) {
         return res.status(400).json({ error: "Nom et email requis pour la demande de devis" });
       }
       const estimatedPrice = calculatorData.totalPrice || "\xC0 d\xE9finir";
+      const detailedMessage = `
+=== DEMANDE DE DEVIS VIA CALCULATEUR ===
+
+\u{1F4CB} INFORMATIONS CLIENT:
+\u2022 Nom: ${calculatorData.name}
+\u2022 Email: ${calculatorData.email}
+\u2022 T\xE9l\xE9phone: ${calculatorData.phone || "Non renseign\xE9"}
+
+\u{1F3AF} PROJET DEMAND\xC9:
+\u2022 Type: ${calculatorData.projectType || "Non sp\xE9cifi\xE9"}
+\u2022 Budget estim\xE9: ${estimatedPrice}\u20AC
+
+\u{1F4DD} D\xC9TAILS COMPLETS DU CALCULATEUR:
+${Object.entries(calculatorData).map(([key, value]) => {
+        if (typeof value === "object" && value !== null) {
+          return `\u2022 ${key}: ${JSON.stringify(value, null, 2)}`;
+        }
+        return `\u2022 ${key}: ${value}`;
+      }).join("\n")}
+
+\u{1F4A1} ACTION REQUISE:
+Cr\xE9er et envoyer le devis personnalis\xE9 \xE0 ${calculatorData.email}
+
+Date de la demande: ${(/* @__PURE__ */ new Date()).toLocaleString("fr-FR")}
+      `;
       const contactData = {
         name: calculatorData.name,
         email: calculatorData.email,
         phone: calculatorData.phone || null,
         budget: estimatedPrice.toString(),
         projectTypes: calculatorData.projectTypes || ["Site vitrine"],
-        message: `Demande de devis via calculateur:
-
-Type de projet: ${calculatorData.projectType || "Non sp\xE9cifi\xE9"}
-Estimation: ${estimatedPrice}\u20AC
-
-D\xE9tails:
-${JSON.stringify(calculatorData, null, 2)}`,
+        message: detailedMessage.trim(),
         newsletter: calculatorData.newsletter || false
       };
       const savedContact = await storage.createContact(contactData);
-      const emailResult = await sendContactEmail(contactData);
+      const emailResult = await sendContactEmail(contactData, "contact@weblifystudio.fr");
       console.log(`\u{1F4E7} Demande de devis re\xE7ue de ${calculatorData.name} - Estimation: ${estimatedPrice}\u20AC`);
       res.json({
         success: true,
-        message: "Votre demande de devis a \xE9t\xE9 envoy\xE9e ! Notre \xE9quipe vous contactera dans les 24h pour vous proposer un devis personnalis\xE9.",
+        message: "Votre demande de devis a bien \xE9t\xE9 envoy\xE9e ! Nous \xE9tudions votre projet et vous enverrons un devis personnalis\xE9 par email dans les 24h.",
         contact: savedContact,
         emailSent: emailResult.success
       });
