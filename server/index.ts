@@ -7,7 +7,7 @@ import { registerRoutes } from "./routes";
 
 const app = express();
 
-// Configuration trust proxy pour Replit
+// Configuration trust proxy pour production
 app.set('trust proxy', 1);
 
 // Middleware de base
@@ -107,5 +107,5 @@ httpServer.listen(PORT, "0.0.0.0", () => {
   const timestamp = new Date().toLocaleTimeString('fr-FR');
   console.log(`${timestamp} [express] 🌐 HTTP Server serving on port ${PORT}`);
   console.log(`${timestamp} [express] 🔒 SSL Security headers enabled`);
-  console.log(`${timestamp} [express] ✅ Ready for HTTPS deployment on Replit`);
+  console.log(`${timestamp} [express] ✅ Ready for HTTPS deployment`);
 });
