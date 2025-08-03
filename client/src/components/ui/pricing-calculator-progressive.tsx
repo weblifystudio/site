@@ -7,7 +7,6 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calculator, ArrowRight, ArrowLeft, Zap, ChevronRight, User, Mail, Phone, Building } from 'lucide-react';
-import { QuoteGenerator } from '@/components/ui/quote-generator';
 
 import { formatPhoneNumber, isValidEmail, isValidPhoneNumber } from '@/lib/phoneFormat';
 
