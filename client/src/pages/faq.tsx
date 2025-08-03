@@ -57,7 +57,7 @@ export default function FAQ() {
                 <Link href="/contact" onClick={scrollToTop}>Poser ma question</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="/contact" onClick={scrollToTop}>Demander un devis</Link>
+                <Link href="/offres" onClick={scrollToTop}>Voir nos offres</Link>
               </Button>
             </div>
           </div>

@@ -7,6 +7,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 
+import Offres from "@/pages/offres";
 import Portfolio from "@/pages/portfolio";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
@@ -52,7 +53,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-
+      <Route path="/offres" component={Offres} />
       <Route path="/realisations" component={Portfolio} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
